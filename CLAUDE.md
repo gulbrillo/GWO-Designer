@@ -83,20 +83,26 @@ JSON::Parse, SVG, Math::Trig.
 - **Phase D — deploy:** run on the Linux server behind Apache reverse proxy; persist data volumes.
 
 ## Outstanding tasks
-- [ ] **C (PDF test pending)** `designer:full` is BUILT, but the end-to-end `download.report/<uuid>.pdf`
-      run was deferred. It's fiddly to drive by hand: the report needs `results/<uuid>/details.json`
-      (written by a calc) + a real long-keyed `templates/sessions/<id>/parameters.json` (the
-      `designer-html.tar.gz` backup has 3235 of these; presets are the WRONG short-keyed format) + the
-      plots. Easiest verification: drop a real parameters.json in, run a calc to make details.json, then
-      hit download.report (pdflatex nonstopmode yields a PDF even if some figures are missing). NOTE:
-      after the landing-page change the `full` image must be rebuilt (one texlive re-pull) before this.
-- [ ] **GIT** Finalize repo: re-stage after restructure (tools/ deleted by user; designer.htdocs →
-      app/root), commit, set remote `https://github.com/gulbrillo/gwo-designer`. User publishes via
-      GitHub Desktop.
-- [ ] **D** Deploy to the Ubuntu server: build there, run with `HOST_PORT=8081`, add an Apache vhost
-      for spacegravity.org with `ProxyPass / http://127.0.0.1:8081/` (+ ProxyPassReverse, HTTPS).
+- [ ] **REBUILD full before deploy** — the local `designer:full` image is STALE (predates the
+      landing page + the verbatimbox fix; the fixes are in source + were `docker cp`'d into the running
+      container only for testing). The Phase-D server build (`docker build --target full`) bakes
+      everything fresh, so this happens naturally on deploy. A local `full` rebuild re-pulls texlive
+      ONCE (Dockerfile restructure means app edits won't re-pull after that).
+- [ ] **D** Deploy to the Ubuntu server: build there (`--target full`), run with `HOST_PORT=8081`, add
+      an Apache vhost for spacegravity.org with `ProxyPass / http://127.0.0.1:8081/` (+ ProxyPassReverse,
+      HTTPS). See `docker/DEPLOY.md`.
 
 ## Completed tasks
+- [x] **C (DONE)** PDF report pipeline verified end-to-end on `designer:full`: drove a real
+      `download.report/<uuid>.pdf` (real `parameters.json` from the backup + a fresh displacement
+      calc) → a **21-page, ~2MB valid PDF**. Found & fixed the one real environment bug: TeX Live 2022
+      has a `verbatimbox`/`readarray` version skew — `\addvbuffer` calls undefined `\getargsC` (~100
+      errors/report). Fixed by redefining `\addvbuffer` as a passthrough in `app/latex/report.tex` and
+      `app/cgi-bin/report.full.pl` (drops only ~8pt cosmetic spacing). Remaining log errors were pure
+      test-data artifacts (an unrelated old `parameters.json` with an array value → `\num{ARRAY(..)}`;
+      missing plots because only 1 of ~5 calcs was run) — NOT container/toolchain issues.
+- [x] **GIT** Repo initialized on `main`, 2 commits (containerize + verbatimbox fix). No remote (user
+      publishes via GitHub Desktop → name `gwo-designer`, owner `gulbrillo`). `_pdftest/` gitignored.
 - [x] **A0** Initialized CLAUDE.md (this file) as the living tracker.
 - [x] **A1** Restructured repo into `app/{web,cgi-bin,latex,presets}` + `docker/`. Dropped backups
       (`*.bak*`, index variants, `bower_components.old`, `designer.zip`, etc.) and cleared stale
@@ -170,6 +176,23 @@ JSON::Parse, SVG, Math::Trig.
   `LICENSE`, `CITATION.cff`, `.gitignore`, `.gitattributes` (force LF — prevents the CRLF/CGI gotcha),
   `docker/DEPLOY.md`. (6) `git init` done (branch `main`, identity gulbrillo/simon.barke@gmail.com).
   Rebuilt+verified `base`: `/` serves the landing page, assets resolve, `/designer/` still works.
+- **2026-06-06** — **Phase C VERIFIED (PDF works).** Drove `download.report` end-to-end → 21-page 2MB
+  PDF. Fixed the verbatimbox/readarray `\addvbuffer`/`\getargsC` skew (passthrough redefinition) in
+  report.tex + report.full.pl; committed. Confirmed remaining log errors are test-data artifacts, not
+  bugs. All major phases (containerize, frontend, gnuplot, QR, zip, PDF, landing page, packaging) done
+  — only deployment (D) remains. Reminder: `designer:full` must be rebuilt to bake the fixes (the
+  server deploy build does this; one texlive re-pull).
+- Gotcha: the dev override bind-mounts `app/web` READ-ONLY over `/app/htdocs/designer`, which blocks
+  writing `templates/sessions/...` — for backend/report testing, bring up with
+  `docker compose -f docker-compose.yml up -d` (no override).
+- **2026-06-06** — **Fixed download redirects.** User hit "Not Found" on report PDF and data ZIP:
+  `designer-report.pl`/`designer-data.pl` redirected to absolute `http://spacegravity.org/...`, which
+  404s anywhere but the live domain. Made those `Location:` headers root-relative (`/designer/...`).
+  Bonus: a relative Location makes Apache serve the file INLINE (200) instead of an external 302.
+  Verified on the running container with the user's real session: report → 200 application/pdf 2MB,
+  data → 200 application/zip 2MB. Recovery/QR `#rc=` permalinks + paper hrefs stay absolute (unchanged).
+  Patched the running container via `docker cp` (works now in the browser); image rebuild on deploy
+  bakes it. Git: 3 commits now (containerize, verbatimbox, relative-redirect).
 
 ## Gotchas / watch-items
 - **Polymer 0.3.4** — RESOLVED (2026-06-06): the 2014 `platform.js` still polyfills HTML Imports; the
