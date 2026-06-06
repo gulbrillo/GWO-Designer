@@ -92,6 +92,10 @@ RUN dos2unix ${APP_ROOT}/cgi-bin/*.pl ${APP_ROOT}/cgi-bin/head.htm \
              ${APP_ROOT}/htdocs/designer/sessions \
              ${APP_ROOT}/htdocs/designer/templates/sessions \
              ${APP_ROOT}/designer/identification; \
+    touch ${APP_ROOT}/htdocs/designer/results/.keep \
+          ${APP_ROOT}/htdocs/designer/sessions/.keep \
+          ${APP_ROOT}/htdocs/designer/templates/sessions/.keep \
+          ${APP_ROOT}/designer/identification/.keep; \
     chown -R www-data:www-data ${APP_ROOT}; \
     set -e; for f in ${APP_ROOT}/cgi-bin/*.pl; do echo "perl -c $f"; perl -c "$f"; done
 
@@ -110,5 +114,9 @@ RUN dos2unix ${APP_ROOT}/cgi-bin/*.pl ${APP_ROOT}/cgi-bin/head.htm \
              ${APP_ROOT}/htdocs/designer/sessions \
              ${APP_ROOT}/htdocs/designer/templates/sessions \
              ${APP_ROOT}/designer/identification; \
+    touch ${APP_ROOT}/htdocs/designer/results/.keep \
+          ${APP_ROOT}/htdocs/designer/sessions/.keep \
+          ${APP_ROOT}/htdocs/designer/templates/sessions/.keep \
+          ${APP_ROOT}/designer/identification/.keep; \
     chown -R www-data:www-data ${APP_ROOT}; \
     set -e; for f in ${APP_ROOT}/cgi-bin/*.pl; do echo "perl -c $f"; perl -c "$f"; done
