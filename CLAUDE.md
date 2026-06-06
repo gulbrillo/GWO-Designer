@@ -221,6 +221,11 @@ JSON::Parse, SVG, Math::Trig.
   `docker-compose.dev.yml` (opt-in via `-f docker-compose.yml -f docker-compose.dev.yml`), so plain
   `docker compose up` on a server uses only the base file. (Server: Docker 29.4.0, storage driver
   `overlayfs` = containerd image store — a distraction, not the cause.)
+- **2026-06-06** — Fixed mixed-content fonts (Google Fonts `http://`→`https://` in landing + designer
+  index.html — were blocked on the HTTPS site). Added **`update.sh`** at repo root: force-syncs to the
+  git remote, rebuilds the `full` image, restarts via `docker compose -f docker-compose.yml` (prod
+  only), health-checks. Body wrapped in `{ }` so the self-`git reset` can't break it mid-run. Standard
+  deploy: push from GitHub Desktop → on server `./update.sh`.
 - Gotcha: the dev override bind-mounts `app/web` READ-ONLY over `/app/htdocs/designer`, which blocks
   writing `templates/sessions/...` — for backend/report testing, bring up with
   `docker compose -f docker-compose.yml up -d` (no override).
