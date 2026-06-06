@@ -50,34 +50,46 @@ HOST_PORT=8081 TARGET=full docker compose up -d
 > proxy connects to `127.0.0.1:8081`.
 
 ### 3. Add an Apache vhost for spacegravity.org (HTTPS terminates here)
-Needs `mod_proxy`, `mod_proxy_http`, `mod_ssl` (already enabled for the other app):
+Enable the modules, then create `/etc/apache2/sites-available/spacegravity.org.conf` (serves both
+`spacegravity.org` and `www.spacegravity.org`):
+```bash
+sudo a2enmod proxy proxy_http ssl rewrite headers
+```
 ```apache
-<VirtualHost *:443>
+<VirtualHost *:80>
     ServerName spacegravity.org
+    ServerAlias www.spacegravity.org
+    RewriteEngine on
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
 
-    SSLEngine on
-    SSLCertificateFile      /etc/letsencrypt/live/spacegravity.org/fullchain.pem
-    SSLCertificateKeyFile   /etc/letsencrypt/live/spacegravity.org/privkey.pem
+<IfModule mod_ssl.c>
+<VirtualHost _default_:443>
+    ServerName spacegravity.org
+    ServerAlias www.spacegravity.org
 
     ProxyPreserveHost On
     ProxyPass        / http://127.0.0.1:8081/
     ProxyPassReverse / http://127.0.0.1:8081/
 
-    ErrorLog  ${APACHE_LOG_DIR}/spacegravity-error.log
-    CustomLog ${APACHE_LOG_DIR}/spacegravity-access.log combined
-</VirtualHost>
+    ErrorLog  ${APACHE_LOG_DIR}/spacegravity.org_error.log
+    CustomLog ${APACHE_LOG_DIR}/spacegravity.org_access.log combined
 
-# Redirect plain HTTP -> HTTPS
-<VirtualHost *:80>
-    ServerName spacegravity.org
-    Redirect permanent / https://spacegravity.org/
+    SSLEngine on
+    # filled in by certbot (below); add by hand only if self-managing certs:
+    # SSLCertificateFile    /etc/letsencrypt/live/spacegravity.org/fullchain.pem
+    # SSLCertificateKeyFile /etc/letsencrypt/live/spacegravity.org/privkey.pem
 </VirtualHost>
+</IfModule>
 ```
-Then: `sudo a2ensite spacegravity && sudo apache2ctl configtest && sudo systemctl reload apache2`.
-(If the cert doesn't exist yet: `sudo certbot --apache -d spacegravity.org`.)
+No WebSocket rewrite is needed (this app doesn't use WebSockets). Then:
+```bash
+sudo a2ensite spacegravity.org && sudo apache2ctl configtest && sudo systemctl reload apache2
+sudo certbot --apache -d spacegravity.org -d www.spacegravity.org
+```
 
-Visiting `https://spacegravity.org/` → container redirects to `/designer/`. Old-paper recovery
-permalinks `https://spacegravity.org/designer/#rc=<code>` resolve through the same proxy.
+Visiting `https://spacegravity.org/` → the landing page; the app is at `/designer/`. Old-paper
+recovery permalinks `https://spacegravity.org/designer/#rc=<code>` resolve through the same proxy.
 
 ---
 
