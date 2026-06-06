@@ -22,8 +22,10 @@ docker build -f docker/Dockerfile --target full -t designer:full ..
 $env:TARGET="full"; docker compose up -d
 ```
 
-`docker-compose.override.yml` live-mounts `app/web`, so frontend (HTML/CSS/JS) edits show on refresh
-without a rebuild. Perl/LaTeX changes need a rebuild.
+To live-edit the STATIC frontend (HTML/CSS/JS) without rebuilding, opt into the dev overlay:
+`docker compose -f docker-compose.yml -f docker-compose.dev.yml up`. It is dev-only and NOT
+auto-loaded (it bind-mounts `app/web` read-only, which conflicts with the data volumes on a fresh
+server clone). Perl/LaTeX changes always need a rebuild.
 
 ---
 

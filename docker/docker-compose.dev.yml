@@ -1,0 +1,19 @@
+# DEV-ONLY overlay — NOT auto-loaded. Opt in explicitly:
+#     docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+# (This file used to be docker-compose.override.yml, which Docker auto-loads; that
+#  broke production deploys because the read-only app/web bind mount below sits ABOVE
+#  the results/sessions named volumes, so on a fresh clone — which has no app/web/results
+#  dir — Docker can't create those nested mountpoints: "read-only file system".)
+#
+# Use it ONLY to live-edit the STATIC frontend (HTML/CSS/JS) without rebuilding. It is
+# NOT suitable for backend/report work — the read-only bind mount also makes
+# templates/sessions read-only. For that, just use plain `docker compose up`.
+# Requires app/web/results and app/web/sessions to exist on the host (they do in a dev
+# checkout). The Perl in app/cgi-bin is intentionally NOT bind-mounted (Windows CRLF/
+# exec-bit issues); rebuild after changing Perl.
+
+services:
+  designer:
+    volumes:
+      - ../app/web:/app/htdocs/designer:ro
+      # - ../app/cgi-bin:/app/cgi-bin:ro   # see caveat above
