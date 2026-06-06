@@ -1,0 +1,23 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link href="../../bower_components/core-media-query/core-media-query.html" rel="import">
+
+<polymer-element name="gravity-responsive-h2v" attributes="query" noscript>
+	<template>
+
+	<template if="{{smallScreen}}">
+		<div vertical layout flex>
+			<content></content>
+		</div>
+	</template>
+
+        <div horizontal layout flex>
+                <content></content>
+        </div>
+
+	<core-media-query
+		query="{{query}}"
+		queryMatches="{{smallScreen}}">
+	</core-media-query>
+
+	</template>
+</polymer-element>

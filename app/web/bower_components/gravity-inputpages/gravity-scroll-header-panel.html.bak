@@ -1,0 +1,25 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">  
+<link href="../../bower_components/core-scroll-header-panel/core-scroll-header-panel.html" rel="import">
+
+
+
+<polymer-element name="gravity-scroll-header-panel" extends="core-scroll-header-panel" attributes="image">
+
+<template>
+
+<style>
+       :host::shadow #headerBg {
+      background-image: {{image}} !important;
+      }
+</style>
+
+
+<shadow></shadow>
+</template>
+
+  <script>
+  Polymer('gravity-scroll-header-panel', {});
+  </script>
+
+
+</polymer-element>

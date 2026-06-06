@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software or its output in published work, please cite the paper below."
+title: "GWO Designer — Gravitational Wave Observatory Designer"
+authors:
+  - family-names: Barke
+    given-names: Simon
+license: MIT
+repository-code: "https://github.com/gulbrillo/gwo-designer"
+preferred-citation:
+  type: article
+  title: "Towards a gravitational wave observatory designer: sensitivity limits of spaceborne detectors"
+  authors:
+    - family-names: Barke
+      given-names: Simon
+  journal: "Classical and Quantum Gravity"
+  volume: 32
+  issue: 9
+  start: 095004
+  year: 2015
+  doi: "10.1088/0264-9381/32/9/095004"

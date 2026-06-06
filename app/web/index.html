@@ -1,0 +1,2203 @@
+<!doctype html>
+<html>
+<head>
+  <title>GWO Designer</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="icon" sizes="192x192" href="designer192.png" type="image/x-icon">
+<link rel="icon" sizes="128x128" href="designer128.png" type="image/x-icon">
+<link rel="shortcut icon" sizes="196x196" href="designer192.png" type="image/x-icon">
+<link rel="shortcut icon" sizes="128x128" href="designer128.png" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="128x128" href="designer128.png" type="image/x-icon">
+<link rel="apple-touch-icon-precomposed" sizes="128x128" href="designer128.png" type="image/x-icon">
+
+<meta name="format-detection" content="telephone=no">
+<meta name="application-name" content="GWO Designer">
+
+
+
+<meta name="description" content="Design your very own fully documented spaceborne gravitational wave observatory." />
+
+<!-- Google Authorship and Publisher Markup -->
+<link rel="author" href="https://plus.google.com/+SimonBarke/posts"/>
+<link rel="publisher" href="https://plus.google.com/b/102103184552119879686/+LISAmissionORG/about"/>
+
+<!-- Schema.org markup for Google+ -->
+<meta itemprop="name" content="Gravitational Wave Observatory Designer">
+<meta itemprop="description" content="Design your very own fully documented spaceborne gravitational wave observatory.">
+<meta itemprop="image" content="http://spacegravity.org/designer/gwomock.jpg">
+
+<!-- Twitter Card data -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@LISACommunity">
+<meta name="twitter:title" content="Gravitational Wave Observatory Designer">
+<meta name="twitter:description" content="http://spacegravity.org/designer/ - design your very own fully documented spaceborne gravitational wave observatory.">
+<meta name="twitter:creator" content="@SimonBarke">
+<!-- Twitter summary card with large image must be at least 280x150px -->
+<meta name="twitter:image:src" content="http://spacegravity.org/designer/gwomock.jpg">
+
+<!-- Open Graph data -->
+<meta property="og:title" content="Gravitational Wave Observatory Designer" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://spacegravity.org/designer/" />
+<meta property="og:image" content="http://spacegravity.org/designer/gwomock.jpg" />
+<meta property="og:description" content="Design your very own fully documented spaceborne gravitational wave observatory." />
+<meta property="og:site_name" content="SpaceGravity.org" />
+<meta property="fb:admins" content="1397712825" />
+
+
+
+<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:700,300' rel='stylesheet' type='text/css'>
+
+
+  <script src="bower_components/platform/platform.js"></script>
+  <link href="bower_components/font-roboto/roboto.html" rel="import">
+  <link href="bower_components/gravity-inputpages/gravity-ball.html" rel="import">
+  <link href="bower_components/core-icons/core-icons.html" rel="import">
+  <link href="bower_components/core-icons/iconsets/av-icons.html" rel="import">
+  <link href="bower_components/core-icons/iconsets/social-icons.html" rel="import">
+  <link href="bower_components/core-collapse/core-collapse.html" rel="import"> 
+  <link href="bower_components/paper-icon-button/paper-icon-button.html" rel="import">
+  <link href="bower_components/core-toolbar/core-toolbar.html" rel="import">
+  <link href="bower_components/paper-shadow/paper-shadow.html" rel="import">
+  <link href="bower_components/paper-fab/paper-fab.html" rel="import">
+  <link href="bower_components/paper-tabs/paper-tabs.html" rel="import">
+  <link href="bower_components/paper-item/paper-item.html" rel="import">
+  <link href="bower_components/paper-menu-button/paper-menu-button.html" rel="import">
+  <link href="bower_components/paper-input/paper-input.html" rel="import">
+  <link href="bower_components/core-pages/core-pages.html" rel="import">
+  <link href="bower_components/paper-toast/paper-toast.html" rel="import">
+  <link href="bower_components/core-ajax/core-ajax.html" rel="import">
+  <link href="bower_components/core-animated-pages/core-animated-pages.html" rel="import">
+  <link href="bower_components/core-scroll-header-panel/core-scroll-header-panel.html" rel="import">
+  <link href="bower_components/gravity-inputpages/gravity-scroll-header-panel.html" rel="import">
+  <link href="bower_components/gravity-inputpages/gravity-input.html" rel="import">
+  <link href="bower_components/gravity-inputpages/gravity-inputajax.html" rel="import">
+  <link href="bower_components/gravity-inputpages/gravity-arrayinputajax.html" rel="import">
+  <link href="bower_components/paper-radio-group/paper-radio-group.html" rel="import">
+  <link href="bower_components/gravity-inputpages/gravity-radioajax.html" rel="import">
+  <link href="bower_components/gravity-inputpages/gravity-waitplease.html" rel="import">
+  <link href="bower_components/paper-button/paper-button.html" rel="import">
+  <link href="bower_components/paper-dialog/paper-dialog.html" rel="import">
+  <link href="bower_components/paper-dialog/paper-dialog-transition.html" rel="import">
+  <link href="bower_components/gravity-inputpages/gravity-gnuplotsvg.html" rel="import">
+  <link href="bower_components/gravity-inputpages/gravity-recoverydata.html" rel="import">
+  <link href="bower_components/gravity-inputpages/gravity-downloads.html" rel="import">
+  <link href="bower_components/gravity-inputpages/gravity-checkpreset.html" rel="import">
+
+
+<script src="jquery-latest.min.js"
+        type="text/javascript"></script>
+
+<!-- $.browser was removed in jQuery 1.9; the ba-hashchange plugin still reads
+     $.browser.msie and throws without this shim, which can break hash routing
+     (and thus the #rc=<code> paper-recovery permalinks). -->
+<script>window.jQuery && (jQuery.browser = jQuery.browser || {});</script>
+
+<script src="jquery.ba-hashchange.min.js"
+        type="text/javascript"></script>
+
+<link rel="stylesheet"  href="style.css" shim-shadowdom>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54242848-1', 'auto');
+  ga('require', 'displayfeatures');
+  ga('require', 'linkid', 'linkid.js');
+  ga('send', 'pageview');
+
+</script>
+
+
+</head>
+
+
+<body class="bodygradient" unresolved>
+
+<div id="page">
+
+
+<core-toolbar id="mainbar" class="tall">
+<paper-icon-button onclick="window.history.back();" id="mainicon" icon=""></paper-icon-button>
+<div flex>Gravitational Wave Observatory Designer</div>
+
+<paper-icon-button id="infotoggle" icon="info-outline"></paper-icon-button>
+
+                <paper-menu-button icon="social:share-alt" halign="right">
+
+                        <paper-item id="facebook" icon="social:post-facebook" label="Share on Facebook"></paper-item>
+                        <paper-item id="googleplus" icon="social:post-gplus" label="Share on Google+"></paper-item>
+                        <paper-item id="twitter" icon="social:post-twitter" label="Share on Twitter"></paper-item>
+
+                </paper-menu-button>
+
+
+		<paper-menu-button icon="more-vert" halign="right">
+
+			<paper-item onclick="location.hash='presets'" icon="apps" label="Presets"></paper-item>
+			<paper-item onclick="location.hash='recover'" icon="create" label="Open..."></paper-item>
+			<paper-item onclick="location.hash='save'" icon="save" label="Save..."></paper-item>
+			<paper-item onclick="toggleFullscreen();return false;" icon="fullscreen" label="Fullscreen"></paper-item>
+			<paper-item onclick="location.hash='help'" icon="help" label="Help"></paper-item>
+			<paper-item onclick="location.hash='about'" icon="info" label="About"></paper-item>
+
+		</paper-menu-button>
+
+</core-toolbar>
+
+
+<core-animated-pages id="animatedpages" flex selected="0" class="fit" transitions="cross-fade hero-transition">
+
+<section id="start">
+
+<div class="maxwidthcard allhigher expandpage" style="max-width: 1000px;background:transparent;" cross-fade>
+
+<gravity-scroll-header-panel condenses id="scroll-start" class="mycard scroll toolbarsmall" headerHeight="64" condensedHeaderHeight="64">
+  <core-toolbar class="sectoolbar sectoolbarsmall">
+
+<div flex>Gravitational Wave Observatory Designer</div>
+
+                <paper-menu-button icon="social:share-alt" halign="right">
+
+                        <paper-item id="facebook" icon="social:post-facebook" label="Share on Facebook"></paper-item>
+                        <paper-item id="googleplus" icon="social:post-gplus" label="Share on Google+"></paper-item>
+                        <paper-item id="twitter" icon="social:post-twitter" label="Share on Twitter"></paper-item>
+
+                </paper-menu-button>
+
+
+                <paper-menu-button icon="more-vert" halign="right">
+
+                        <paper-item onclick="location.hash='presets'" icon="apps" label="Presets"></paper-item>
+                        <paper-item onclick="location.hash='recover'" icon="create" label="Open..."></paper-item>
+                        <paper-item onclick="location.hash='save'" icon="save" label="Save..."></paper-item>
+			<paper-item onclick="toggleFullscreen();return false;" icon="fullscreen" label="Fullscreen"></paper-item>
+                        <paper-item onclick="location.hash='help'" icon="help" label="Help"></paper-item>
+                        <paper-item onclick="location.hash='about'" icon="info" label="About"></paper-item>
+
+                </paper-menu-button>
+
+</core-toolbar>
+
+<div content>
+
+<div id="startlogo"><img src="/designer/images/logo.png" /></div>
+<div class="banner">
+        <p><strong>Gravitational waves</strong> are the next big thing in astronomy.
+        While there are already detectors on the ground, <strong>the future lies in space</strong>.
+        You can now <strong>design your very own</strong> fully documented spaceborne gravitational wave observatory.</p>
+</div>
+<div class="balls" horizontal layout justified center>
+	<gravity-ball title="start" subtitle="from scratch" id="scratchball">this might take some time,
+		there are more than
+		40 parameters</gravity-ball>
+        <gravity-ball title="load" subtitle="mission preset" id="presetball">we have mission parameters
+                from LISA, eLISA and OGO
+                (more to come)</gravity-ball>
+        <gravity-ball title="provide" subtitle="recovery code" id="recoveryball">you can always resume work
+		on a set of parameters
+		processed before</gravity-ball>
+</div>
+
+<div class="enlarge"></div>
+
+<div class="help" id="helptip">
+
+	<div class="tip">
+	<paper-shadow z="1"></paper-shadow>
+	<p>I'm new to all of this and have not the slightest clue what to do next.</p>
+		<div layout horizontal><div flex></div>
+		    <paper-button id="helpdismiss" label="Dismiss" affirmative></paper-button>
+		    <paper-button id="helpme" label="Help me" affirmative autofocus></paper-button>
+		</div>
+	</div>
+
+</div>
+
+</div>
+
+
+</gravity-scroll-header-panel>
+
+</div>
+
+</section>
+
+
+<section id="presets">
+
+<div class="maxwidthcard allhigher expandpage" style="max-width: 690px;background:transparent;" cross-fade>
+
+<gravity-scroll-header-panel condenses id="scroll-zero" class="mycard scroll">
+
+  <core-toolbar class="tall sectoolbar">
+<paper-icon-button id="mainiconsecone" icon="arrow-back"></paper-icon-button>
+<span flex style="margin: 0 8px 0 0;">Gravitational Wave Observatory Designer</span>
+
+                <paper-menu-button icon="more-vert" halign="right">
+
+                        <paper-item onclick="location.hash='presets'" icon="apps" label="Presets"></paper-item>
+                        <paper-item onclick="location.hash='recover'" icon="create" label="Open..."></paper-item>
+                        <paper-item onclick="location.hash='save'" icon="save" label="Save..."></paper-item>
+			<paper-item onclick="toggleFullscreen();return false;" icon="fullscreen" label="Fullscreen"></paper-item>
+                        <paper-item onclick="location.hash='help'" icon="help" label="Help"></paper-item>
+                        <paper-item onclick="location.hash='about'" icon="info" label="About"></paper-item>
+
+                </paper-menu-button>
+
+	<span class="bottom" style="font-size: 14px;font-weight: 500;">Choose a Preset</span>
+  </core-toolbar>
+
+
+<div content>
+
+        <div class="mycard-small" id="presetheadercard" style="background-color:#ffffff;">
+        <paper-shadow z="1">
+        <div class="sectiontitle" style="color:#00acc1;">Presets</div>
+        <div class="sectiondesc">Choose a set of standard mission parameters and we will go from there.</div>
+        </paper-shadow>
+        </div>
+
+        <div class="mycard-small" hero-id="page" hero>
+        <paper-shadow z="1">
+                <div class="mycard-small-inner">
+                        <div class="mycard-small-background" style="background: url(images/lisa.jpg) center no-repeat;"></div>
+                        <div class="mycard-small-info">
+                                <div class="mycard-small-info-head">Classic LISA</div>
+                                <a href="#parameters" id="preset-lisa-link" class="mycard-small-info-desc">Until 2011 this was the ESA/NASA joint mission baseline design for a triangular gravitational wave detector in space with a 5 million kilometer spacecraft separation bridged with a 1 watt lasers and fairly large 38 cm telescopes.</a>
+                                <a href="#parameters" class="smallcardfab" style="position:absolute !important;bottom:10px;right:10px;"><paper-fab id="preset-lisa" class="preset" icon="done" hero-id="" hero touch-action="auto"></paper-fab></a>
+                        </div>
+                </div>
+        </paper-shadow>
+        </div>
+
+        <div class="mycard-small">
+        <paper-shadow z="1">
+                <div class="mycard-small-inner">
+                        <div class="mycard-small-background" style="background: url(images/elisa.jpg) center no-repeat;"></div>
+                        <div class="mycard-small-info">
+                                <div class="mycard-small-info-head">eLISA (2013)</div>
+                                <a href="#parameters" id="preset-elisa-link" class="mycard-small-info-desc">Also known as NGO and quite similar to NASA's SGO-Mid mission study. eLISA is a V-shaped detector concept with 20 cm telescopes and a spacecraft separation of 1 million kilometers.</a>
+                                <a href="#parameters" class="smallcardfab" style="position:absolute !important;bottom:10px;right:10px;"><paper-fab id="preset-elisa" class="preset" icon="done" hero-id="" hero touch-action="auto"></paper-fab></a>
+                        </div>
+                </div>
+        </paper-shadow>
+        </div>
+
+        <div class="mycard-small">
+        <paper-shadow z="1">
+                <div class="mycard-small-inner">
+                        <div class="mycard-small-background" style="background: url(images/ogo.jpg) center no-repeat;"></div>
+                        <div class="mycard-small-info">
+                                <div class="mycard-small-info-head">OGO (future concept)</div>
+                                <a href="#parameters" id="preset-ogo-link" class="mycard-small-info-desc">The Octahedral Gravitational-Wave Observatory is a short-arm detector in a quasi-halo orbit, featuring 6 spacecraft, 10 watt lasers and 1 m telescopes. The many independent links allow to remove acceleration noise, spacecraft jitter and clock noise.</a>
+                                <a href="#parameters" class="smallcardfab"  style="position:absolute !important;bottom:10px;right:10px;"><paper-fab id="preset-ogo" class="preset" icon="done" hero-id="" hero touch-action="auto"></paper-fab></a>
+                        </div>
+                </div>
+        </paper-shadow>
+        </div>
+
+
+</div>
+
+</gravity-scroll-header-panel>
+
+</div>
+
+</section>
+
+<section id="first">
+
+<div class="maxwidthcard expandpage" cross-fade>
+
+<paper-shadow id="myShadowOne" z="1"></paper-shadow>
+
+<gravity-scroll-header-panel condenses id="scroll-one" class="mycard" image='' >
+
+  <core-toolbar class="tall sectoolbar">
+<paper-icon-button id="mainiconsectwo" icon="arrow-back"></paper-icon-button>
+<span flex style="margin: 0 8px 0 0;">Gravitational Wave Observatory Designer</span>
+
+                <paper-menu-button icon="more-vert" halign="right">
+
+                        <paper-item onclick="location.hash='presets'" icon="apps" label="Presets"></paper-item>
+                        <paper-item onclick="location.hash='recover'" icon="create" label="Open..."></paper-item>
+                        <paper-item onclick="location.hash='save'" icon="save" label="Save..."></paper-item>
+			<paper-item onclick="toggleFullscreen();return false;" icon="fullscreen" label="Fullscreen"></paper-item>
+                        <paper-item onclick="location.hash='help'" icon="help" label="Help"></paper-item>
+                        <paper-item onclick="location.hash='about'" icon="info" label="About"></paper-item>
+
+                </paper-menu-button>
+
+<div class="bottom fit raiseBar">
+        <paper-tabs id="form-tabs" class="customtabs" selected="0">
+                <paper-tab>Mission</paper-tab>
+                <paper-tab>Instrument</paper-tab>
+                <paper-tab>Metrology</paper-tab>
+                <paper-tab>Temperature</paper-tab>
+                <paper-tab>Clock</paper-tab>
+        </paper-tabs>
+</div>
+  </core-toolbar>
+
+
+<div content>
+<core-pages id="form-pages" selected="0">
+
+<div class="input-form selectionpage">
+
+<div>
+<!-- OUTER CONTAINER  -->
+<div class="flexpage">
+
+<!-- INNER CONTAINER  -->
+
+        <div class="formone formbox">
+	<div class="formwrap">
+	        <div class="formthr formimgone">
+	<div class="link centerlink" id="videoOneToggle"><div><paper-icon-button icon="av:play-arrow" size="48"></paper-icon-button></div></div>
+	        </div>
+		<div class="formimgdes">
+		<p>The trade-off between the fundamental mission parameters is quite tricky. While many very long laser links are advantageous for low frequency gravitational wave astronomy, a large spacecraft separation in a complex constellation will result in less stable orbits. This in turn leads to larger Doppler shifts and a higher maximum frequency of the inter spacecraft heterodyne laser interferometry &ndash; and due to technical reasons this frequency should be kept as low as possible.</p>
+                <p>Shorter arms can in part be compensated by a shorter laser wavelength and a more powerful and highly efficient optical link. Be careful, your parameters might violate technical feasibility or budgetary constraints.
+                If the beam diameter at the receiver is larger than the telescope, GWO Designer will adjust the beam waist position automatically to maximize the intensity at the receiver and find the optimal local oscillator power to improve the signal power to noise ratio.</p>
+		</div>
+	</div>
+        </div>
+
+<!-- INNER CONTAINER END -->
+
+<!-- INNER CONTAINER  -->
+
+        <div class="formbox formtwo">
+                <h3>Constellation & Orbit</h3>
+
+
+                <p>The GWO Designer will not check whether the parameters provided are realistic. The evaluation of the heterodyne frequency for example requires orbit simulations and a constellation specific laser frequency locking scheme. As a rule of thumb: the maximum heterodyne frequency should be close to the maximum Doppler shift (≈ 4 MHz per 1 million km arm length for heliocentric orbits) plus the minimum frequency for which the given lasers' relative intensity noise value is true (≈ 5 MHz for 1e-8/√Hz).</p>
+
+
+    <gravity-radioajax id="constellation" parameter="con" position="top" hidetip ></gravity-radioajax>
+
+
+
+
+                <gravity-arrayinputajax  id="arm" parameter="arm"  position="top" hidetip></gravity-arrayinputajax>
+                <gravity-arrayinputajax  parameter="freq"  position="top" hidetip></gravity-arrayinputajax>
+		<gravity-arrayinputajax  parameter="tilt"  position="top" hidetip></gravity-arrayinputajax>
+
+<gravity-radioajax id="pointahead" parameter="paam" position="top" hidetip ></gravity-radioajax>
+
+        </div>
+
+
+
+        <div class="formbox formtwo expandlast">
+                <h3>Optics</h3>
+                <p>A fundamental limit of the observatory's sensitivity is the power to shot noise ratio in the interferometric readout. Here the received beam power becomes important. It depends on a number of parameters.</p>
+                <gravity-arrayinputajax  parameter="wave"  position="top" hidetip></gravity-arrayinputajax>
+                <gravity-arrayinputajax  parameter="power"  position="top" hidetip></gravity-arrayinputajax>
+                <gravity-arrayinputajax  parameter="rin"  position="top" hidetip></gravity-arrayinputajax>
+		<gravity-arrayinputajax  parameter="lfn"  position="top" hidetip></gravity-arrayinputajax>
+                <gravity-arrayinputajax  parameter="tel"  position="top" hidetip></gravity-arrayinputajax>
+		<gravity-arrayinputajax  parameter="ops"  position="top" hidetip></gravity-arrayinputajax>
+		<gravity-inputajax  parameter="paams"  position="top" hidetip></gravity-inputajax>
+
+        </div>
+
+<!-- INNER CONTAINER END -->
+</div>
+<!-- OUTER CONTAINER END -->
+</div>
+
+</div>
+
+  <div class="input-form selectionpage">
+
+<div>
+<!-- OUTER CONTAINER  -->
+<div class="flexpage">
+
+<!-- INNER CONTAINER  -->
+
+        <div class="formone formbox">
+        <div class="formwrap">
+                <div class="formthr formimgtwo">
+                </div>
+                <div class="formimgdes">
+                <p>Interferometers are used to optically read out the position of gravitational reference points (freely floating proof masses). These interferometers are constructed with fused silica optics that are bonded to an optical bench made out of an ultra-low expansion glass-ceramic.</p>
+		<p>The heterodyne signal from the combination beam splitter of the interferometers is detected by photodiodes. A transimpedance amplifier then converts the photocurrent into a proportional voltage.</p>
+                </div>
+        </div>
+        </div>
+
+<!-- INNER CONTAINER END -->
+
+<!-- INNER CONTAINER  -->
+
+        <div class="formbox formtwo">
+                <h3>Interferometry</h3>
+		<p>Quality and other properties of the optical bench will affect the thermal stability and beat note intensity. A change in temperature of the optical results in a uniform change of the material properties that leads to a phase shift in the heterodyne signals. If there are more than one interferometer is located on a single optical bench, this effects will only cancel out if the pathlength is the same for both interferometers. There may also be losses in the optical transmissoin or an imperfect mode overlap in the interferometry.</p>
+		<h4>Optical pathlength difference (OPD)</h4>
+		<gravity-inputajax  parameter="zero"  position="top" hidetip></gravity-inputajax>
+                <gravity-inputajax  parameter="fs"  position="top" hidetip></gravity-inputajax>
+		<h4>Yield (losses & efficiency)</h4>
+		<gravity-arrayinputajax  parameter="oe"  position="top" hidetip></gravity-arrayinputajax>
+                <gravity-inputajax  parameter="he"  position="top" hidetip></gravity-inputajax>
+        </div>
+
+        <div class="formbox formtwo expandlast">
+                <h3>Photo receiver</h3>
+                <p>Photodiode properties and preamplifier noise contribute to what generally is declared as shotnoise.</p>
+                <h4>Photodiodes</h4>
+                <gravity-inputajax  parameter="cap"  position="top" hidetip></gravity-inputajax>
+                <gravity-inputajax  parameter="qe"  position="top" hidetip></gravity-inputajax>
+		<gravity-inputajax  parameter="qpdd"  position="top" hidetip></gravity-inputajax>
+                <gravity-radioajax id="segments" parameter="seg" position="top" hidetip ></gravity-radioajax>
+                <h4>Preamplifier</h4>
+                <gravity-inputajax  parameter="vn"  position="top" hidetip></gravity-inputajax>
+                <gravity-inputajax  parameter="cn"  position="top" hidetip></gravity-inputajax>
+        </div>
+
+
+<!-- INNER CONTAINER END -->
+</div>
+<!-- OUTER CONTAINER END -->
+</div>
+
+
+  </div>
+
+
+
+
+
+  <div class="input-form selectionpage">
+
+
+<div>
+<!-- OUTER CONTAINER  -->
+<div class="flexpage">
+
+<!-- INNER CONTAINER  -->
+
+        <div class="formone formbox">
+        <div class="formwrap">
+                <div class="formthr formimgfour">
+                </div>
+                <div class="formimgdes">
+                <p>
+The metrology system uses interferometer to determine the distance between the free-floating test masses. The phase of the interferometer is read and, after stripping off and processing the auxiliary signals, converted into meters.
+</p><p>
+The test masses determine the end points of the measured distances. To make the measurement not only precise but also accurate, these end points must be as undsiturbed as possible. The level or permissable noise is specified in equivalent acceleration.
+</p>
+                </div>
+        </div>
+        </div>
+
+<!-- INNER CONTAINER END -->
+
+<!-- INNER CONTAINER  -->
+
+        <div class="formbox formtwo">
+                <h3>Measurement and post processing</h3>
+                <p>A complex metrology system will measure the interferometric signals up to the maximum heterodyne frequency and also generate correction signals like the reference frequency and pseudo random noise codes for inter spacecraft ranging. This data will later be used to suppress the otherwise overwhelming influences of laser frequency noise and timing jitter.</p>
+                <gravity-arrayinputajax  parameter="pm"  position="top" hidetip></gravity-arrayinputajax>
+                <gravity-arrayinputajax  parameter="ranging"  position="top" hidetip></gravity-arrayinputajax>
+        </div>
+
+        <div class="formbox formtwo expandlast">
+                <h3>Proof masses</h3>
+                <p>Proof masses freely floating in the spacecraft act as gravitational reference points. Spurious forces on these proof masses like acceleration by residual Coulomb forces are indistinguishable from gravitational waves and can limit the overall sensitivity of the observatory.</p>
+                <gravity-arrayinputajax  class="narrower" parameter="acc"  position="top" hidetip></gravity-arrayinputajax>
+        </div>
+
+<!-- INNER CONTAINER END -->
+</div>
+<!-- OUTER CONTAINER END -->
+</div>
+
+
+
+  </div>
+
+
+
+
+
+	<div class="input-form selectionpage">
+
+<div>
+<!-- OUTER CONTAINER  -->
+<div class="flexpage">
+
+<!-- INNER CONTAINER  -->
+
+        <div class="formone formbox">
+        <div class="formwrap">
+                <div class="formthr formimgfive">
+                </div>
+                <div class="formimgdes">
+                <p>While the side of the spacecraft that faces the Sun will heat up, other parts will be exposed to the -270°C (-455°F) of outer space. Thermal insulation and temperature control is challenging in such an environment. While in heliocentric orbits it is possible to always point the same side of the spacecraft towards the Sun, geocentric orbits will highly increase temperature noise.</p>
+<p>Here you can specify realistic temperature noise for two places inside the spacecraft (at the electronics and at the optical bench).</p>
+                </div>
+        </div>
+        </div>
+
+<!-- INNER CONTAINER END -->
+
+<!-- INNER CONTAINER  -->
+
+        <div class="formbox formtwo">
+                <h3>Electronics</h3>
+                <p>Temperature noise at the metrology system.</p>
+		<div><gravity-inputajax  parameter="tef1"  position="top" hidetip class="narrowerer"></gravity-inputajax><gravity-inputajax  parameter="ten1"  position="top" hidetip class="narrowsten"></gravity-inputajax></div>
+		<div><gravity-inputajax  parameter="tef2"  position="top" hidetip class="narrowerer"></gravity-inputajax><gravity-inputajax  parameter="ten2"  position="top" hidetip class="narrowsten"></gravity-inputajax></div>
+                <gravity-inputajax  parameter="ten3"  position="top" hidetip></gravity-inputajax>
+		<div><gravity-inputajax validate="^[\s]*[\-]?[0-9]*\.?[0-9]+[\s]*$" parameter="tes1" class="narrowerer" position="top" hidetip></gravity-inputajax>
+		<gravity-inputajax validate="^[\s]*[\-]?[0-9]*\.?[0-9]+[\s]*$" parameter="tes3" class="narrowerer" position="top" hidetip></gravity-inputajax></div>
+        </div>
+
+        <div class="formbox formtwo">
+                <h3>Optics</h3>
+                <p>Temperature noise at the optical bench.</p>
+                <div><gravity-inputajax  parameter="tof1"  position="top" hidetip class="narrowerer"></gravity-inputajax><gravity-inputajax  parameter="ton1"  position="top" hidetip class="narrowsten"></gravity-inputajax></div>
+                <div><gravity-inputajax  parameter="tof2"  position="top" hidetip class="narrowerer"></gravity-inputajax><gravity-inputajax  parameter="ton2"  position="top" hidetip class="narrowsten"></gravity-inputajax></div>
+                <gravity-inputajax  parameter="ton3"  position="top" hidetip></gravity-inputajax>
+                <div><gravity-inputajax validate="^[\s]*[\-]?[0-9]*\.?[0-9]+[\s]*$" parameter="tos1" class="narrowerer" position="top" hidetip></gravity-inputajax>
+                <gravity-inputajax validate="^[\s]*[\-]?[0-9]*\.?[0-9]+[\s]*$" parameter="tos3" class="narrowerer" position="top" hidetip></gravity-inputajax></div>
+        </div>
+
+<!-- INNER CONTAINER END -->
+</div>
+<!-- OUTER CONTAINER END -->
+</div>
+
+
+<gravity-gnuplotsvg id="tPlots" calculate="temperature" countsfor="0" folder="sessions" plot="temp.svg" update="updateTemp" class="flexpage" style="position:relative;">
+<div><p>Temperature noise plot for electronics (blue) and optics (yellow). Please enter corner frequencies (f1, f2) with respective noise levels, a noise floor as well as slopes (f<sup>[slope]</sup>) below and above the corner frequencies. Update the plot when you change values.</p></div>
+</gravity-gnuplotsvg>
+
+
+
+  </div>
+
+
+
+
+  <div class="input-form selectionpage">
+
+<div>
+<!-- OUTER CONTAINER  -->
+<div class="flexpage">
+
+<!-- INNER CONTAINER  -->
+
+        <div class="formone formbox">
+        <div class="formwrap">
+                <div class="formthr formimgthree">
+                </div>
+                <div class="formimgdes">
+                <p>Timing jitter in the metrology system leads to phase noise in the digital representation of the heterodyne signal. Thus a constellation wide reference frequency is required. No oscillators are available that produce a stable enough signal, hence the reference frequency is modulated onto the laser beams and synchronized throughout the constellation.</p>
+                <p>It is crucial that the modulation, transmission and read-out of the reference frequency is phase stable during the entire process since all excess noise will undermine the synchonization efforts.</p>
+                </div>
+        </div>
+        </div>
+
+<!-- INNER CONTAINER END -->
+
+<!-- INNER CONTAINER  -->
+
+        <div class="formbox formtwo ">
+                <h3>Transmission lines</h3>
+                <p>The reference frequency is passed along electrical cables and optical fibers. Its phase is shifted when the properties of the transmission lines are changing due to temperature fluctuations. Also electrical components in the transmission line may add timing jitter to the reference frequency.</p>
+                <h4>Electrical signal</h4>
+                <gravity-inputajax class="narrow"  parameter="etm"  position="top" hidetip></gravity-inputajax>
+                <gravity-inputajax class="narrow"  parameter="sbl"  position="top" hidetip></gravity-inputajax>
+                <gravity-inputajax class="narrow"  parameter="cps"  position="top" hidetip></gravity-inputajax>
+                <h4>Optical signal</h4>
+                <gravity-inputajax class="narrow"  parameter="ofl"  position="top" hidetip></gravity-inputajax>
+                <gravity-inputajax class="narrow"  parameter="fps"  position="top" hidetip></gravity-inputajax>
+        </div>
+
+        <div class="formbox formtwo expandlast">
+                <h3>Modulation</h3>
+                <p>A signal phase stable to the reference is modulated as sidebands onto the lasers by electro-optic modulators and the overall laser power is amplified subsequently. Both components may add additional phase noise to the sidebands. The actual modulation usually happens at a higher frequency to compensate for the fact that in general only a few percent of the laser power is dedicated to the sidebands.</p>
+                <h4>Sidebands</h4>
+                <gravity-arrayinputajax  parameter="sbf"  position="top" hidetip></gravity-arrayinputajax>
+                <gravity-inputajax  parameter="sbpower"  position="top" hidetip></gravity-inputajax>
+                <h4>Electro-optic components</h4>
+                <gravity-inputajax  parameter="eomnoise"  position="top" hidetip></gravity-inputajax>
+                <gravity-inputajax  parameter="fanoise"  position="top" hidetip></gravity-inputajax>
+        </div>
+<!-- INNER CONTAINER END -->
+</div>
+<!-- OUTER CONTAINER END -->
+</div>
+
+
+  </div>
+
+
+
+</core-pages>
+</div>
+
+</gravity-scroll-header-panel>
+
+</div>
+
+<paper-fab  id="OK" icon="arrow-forward" hero-id="fab" hero touch-action="auto"></paper-fab>
+
+</section>
+
+<section id="second">
+
+<div class="nameit" cross-fade>
+<paper-shadow id="myShadowTwo" z="1"></paper-shadow>
+        <core-toolbar class="smallbar sectoolbar">
+                <paper-icon-button id="beholdback" icon="arrow-back" onclick="window.history.back();"></paper-icon-button>
+                <span flex style="margin: 0 8px 0 0;">Gravitational Wave Observatory Designer</span>
+        </core-toolbar>
+<h2>Behold!</h2>
+<div><p>A new creation. What shall we name it?</p></div>
+<div><gravity-inputajax id="inputname" class="inputname" parameter="name" validate="^.*$" error="Keep it short!" position="bottom" hidetip></gravity-inputajax></div>
+<div class="fab"><paper-fab id="Calculate" icon="done" hero-id="fab" hero touch-action="auto"></paper-fab></div>
+</div>
+
+</section>
+
+<section id="secondwait">
+
+<gravity-waitplease current="0" id="waitplease" hero-id="fab" hero></gravity-waitplease>
+
+</section>
+
+
+<section id="third">
+
+
+<div class="maxwidthcard expandpage" cross-fade>
+<paper-shadow id="myShadowThree" z="1"></paper-shadow>
+
+<gravity-scroll-header-panel condenses id="scroll-two" class="mycard" image='' >
+  <core-toolbar class="tall sectoolbar">
+<paper-icon-button id="mainiconsecthree" icon="arrow-back"></paper-icon-button>
+<span flex style="margin: 0 8px 0 0;">Gravitational Wave Observatory Designer</span>
+                <paper-menu-button icon="more-vert" halign="right">
+
+                        <paper-item onclick="location.hash='presets'" icon="apps" label="Presets"></paper-item>
+                        <paper-item onclick="location.hash='recover'" icon="create" label="Open..."></paper-item>
+                        <paper-item onclick="location.hash='save'" icon="save" label="Save..."></paper-item>
+			<paper-item onclick="toggleFullscreen();return false;" icon="fullscreen" label="Fullscreen"></paper-item>
+                        <paper-item onclick="location.hash='help'" icon="help" label="Help"></paper-item>
+                        <paper-item onclick="location.hash='about'" icon="info" label="About"></paper-item>
+
+                </paper-menu-button>
+<div class="bottom fit finalBar">
+        <paper-tabs id="result-tabs" class="customtabs" selected="0">
+                <paper-tab>Overview</paper-tab>
+                <paper-tab>Displacement</paper-tab>
+                <paper-tab>Single link</paper-tab>
+                <paper-tab>Observatory</paper-tab>
+        </paper-tabs>
+</div>
+  </core-toolbar>
+
+
+<div content>
+<core-pages id="result-pages" selected="0">
+
+<div class="input-form selectionpage">
+
+
+<div>
+
+<gravity-gnuplotsvg id="oPlots" calculate="overview" countsfor="1" folder="sessions" plot="af.svg" class="flexpage"><div><h3>Mission accomplished</h3><p>This plot shows a comparison of strain sensitivities for different observatories. All submitted parameters were considered.</p>
+<p>Tab through the individual plots for displacement noise contributions, single link strain sensitivities and characteristic strain amplitude of astrophysical sources detactable by your observatory. You may also <a href="#author" style="text-decoration: none;white-space:nowrap;color:#e00032;"><core-icon icon="file-download" size="16"></core-icon> download</a> images, raw data and additional documents. A detailed report compiled specifically for your very own gravitational wave observatory explains all calculations step by step and features additional plots and figures.</p>
+
+</div></gravity-gnuplotsvg>
+
+<gravity-recoverydata params id="rData" class="flexpage"><div><p><strong>Disclaimer: </strong>All data was generated automatically.
+No one can be held responsible for any errors or omissions or for the results obtained from the use of this information. If you use any plots and figures or publish findings related to the Gravitational Wave Observatory Designer, please cite: Barke, Simon et al. <em>Towards a gravitational wave observatory designer: sensitivity limits of spaceborne detectors</em> 2015 Class. Quantum Grav. 32 095004.</p></div></gravity-recoverydata>
+
+
+</div>
+
+
+  </div>
+
+
+<div class="input-form selectionpage">
+
+
+<div>
+
+<gravity-gnuplotsvg id="dPlots" calculate="displacement" countsfor="1" folder="results" plot="pm.svg" class="flexpage"><div><h3>Displacement noise contributions</h3><p>Gravitational waves alter the distance between spacecraft which results in a phase shift in the interferometric read-out. We measure this phase shift and calculate the apparent spacecraft displacement. There are multiple noise sources that are indistinguishable from such a spacecraft displacement and hence limit the observatory's sensitivity. We consider the contributions shown in this plot of displacement noise over gravitational wave frequency. All contributions were calculated based on the specified set of parameters.</p>
+<p><strong>Did you know:</strong> you can click anywhere in the plot to display coordinate values, or click on labels in the key to hide individual traces.</strong></p>
+</div></gravity-gnuplotsvg>
+
+</div>
+
+
+
+  </div>
+
+
+        <div class="input-form selectionpage">
+
+<div>
+
+<gravity-gnuplotsvg id="sPlots" calculate="single" countsfor="4" folder="results" plot="sa.svg" class="flexpage"><div><h3>Single link strain sensitivities</h3><p>Gravitational waves stretch and compress spacetime perpendicular to the direction of travel. This plot shows the impact of gravitational waves on one single laser link (red trace) limited by the calculated displacement noise. It was avaraged over all sky positions (source directions of the gravitational waves) and both gravitational wave polarizations.</p>
+<p>Two possibly limiting noise contributions are plotted individually: the carrier signal read-out noise (blue) and the proof mass acceleration noise (green).</p>
+<p>The wiggles on the right hand side proceed from a sloppy avaraging over only 25 sky positions in total. For a perfect avarage the slope would become continuous.</p>
+</div></gravity-gnuplotsvg>
+
+</div>
+
+        </div>
+
+<div class="input-form selectionpage">
+
+
+<div>
+
+<gravity-gnuplotsvg id="fPlots" calculate="full" countsfor="16" folder="results" plot="fl.svg" class="flexpage"><div><h3>Astrophysical sources</h3><p>The scientific value of an observatory is related to the number and type of sources it can detect. Here we plot the
+observatory's detection limit where the signal-to-noise ratio equals 1. It is compared to the characteristic gravitational wave strain amplitudes for selected gravitational wave sources. For quasi-monochromatic sources the accumulated signal after one year of observation time is given. Amplitudes of all other broadband sources are plotted as is, although their actual SNR can be higher due to matched filtering techniques during data analysis.</p>
+<p>There are three categories of astrophysical phenomena that are known to emit gravitational waves at frequencies and amplitudes accessible to laser interferometric observatories in space: massive black hole binaries, the coalescence of two supermassive black holes; extreme Mass Ratio Inspirals (EMRIs), a compact star or stellar mass black hole captured in a highly relativistic orbit around a massive black hole; ultra-compact binaries, systems of white dwarfs, neutron stars, or stellar mass black holes in tight orbit. </p></div></gravity-gnuplotsvg>
+
+</div>
+
+
+  </div>
+
+
+</core-pages>
+
+<div class="help" id="betatip" style="z-index:10000;">
+
+        <div class="tip">
+        <paper-shadow z="1"></paper-shadow>
+        <p>This is a beta version. Results, associated figures and documents generated by this web application may be incomplete or contain errors. In particular, received power (number of photodiodes, balanced detection, beamspitters) are currently under investication. Only use this to compare relative parametric dependencies.</p>
+	<p>We are currently developing on a production server. This gives you all the latest bugfixes, but debug code also slows things down and may break everything from time to time.</p>
+	<p>If you find anything strange, confusing or plain wrong: please contact <a href="mailto:simon@spacegravity.org">simon@spacegravity.org</a>.</p>
+                <div layout horizontal><div flex></div>
+                    <paper-button id="dismissbetatip" label="I understand" affirmative autofocus></paper-button>
+                </div>
+        </div>
+
+</div>
+
+</div>
+
+</gravity-scroll-header-panel>
+
+
+</div>
+
+
+<paper-fab  id="DL" icon="file-download" hero-id="fab" hero touch-action="auto"></paper-fab>
+
+
+</section>
+
+
+<section id="author">
+
+<div class="nameit" cross-fade>
+<paper-shadow id="myShadowFour" z="1"></paper-shadow>
+        <core-toolbar class="smallbar sectoolbar">
+                <paper-icon-button id="downloadback" onclick="window.history.back();" icon="arrow-back"></paper-icon-button>
+                <span flex style="margin: 0 8px 0 0;">Gravitational Wave Observatory Designer</span>
+        </core-toolbar>
+<h2>Downloads</h2>
+<div><p>Personalize your documents!</p></div>
+<div><gravity-inputajax class="inputname" id="inputauthor" parameter="author" validate="^.*$" error="" position="bottom" hidetip></gravity-inputajax></div>
+<div><gravity-inputajax class="inputname" id="inputaffiliation" parameter="affiliation" validate="^.*$" error="Your research institute" position="bottom" hidetip></gravity-inputajax></div>
+<div class="fab"><paper-fab id="Download" icon="done" hero-id="fab" hero touch-action="auto"></paper-fab></div>
+</div>
+<div><p>&nbsp;</p></div>
+
+</section>
+
+
+<section id="downloads">
+
+<div class="nameit" hero-id="fab" cross-fade>
+<paper-shadow id="myShadowFive" z="1"></paper-shadow>
+<div horizontal layout center class="backh2">
+<div flex><h2>Downloads</h2></div>
+</div>
+<div><p>I made these just for you. Enjoy!</p></div>
+<gravity-downloads id="overviewDL" folder="overview" label="Overview Document" size="not available - yet" type="pdf"></gravity-downloads>
+<gravity-downloads id="dataDL" folder="data" label="Plots & Data Archive" size="1.7 MB" type="zip"></gravity-downloads>
+<gravity-downloads id="reportDL" folder="report" label="Detailed Report" size="1.2 MB" type="pdf"></gravity-downloads>
+</div>
+<div><p>&nbsp;</p></div>
+
+</section>
+
+<section id="recoverycode">
+
+<div class="nameit" cross-fade>
+	<core-toolbar class="smallbar sectoolbar">
+		<paper-icon-button id="resumeback" icon="arrow-back" onclick="window.history.back();"></paper-icon-button>
+		<span flex style="margin: 0 8px 0 0;">Gravitational Wave Observatory Designer</span>
+	</core-toolbar>
+<paper-shadow id="myShadowRecovery" z="1"></paper-shadow>
+<h2>Resume your work!</h2>
+<div><p>To restore mission parameters please provide the code found in the associated documents.</p></div>
+<div><gravity-input id="recoverycodeinput" floatingLabel validate="^([A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{0,4}|[A-Fa-f0-9]{4}-[A-Fa-f0-9]{0,4}|[A-Fa-f0-9]{1,4})$" error="Format xxxx-xxxx-xxxx (Hexadecimal)" label="Recovery code" hidetip><div tip>Please provide the code found in the associated documents.</div></gravity-input></div>
+<gravity-checkpreset id="checkPreset"></gravity-checkpreset>
+<div class="fab"><paper-fab id="Restore" icon="done" hero-id="fab" hero touch-action="auto"></paper-fab></div>
+</div>
+
+</section>
+
+
+<section id="help">
+
+<div class="maxwidthcard allhigher expandpage" style="max-width: 690px;background:transparent;" cross-fade>
+
+<gravity-scroll-header-panel condenses id="scroll-help" class="mycard scroll">
+
+  <core-toolbar class="tall sectoolbar">
+<paper-icon-button id="helpback" icon="arrow-back" onclick="window.history.back();"></paper-icon-button>
+<span flex style="margin: 0 8px 0 0;">Gravitational Wave Observatory Designer</span>
+
+        <span class="bottom" style="font-size: 14px;font-weight: 500;">Help</span>
+  </core-toolbar>
+
+
+<div content>
+        <div class="mycard-content">
+		<paper-shadow z="1"></paper-shadow>
+	        <div class="sectiontitle" style="color:#00acc1;">Help</div>
+
+<div class="answers">
+
+<div class="videowrap">
+<div class="mainvideo">
+<iframe width="100%" height="100%" src="//www.youtube.com/embed/tIwRXFFiguI" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>
+
+
+<p>&nbsp;<br/>Preprint paper <a href="http://dx.doi.org/10.1088/0264-9381/32/9/095004" target="_blank">Towards a gravitational wave observatory designer: sensitivity limits of spaceborne detectors</a> S Barke et al 2015 Class. Quantum Grav. 32 095004.</p>
+
+    <h3 onclick="document.querySelector('#help1').toggle()" style="cursor:pointer;">What is this all about?</h3>
+    <core-collapse id="help1">
+	<div class="content">
+		<p>Some of the most interesting sources of gravitational waves (like supermassive black hole mergers, dense stars captured by supermassive black holes, and pairs of dense stars) emit at frequencies between 10 µHz and 10 Hz. However, due to seismic disturbances, this frequency range is not accessible from Earth. A laser interferometric gravitational wave observatory in space is known to be the most promising option to detect gravitational waves in this frequency range and hence was <a target="_blank" href="http://www.esa.int/Our_Activities/Space_Science/ESA_s_new_vision_to_study_the_invisible_Universe">recently selected</a> by the European Space Agency (ESA) to be launched in the 2030s as 3rd large mission of the Cosmic Vision program. The selection was supported by renowned scientists such as Stephen Hawking including many Nobel Prize and Fields Medal laureates.</p>
+
+		<p>You are about to design your very own a spaceborne gravitational wave obervatory. There is a huge parameter space to cover. The goal obviously is to construct the most sensitive observatory within technical and budgetary constraints.<br>
+So far, two carefully thought out design studies (LISA and eLISA, see <a target="_blank" href="http://lisamission.org">lisamission.org</a>) exist that both deliver outstanding performance. Usually reports on new concepts refer to one of the these studies and determine the observatory's sensitivity by just three parameters: the well known interferometer topology, its shot noise limit, and the acceleration noise on its gravitational reference points. But: There are many other technical noise sources, and when you change just one mission parameter, one of those might limit the final observatory's sensitivity.</p>
+
+		<p>This tool will help you to understand the influences of design choices, point out the limiting noise sources, and help you to carefully balance out all mission parameters. You can also directly compare the observatory's sensitivity  dependent on certain parameters. All calculations are fully documented and you may download a detailed report on your personal gravitational wave observatory.</p>
+
+	</div>
+    </core-collapse>
+
+
+    <h3 onclick="document.querySelector('#help2').toggle()" style="cursor:pointer;">Why should I care about gravitational waves?</h3>
+    <core-collapse id="help2">
+        <div class="content">
+		<p>Gravitational waves are the next big thing in astronomy. In contrast to electromagnetic radiation, gravitational radiation travels unimpeded throughout the entire universe, and even electromagnetically dark objects are capable of producing gravitational waves. Their continuous observation will enable us to study these dark objects directly for the very first time.</p>
+
+<p>Alongside indirect yet irrefutable proof of the existence of gravitational waves (see <a target="_blank" href="http://en.wikipedia.org/wiki/PSR_B1913+16">pulsar PSR B1913+16</a>, evidence for gravitational waves produced during cosmic inflation (red-shifted to 10<sup>-16</sup> Hz) was recently found as static polarization pattern imprint in the cosmic microwave background radiation. But there are many other sources out there and the potential for new discoveries is enormous.</p>
+
+<p>If you want to know more about gravitational waves and learn how to detect them, just have a look at the Gravity Ink. <a target="_blank" href="http://youtu.be/a_zMKF66tzo?list=PLM05cB3oZeswHDARsVsx6ZNvUDdo_g9cd">video series on YouTube</a>. Another source of detailed information is <a target="_blank" href="http://www.einstein-online.info/">einstein-online.info</a>, a web portal about Albert Einstein's theories of relativity and their applications.</p>
+        </div>
+    </core-collapse>
+
+    <h3 onclick="document.querySelector('#help4').toggle()" style="cursor:pointer;">Integer, decimals, scientific notation? Arrays!</h3>
+    <core-collapse id="help4">
+        <div class="content">
+		<p>All parameters can be given as integer value (100), decimals (100.0) or scientific notation (1e2). Negative values are not accepted with only a few exceptions. Most parameters support a comma-separated array of values (2.5e-3, 0.75, 100) and individual sensitivities are computed for all parameter combinations. This feature is extremely powerful since you can directly compare the influence of certain parameters. Please note that due to limited resources a maximum of 8 combinations is supported.</p>
+        </div>
+    </core-collapse>
+
+    <h3 onclick="document.querySelector('#help5').toggle()" style="cursor:pointer;">Why is this page so damn slow?</h3>
+    <core-collapse id="help5">
+        <div class="content">
+                <p>Web Components are the most exciting thing to happen in web development since HTML5 and are referred to as 'the building blocks of the future web'. This web application was designed with Polymer, an open-source Web Components-based library. While only Chrome (and other Blink-based browsers like Opera) ship with native platform support for Web Components, a JavaScript foundation layer provides compatibelity for the latest version of all evergreen web browsers: Firefox, Internet Explorer and Safari. This foundation layer slows things down though. Additionally, the complexity of this application with fixed elements, transparancies and shadows requires a fast CPU or a modern browser with GPU accelerated compositing. If you desire a smooth performance even on slow computers and older mobile devices, we highly recommend Chrome version 36 or higher.</p>
+        </div>
+    </core-collapse>
+
+
+    <h3 onclick="document.querySelector('#help3').toggle()" style="cursor:pointer;">Who is responsible for this web application?</h3>
+    <core-collapse id="help3">
+        <div class="content">
+		<p>This website is a project by <a target="_blank" href="http://simonbarke.com">Simon Barke</a> as part of his PhD thesis in physics at the <a target="_blank" href="http://www.aei.mpg.de/">Max Planck Institute for Gravitational Physics</a>. All calculations are based on work done by members of the <a target="_blank" href="https://www.elisascience.org/articles/community/consortium-members">eLISA Consortium</a>, in particular contributions by Gerhard Heinzel, Yan Wang, Simon Barke, Juan Jose Esteban Delgado, and Michael Tröbs. Gravitational wave sources were predicted by Antoine Petiteau (supermassive black hole binaries) and Alberto Sesana (extreme mass ratio inspiral) for the <a target="_blank" href="https://www.elisascience.org/whitepaper/">eLISA White Paper</a>. Data for known galactic gravitational wave sources was  <a target="_blank" href="http://www.astro.ru.nl/~nelemans/dokuwiki/doku.php?id=verification_binaries:intro">collected</a> by Gijs Nelemans.</p>
+        </div>
+    </core-collapse>
+
+
+
+</div>
+
+	</div>
+</div>
+
+</gravity-scroll-header-panel>
+</div>
+
+
+</section>
+
+
+<section id="about">
+
+<div class="maxwidthcard allhigher expandpage" style="max-width: 690px;background:transparent;" cross-fade>
+
+<gravity-scroll-header-panel condenses id="scroll-about" class="mycard scroll">
+
+  <core-toolbar class="tall sectoolbar">
+<paper-icon-button id="helpback" icon="arrow-back" onclick="window.history.back();"></paper-icon-button>
+<span flex style="margin: 0 8px 0 0;">Gravitational Wave Observatory Designer</span>
+
+        <span class="bottom" style="font-size: 14px;font-weight: 500;">About</span>
+  </core-toolbar>
+
+
+<div content>
+        <div class="mycard-content">
+                <paper-shadow z="1"></paper-shadow>
+                <div class="sectiontitle" style="color:#00acc1;">About</div>
+
+		<div class="answers">
+			<h3>Gravitational Wave Observatory Designer <span style="font-weight:300;">- Version 1.1b1</span></h3>
+			<p>Wep application by Simon Barke et al. &ndash; related publication under preparation.</p>
+			<p>Plese refer to the <a href="#help">help document</a> for more information about the application itself and the people involved in the project.</p>
+
+<p>&nbsp;</p>
+
+<div style="font-size:0.84em">
+			<h3>Version history</h3>
+<h4> Version 1.1b1 (2015/07/22)</h4><p>Point Ahead Angle options, data and plot downloads</p>
+<h4> Version 1.0b2 (2014/09/01)</h4><p>bug fixes, detailed PDF report (incomplete)</p>
+<h4> Version 1.0b1 (2014/07/30)</h4><p>redesigned GUI with Polymer </p>
+<h4> Version 0.8.1 (2014/05/19)</h4><p>first public availablility (AEI Sensitivity Calculator) </p>
+<h4> Version 0.8 (2013/04/23)</h4><p>implementation of 24-link octahedral configuration </p>
+<h4> Version 0.7 (2012/06/20)</h4><p>initial internal release </p>
+
+                        <h3>Legal Disclosure</h3>
+			<h4>Information in accordance with section 5 TMG</h4>
+                        <p>Simon Barke<br>Dachenhausenstr. 5<br>30167 Hannover<br>Germany</p>
+			<h4>Contact</h4>
+			<p>Telephone: +49 177 4774666<br>Email: <a href="mailto:simon@spacegravity.org">simon@spacegravity.org</a></p>
+			<h4>Images and graphics</h4>
+			<ul><li>Albert Einstein Institute / Milde Marketing / Exozet</li><li>Airbus Defence and Space (EADS Astrium)</li><li>Simon Barke</li></ul>
+
+			<h4>Open source software</h4>
+                        <ul><li>gnuplot (under <a target="_blank" href="http://gnuplot.cvs.sourceforge.net/gnuplot/gnuplot/Copyright">gnuplot license</a>)</li><li>jQuery (under <a target="_blank" href="http://en.wikipedia.org/wiki/MIT_License">MIT license</a>)</li><li>Polymer with Paper elements (under <a target="_blank" href="http://polymer.github.io/LICENSE.txt">BSD license</a>)</li><li>Perl (under <a target="_blank" href="http://dev.perl.org/licenses/gpl1.html">GNU General Public License</a>)</li><li>LaTeX (under <a target="_blank" href="http://latex-project.org/lppl/">LaTeX Project Public License</a>)</li></ul>
+
+
+			<h3>Disclaimer</h3>
+			<h4>Accountability for content</h4>
+			<p>The contents of this web application have been created with the utmost care. However, I cannot guarantee the contents' accuracy, completeness or topicality. According to statutory provisions, I am furthermore responsible for my own content of this web application. In this context, please note that I am accordingly not obliged to monitor merely the transmitted or saved information of third parties, or investigate circumstances pointing to illegal activity. My obligations to remove or block the use of information under generally applicable laws remain unaffected by this as per §§ 8 to 10 of the Telemedia Act (TMG).</p>
+			<h4>Accountability for links</h4>
+			<p>Responsibility for the content of external links (to web pages of third parties) lies solely with the operators of the linked pages. No violations were evident to me at the time of linking. Should any legal infringement become known to me, I will remove the respective link immediately.</p>
+			<h4>Copyright</h4>
+			<p>My web application and their contents are subject to German copyright law. Unless expressly permitted by law (§ 44a et seq. of the copyright law), every form of utilizing, reproducing or processing works subject to copyright protection on my web application requires the prior consent of the respective owner of the rights. Individual reproductions of a work are allowed only for private use, so must not serve either directly or indirectly for earnings. Unauthorized utilization of copyrighted works is punishable (§ 106 of the copyright law).</p>
+			<p>Disclaimer translated by <a href="http://www.twigg.de/haftungsausschlussimpressumenglisch.htm" target="_blank">twiggs translations Übersetzungsbüro</a>.</p>
+			<h3>Privacy Statement</h3>
+			<p>The submission of personal data (e.g. name and affiliation) is entirely voluntary. All date is processed by my servers in accordance with the provisions of German data privacy law. It is used to generate related documents and stored for later use. Your personal data are not passed on to third parties and are protected by a twelve digit hexadecimal number (recovery code). Everyone in the posession of the recovery code is able to access your personal data. This data privacy policy applies only to our web application. If links route you to other web pages, please inquire there about how your data are handled in such cases.</p>
+</div>
+
+		</div>
+        </div>
+</div>
+
+</gravity-scroll-header-panel>
+
+</div>
+
+</section>
+
+<section id="save">
+
+<div class="nameit" cross-fade>
+        <core-toolbar class="smallbar sectoolbar">
+                <paper-icon-button id="saveback" onclick="window.history.back();" icon="arrow-back"></paper-icon-button>
+                <span flex style="margin: 0 8px 0 0;">Gravitational Wave Observatory Designer</span>
+        </core-toolbar>
+<paper-shadow id="myShadowRecovery" z="1"></paper-shadow>
+<h2>Recovery code</h2>
+<div><p>To restore all mission parameters at a later date, provide the following code:</p></div>
+<gravity-recoverydata id="qData" code qr></gravity-recoverydata>
+<div class="fab"><paper-fab onclick="window.history.back();" icon="done" hero-id="fab" hero touch-action="auto"></paper-fab></div>
+</div>
+
+</section>
+
+
+</core-animated-pages>
+
+</div>
+
+<div id="overlays">
+
+<paper-toast id="toast-tipon" class="capsule" text="Tool tips activated." responsiveWidth="660px" style="padding-right: 60px;"></paper-toast>
+<paper-toast id="toast-tipoff" class="capsule" text="Tool tips deactivated." responsiveWidth="660px" style="padding-right: 60px;"></paper-toast>
+
+
+  <paper-dialog id="presetError" backdrop heading="Uuups!" transition="paper-dialog-transition-bottom">
+
+
+<template id="preset-error-bind" is="auto-binding" repeat="{{quotes}}">
+<core-ajax auto url="http://freegeoip.net/json/" handleAs="json" response="{{geolocation}}"></core-ajax>
+ <p>This preset is either broken or unavailable at present.</p>
+<p>Please check the recovery code, go back and build a gravitational wave observatory from scratch, or go outside and enjoy the outskirts of {{geolocation.city}}. {{geolocation.region_name}} is quite nice this time of year.</p>
+
+    <paper-button dismissive label="Get directions..." onclick="window.open('https://www.google.com/maps/preview/@{{geolocation.latitude}},{{geolocation.longitude}},10z')"></paper-button>
+    <paper-button label="Try again" affirmative autofocus></paper-button>
+
+  </template>
+
+  <script>
+    var tbind = document.querySelector('#preset-error-bind');
+    tbind.quotes = [{
+      yourcity: 'your city' //is not used due to geolocation - todo: change output if geolocation failes.
+    }];
+  </script>
+
+  </paper-dialog>
+
+<paper-dialog id="videoOne" backdrop heading="">
+<div class="videowrap">
+<div class="mainvideo">
+<!-- iframe width="100%" height="100%" src="//www.youtube.com/embed/GN7iWHj8p7E?list=PLM05cB3oZeswHDARsVsx6ZNvUDdo_g9cd" frameborder="0" allowfullscreen --><!-- /iframe -->
+</div>
+</div>
+<p>You are about to design a space-based gravitational wave observatory. If you don't know what that is, this video is for you.</p>
+    <paper-button label="Open on YouTube..." dismissive></paper-button>
+    <paper-button label="Close" affirmative autofocus></paper-button>
+</paper-dialog>
+
+
+  <paper-dialog id="parametersError" backdrop heading="Oh Snap!">
+
+
+<template id="parameters-error-bind" is="auto-binding" repeat="{{error}}">
+ <p>You provided some wrong parameters. Please go back and check the following:</p>
+
+<p style="white-space:pre-line;min-height:100px;">{{errors}}</p>
+
+    <paper-button label="Let me check" affirmative autofocus></paper-button>
+
+  </template>
+
+  </paper-dialog>
+
+
+</div>
+
+<div id="preload"></div>
+
+<script>
+
+var myBody = document.getElementsByTagName('body');
+
+var session = randomHEX() + '-' + randomHEX() + '-' + randomHEX();
+
+
+   function toggleFullscreen() {
+var doc = window.document;
+  var docEl = doc.documentElement;
+
+  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen;
+  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen;
+
+  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
+    requestFullScreen.call(docEl);
+  }
+  else {
+    cancelFullScreen.call(doc);
+  }
+   }
+
+
+function randomHEX() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+               .toString(16)
+               .substring(1);
+  }
+
+document.addEventListener('input', function () {
+document.querySelector('#tPlots').outofdate = true;
+});
+
+
+function updateTemp() {
+document.querySelector('#tPlots').outofdate = false;
+smallSubmissionLoop();
+}
+
+
+function recoverySubmissionLoop(qr) {
+
+var qData = document.querySelector('#qData');
+var rData = document.querySelector('#rData');
+
+var elements = document.getElementsByTagName('gravity-arrayinputajax');
+var staticelements = document.getElementsByTagName('gravity-inputajax');
+var radioelements = document.getElementsByTagName('gravity-radioajax');
+
+var combination = "|";
+
+          for (var j = 0; j < radioelements.length; j++) {
+		combination = combination + '"' + radioelements[j].parameter + '":"\\\"description\\\":{\\\"name\\\":\\\"' + radioelements[j].descriptionname + '\\\",\\\"selected\\\":\\\"' + radioelements[j].selected + '\\\"}", ';
+          }
+
+          for (var j = 0; j < elements.length; j++) {
+		combination = combination + '"' + elements[j].parameter + '":"\\\"name\\\":\\\"' + elements[j].label + '\\\",\\\"value\\\":\\\"' + elements[j].value + '\\\",\\\"unit\\\":\\\"' + elements[j].parameterunit + '\\\"", ';
+          }
+
+          for (var j = 0; j < staticelements.length; j++) {
+		combination = combination + '"' + staticelements[j].parameter + '":"\\\"name\\\":\\\"' + staticelements[j].label + '\\\",\\\"value\\\":\\\"' + staticelements[j].value + '\\\",\\\"unit\\\":\\\"' + staticelements[j].parameterunit + '\\\"", ';
+          }
+
+
+//Just to close it up
+        combination = combination + '"session":"' + session + '"';
+
+if (qr) {combination = combination + ', "qr":"true"';}
+
+combinations = combination.split('|');
+combinations.shift();
+
+objectArray = new Array(combinations.length);
+
+for (var i = 0; i < combinations.length; i++) {
+        objectArray[i] = [];
+        objectArray[i].parameters = combinations[i];
+//        objectArray[i].plottitle = plottitles[i];
+        }
+
+rData.data = objectArray;
+qData.data = objectArray;
+
+
+}
+
+
+function smallSubmissionLoop() {
+var tPlots = document.querySelector('#tPlots');
+// if (tPlots.uuid[0]) {session = tPlots.uuid[0][1];}
+
+
+var elements = document.getElementsByTagName('gravity-arrayinputajax');
+var staticelements = document.getElementsByTagName('gravity-inputajax');
+var radioelements = document.getElementsByTagName('gravity-radioajax'); 
+
+var combination = "|";
+
+          for (var j = 0; j < elements.length; j++) {
+                combination = combination + '"' + elements[j].parameter + '":"' + elements[j].array[0] + '", ';
+          }
+
+          for (var j = 0; j < staticelements.length; j++) {
+		combination = combination + '"' + staticelements[j].parameter + '":"' + staticelements[j].value + '", ';
+          }
+	  for (var j = 0; j < radioelements.length; j++) {
+		combination = combination + '"' + radioelements[j].parameter + '":"' + radioelements[j].selected + '", ';
+	  }
+
+//Just to close it up
+                combination = combination + '"visit":"spacegravity.org/designer"';
+
+if (session) {
+	combination = combination + ', "session":"' + session + '"';}
+
+
+combinations = combination.split('|');
+combinations.shift();
+
+objectArray = new Array(combinations.length);
+
+for (var i = 0; i < combinations.length; i++) {
+        objectArray[i] = [];
+        objectArray[i].parameters = combinations[i];
+//        objectArray[i].plottitle = plottitles[i];
+        }
+
+tPlots.uuid = new Array();
+tPlots.data = objectArray;
+
+}
+
+
+var plottitles = "";
+var combinations = "";
+
+var dPlots = document.querySelector('#dPlots');
+
+function bigSubmissionLoop() {
+
+var tPlots = document.querySelector('#tPlots');
+// if (tPlots.uuid[0]) {session = tPlots.uuid[0][1];}
+
+var elements = document.getElementsByTagName('gravity-arrayinputajax');
+var staticelements = document.getElementsByTagName('gravity-inputajax');
+var radioelements = document.getElementsByTagName('gravity-radioajax');
+
+var wow = new Array(elements.length);
+var multiple = new Array(elements.length);
+
+var combination = "";
+
+var plottitle = "";
+
+var objectArray;
+
+var run = 0;
+
+        for (wow[0] = 0; wow[0] < elements[0].array.length; wow[0]++) {
+		if (elements[0].array.length > 1) {multiple[0] = elements[0].label + " = " + elements[0].array[wow[0]] + " " + elements[0].parameterunit + "\n";} else {multiple[0] = "";}
+	for (wow[1] = 0; wow[1] < elements[1].array.length; wow[1]++) {
+		if (elements[1].array.length > 1) {multiple[1] = elements[1].label + " = " + elements[1].array[wow[1]] + " " + elements[1].parameterunit + "\n";} else {multiple[1] = "";}
+        for (wow[2] = 0; wow[2] < elements[2].array.length; wow[2]++) {
+		if (elements[2].array.length > 1) {multiple[2] = elements[2].label + " = " + elements[2].array[wow[2]] + " " + elements[2].parameterunit + "\n";} else {multiple[2] = "";}
+        for (wow[3] = 0; wow[3] < elements[3].array.length; wow[3]++) {
+		if (elements[3].array.length > 1) {multiple[3] = elements[3].label + " = " + elements[3].array[wow[3]] + " " + elements[3].parameterunit + "\n";} else {multiple[3] = "";}
+        for (wow[4] = 0; wow[4] < elements[4].array.length; wow[4]++) {
+		if (elements[4].array.length > 1) {multiple[4] = elements[4].label + " = " + elements[4].array[wow[4]] + " " + elements[4].parameterunit + "\n";} else {multiple[4] = "";}
+        for (wow[5] = 0; wow[5] < elements[5].array.length; wow[5]++) {
+		if (elements[5].array.length > 1) {multiple[5] = elements[5].label + " = " + elements[5].array[wow[5]] + " " + elements[5].parameterunit + "\n";} else {multiple[5] = "";}
+        for (wow[6] = 0; wow[6] < elements[6].array.length; wow[6]++) {
+		if (elements[6].array.length > 1) {multiple[6] = elements[6].label + " = " + elements[6].array[wow[6]] + " " + elements[6].parameterunit + "\n";} else {multiple[6] = "";}
+        for (wow[7] = 0; wow[7] < elements[7].array.length; wow[7]++) {
+                if (elements[7].array.length > 1) {multiple[7] = elements[7].label + " = " + elements[7].array[wow[7]] + " " + elements[7].parameterunit + "\n";} else {multiple[7] = "";}
+        for (wow[8] = 0; wow[8] < elements[8].array.length; wow[8]++) {
+                if (elements[8].array.length > 1) {multiple[8] = elements[8].label + " = " + elements[8].array[wow[8]] + " " + elements[8].parameterunit + "\n";} else {multiple[8] = "";}
+        for (wow[9] = 0; wow[9] < elements[9].array.length; wow[9]++) {
+                if (elements[9].array.length > 1) {multiple[9] = elements[9].label + " = " + elements[9].array[wow[9]] + " " + elements[9].parameterunit + "\n";} else {multiple[9] = "";}
+        for (wow[10] = 0; wow[10] < elements[10].array.length; wow[10]++) {
+                if (elements[10].array.length > 1) {multiple[10] = elements[10].label + " = " + elements[10].array[wow[10]] + " " + elements[10].parameterunit + "\n";} else {multiple[10] = "";}
+        for (wow[11] = 0; wow[11] < elements[11].array.length; wow[11]++) {
+                if (elements[11].array.length > 1) {multiple[11] = elements[11].label + " = " + elements[11].array[wow[11]] + " " + elements[11].parameterunit + "\n";} else {multiple[11] = "";}
+        for (wow[12] = 0; wow[12] < elements[12].array.length; wow[12]++) {
+                if (elements[12].array.length > 1) {multiple[12] = elements[12].label + " = " + elements[12].array[wow[12]] + " " + elements[12].parameterunit + "\n";} else {multiple[12] = "";}
+        for (wow[13] = 0; wow[13] < elements[13].array.length; wow[13]++) {
+                if (elements[13].array.length > 1) {multiple[13] = elements[13].label + " = " + elements[13].array[wow[13]] + " " + elements[13].parameterunit + "\n";} else {multiple[13] = "";}
+
+
+		run++;
+		combination = combination + "|";
+		plottitle = plottitle + "|";
+		var variationtitle = "";
+
+		for (var i = 0; i < elements.length; i++) {
+			plottitle = plottitle + multiple[i];		
+			var shortTitle = multiple[i].replace(/^.*\=\s*/g, ', ');
+			var shortTitle = shortTitle.replace(/\n/g, '');
+			variationtitle = variationtitle + shortTitle;
+		}
+		variationtitle = variationtitle.replace(/^,\s*/g, '');
+
+		for (var j = 0; j < elements.length; j++) {
+			combination = combination + '"' + elements[j].parameter + '":"' + elements[j].array[wow[j]] + '", ';
+		}
+
+		for (var j = 0; j < staticelements.length; j++) {
+                        combination = combination + '"' + staticelements[j].parameter + '":"' + staticelements[j].value + '", ';
+                }
+	        for (var j = 0; j < radioelements.length; j++) {
+        	        combination = combination + '"' + radioelements[j].parameter + '":"' + radioelements[j].selected + '", ';
+                }
+
+//To close things up
+		combination = combination + ' "run":"' + run + '", ' + ' "plottitle":"' + variationtitle + '"';
+
+if (session) {
+        combination = combination + ', "session":"' + session + '"';}
+
+
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+        }
+	}
+
+combinations = combination.split('|');
+combinations.shift();
+
+plottitles = plottitle.split('|');
+plottitles.shift();
+
+objectArray = new Array(combinations.length);
+
+for (var i = 0; i < combinations.length; i++) {
+	objectArray[i] = [];
+	objectArray[i].parameters = combinations[i];
+	objectArray[i].plottitle = plottitles[i];
+	}
+
+waitCalc.total = run;
+
+dPlots.uuid = new Array();
+
+dPlots.data = objectArray;
+
+}
+
+
+
+//needs to be done for both (sPlots and fPlots) individually
+function mergeUUIDs() {
+
+dPlots.uuid.sort(mySorting);
+
+	var sDataArray = new Array(dPlots.data.length);
+
+for (var i = 0; i < combinations.length; i++) {
+        sDataArray[i] = [];
+        sDataArray[i].parameters = combinations[i] + ', "uuid":"' + dPlots.uuid[i][1] + '"';
+        sDataArray[i].plottitle = plottitles[i];
+        }
+
+var sPlots = document.querySelector('#sPlots');
+sPlots.uuid = new Array();
+
+sPlots.data = sDataArray;
+
+}
+
+function mergeUUIDf() {
+
+dPlots.uuid.sort(mySorting);
+
+        var fDataArray = new Array(dPlots.data.length);
+
+for (var i = 0; i < combinations.length; i++) {
+        fDataArray[i] = [];
+        fDataArray[i].parameters = combinations[i] + ', "uuid":"' + dPlots.uuid[i][1] + '"';
+        fDataArray[i].plottitle = plottitles[i];
+        }
+
+var fPlots = document.querySelector('#fPlots');
+fPlots.uuid = new Array();
+
+fPlots.data = fDataArray;
+
+}
+
+
+function finalSubmissionLoop() {
+
+dPlots.uuid.sort(mySorting);
+
+var allPlots = "";
+var allUUIDs = "";
+
+var observatory = document.querySelector('#inputname').value;
+var armlength = document.querySelector('#arm').value;
+var constellation = document.querySelector('#constellation').selected;
+var pointahead = document.querySelector('#pointahead').selected;
+var segments = document.querySelector('#segments').selected;
+
+for (var i = 0; i < combinations.length; i++) {
+	
+	var plotLines = plottitles[i].split('\n');
+	var variationtitle = "";
+	for (var j = 0; j < plotLines.length; j++) {
+	        var shortTitle = plotLines[j].replace(/^.*\=\s*/g, ', ');
+        	shortTitle = shortTitle.replace(/\n/g, '');
+		variationtitle = variationtitle + shortTitle;
+		}
+	variationtitle = variationtitle.replace(/^,\s*/g, '');
+	if (variationtitle) {variationtitle = ' (' + variationtitle + ')';}
+	allPlots = allPlots + '|' + observatory + variationtitle;
+	allUUIDs = allUUIDs + '|' + dPlots.uuid[i][1];
+	}
+
+	allPlots = allPlots.replace(/^\|\s*/g, '');
+	allUUIDs = allUUIDs.replace(/^\|\s*/g, '');
+
+        var oDataArray = new Array(1);
+
+for (var i = 0; i < 1; i++) {
+        oDataArray[i] = [];
+        oDataArray[i].parameters = '"titles":"' + allPlots + '", "plots":"' + allUUIDs + '", "arm":"' + armlength + '", "paam":"' + pointahead + '", "con":"' + constellation + '", "seg":"' + segments + '", "session":"' + session + '"';
+        oDataArray[i].plottitle = '';
+        }
+
+var oPlots = document.querySelector('#oPlots');
+oPlots.uuid = new Array();
+oPlots.data = oDataArray;
+
+
+//prepare the download page: detailed reports (with titles for each UUID)
+var rDownloads = document.querySelector('#reportDL');
+var rDataArray = new Array(plottitles.length);
+
+for (var i = 0; i < plottitles.length; i++) {
+	rDataArray[i] = [];
+	rDataArray[i].uuid = dPlots.uuid[i][1];
+	rDataArray[i].title = plottitles[i];
+	}
+
+rDownloads.data = rDataArray;
+
+//for zip and overview.pdf with uuid=session
+var oDownloads = document.querySelector('#overviewDL');
+var dDownloads = document.querySelector('#dataDL');
+var pDataArray = new Array(1);
+
+for (var i = 0; i < 1; i++) {
+        pDataArray[i] = [];
+        pDataArray[i].uuid = session;
+        pDataArray[i].title = '';
+        }
+
+oDownloads.data = pDataArray;
+dDownloads.data = pDataArray;          
+
+}
+
+
+//sort multidimensional array for first column. else the uuid array is in totally random order and does not match up with the data array. (we sort for the "run" value, which is the order of the data array)
+
+function mySorting(a,b) {
+a = parseInt(a[0]);
+b = parseInt(b[0]);
+return a == b ? 0 : (a < b ? -1 : 1)
+}
+
+function checkParameters(id) {
+
+var elements = document.getElementsByTagName(id);
+var errors = "";
+ for (var i = 0; i < elements.length; i++){
+
+   if (elements[i].parameter != 'name' && elements[i].parameter != 'author' && elements[i].parameter != 'affiliation') { //name will be filled out later!
+        if (typeof elements[i].value == 'undefined' || elements[i].value == '') {
+                errors = errors + elements[i].label + " [" + elements[i].value + "] " + elements[i].parameterunit + " is empty.\n";
+                }
+
+        else if (elements[i].invalid) {
+                errors = errors + elements[i].label + " [" + elements[i].value + "] " + elements[i].parameterunit + " is invalid.\n";
+                }
+   }
+ }
+
+return errors;
+
+}
+
+function checkRadios(id) {
+
+var elements = document.getElementsByTagName(id);
+var errors = "";
+ for (var i = 0; i < elements.length; i++){
+
+        if (typeof elements[i].selected == 'undefined' || elements[i].selected == '') {
+                errors = errors + elements[i].descriptionname + " is empty.\n";
+                }
+ }
+
+return errors;
+
+}
+
+
+function submitArrayParameters(){
+    var elements = document.getElementsByTagName('gravity-arrayinputajax');
+
+    for (var i = 0; i < elements.length; i++){
+
+        if (typeof elements[i].value == 'undefined' || elements[i].value == '') {
+                console.log(elements[i].label + " value: " + elements[i].parameter + " = [" + elements[i].value + "] " + elements[i].parameterunit + " is empty.");
+                }
+
+        else if (elements[i].invalid) {
+                console.log(elements[i].label + " value: " + elements[i].parameter + " = [" + elements[i].value + "] " + elements[i].parameterunit + " is invalid.");
+                }
+
+        }
+
+}
+
+function submitParameters(){
+    var elements = document.getElementsByTagName('gravity-inputajax');
+
+    for (var i = 0; i < elements.length; i++){
+
+        if (typeof elements[i].value == 'undefined' || elements[i].value == '') {
+                console.log(elements[i].label + " value: " + elements[i].parameter + " = [" + elements[i].value + "] " + elements[i].parameterunit + " is empty.");
+                }
+
+        else if (elements[i].invalid) {
+                console.log(elements[i].label + " value: " + elements[i].parameter + " = [" + elements[i].value + "] " + elements[i].parameterunit + " is invalid.");
+                }
+
+        }
+}
+
+/* better do this before submitting the preset to the input fields
+    document.addEventListener('PresetError', function () {
+	document.querySelector('#presetError').toggle();
+	document.querySelector('#constellation').preset="templates/empty.json";
+	document.querySelector('#segments').preset="templates/empty.json";
+	document.querySelector('#pointahead').preset="templates/empty.json";
+
+	var elements = document.getElementsByTagName('gravity-arrayinputajax');
+
+        for (var i = 0; i < elements.length; i++){
+        elements[i].preset="templates/empty.json";
+        }
+
+
+	elements = document.getElementsByTagName('gravity-inputajax');
+
+        for (var i = 0; i < elements.length; i++){
+        elements[i].preset="templates/empty.json";
+        }
+	
+    });
+*/
+
+    document.addEventListener('WebComponentsReady', function() {
+//	console.log('ready1');
+	var bodytag = document.querySelector('body');
+	bodytag.classList.add('starting');
+//       loadbalken.classList.add('web');
+//       loadwarning.classList.add('displaynone');
+//       loadingtext.classList.remove('displaynone');
+    });
+   
+/* 
+    document.addEventListener('polymer-ready', function() {
+	console.log('ready2');
+//      loadbalken.classList.add('pol');
+    });
+*/
+	var currenthash;
+
+	var formtabs = document.querySelector('#form-tabs');
+	var formpages = document.querySelector('#form-pages');
+
+        var resulttabs = document.querySelector('#result-tabs');
+        var resultpages = document.querySelector('#result-pages');
+
+	var OK = document.querySelector('#OK');
+	var DL = document.querySelector('#DL');
+	var Calculate = document.querySelector('#Calculate');
+	var Restore = document.querySelector('#Restore');
+	var Download = document.querySelector('#Download');
+	var Back = document.querySelector('#Back');
+	var tooltip = document.querySelector('#OKtooltip');
+	var info = document.querySelector('#infotoggle');
+	var waitCalc = document.querySelector('#waitplease');
+	var mainicon = document.querySelector('#mainicon');
+	var mainiconsecone = document.querySelector('#mainiconsecone');
+	var mainiconsectwo = document.querySelector('#mainiconsectwo');
+
+	var presetball = document.querySelector('#presetball');
+	var scratchball = document.querySelector('#scratchball');
+	var recoveryball = document.querySelector('#recoveryball');
+
+	var mainiconsecthree = document.querySelector('#mainiconsecthree');
+	var pages = document.querySelector('#animatedpages');
+	
+
+	// scroll.domReady(); needs to be executed after every page transition (not any more)
+	var scrolltwo = document.querySelector('#scroll-two');
+	var scrollone = document.querySelector('#scroll-one');
+	var scrollzero = document.querySelector('#scroll-zero');
+	var scrollhelp = document.querySelector('#scroll-help');
+	var scrollabout = document.querySelector('#scroll-about');
+	var scrollstart = document.querySelector('#scroll-start');
+	pages.addEventListener('core-transitionend', function(e) {
+	    scrollone.domReady(); 
+	    scrollzero.domReady();  
+	    scrolltwo.domReady();
+	    scrollhelp.domReady();
+	    scrollabout.domReady();
+	    scrollstart.domReady();
+	    scrollone.scrollToTop();
+	    scrolltwo.scrollToTop();
+            scrollzero.scrollToTop();
+	    scrollhelp.scrollToTop();
+	    scrollabout.scrollToTop();
+	    scrollstart.scrollToTop();
+	}); 
+
+
+document.querySelector('#helpme').onclick = function(e){
+        location.hash = "help";
+        }
+
+document.querySelector('#helpdismiss').onclick = function(e){
+	document.querySelector('#helptip').classList.add('dismissme');
+	}
+
+document.querySelector('#dismissbetatip').onclick = function(e){
+        document.querySelector('#betatip').classList.add('dismissme');
+        }
+
+presetball.onclick = function(e) {
+        location.hash = 'presets';
+        }
+scratchball.onclick = function(e) {
+        location.hash = 'parameters';
+        }
+recoveryball.onclick = function(e) {
+        location.hash = 'recover';
+        }
+
+
+mainiconsecone.onclick = function(e) {
+        window.history.back();
+        }
+
+mainiconsectwo.onclick = function(e) {
+        window.history.back();
+        }
+
+mainiconsecthree.onclick = function(e) {
+        window.history.go(-2);
+        }
+
+
+document.querySelector('#videoOneToggle').onclick = function(e) {
+	document.querySelector('#videoOne').toggle();
+}
+
+        var lisapreset = document.querySelector('#preset-lisa');
+        var elisapreset = document.querySelector('#preset-elisa');
+        var ogopreset = document.querySelector('#preset-ogo');
+
+// Presets laden
+
+Restore.onclick = function(e) {
+var restoresession = document.querySelector('#recoverycodeinput');
+
+	if (!restoresession.invalid && restoresession.value) {
+
+	document.querySelector('#checkPreset').preset="templates/sessions/"+restoresession.value+"/parameters.json";
+		
+            document.addEventListener('PresetOK', function () {
+                        loadPreset("sessions/" + restoresession.value + "/parameters");
+                        location.hash = "#parameters"
+                        });
+
+
+	    document.addEventListener('PresetError', function () {
+			document.querySelector('#checkPreset').preset=undefined;
+		        document.querySelector('#presetError').toggle();
+			});
+
+
+		}
+
+        }
+
+document.querySelector('#preset-lisa-link').onclick = function(e) {
+	loadPreset("lisa");
+	}
+document.querySelector('#preset-lisa').onclick = function(e) {
+	loadPreset("lisa");
+        }
+
+document.querySelector('#preset-ogo-link').onclick = function(e) {
+	loadPreset("ogo");
+        }
+document.querySelector('#preset-ogo').onclick = function(e) {
+	loadPreset("ogo");
+        }
+
+document.querySelector('#preset-elisa-link').onclick = function(e) {
+	loadPreset("elisa");
+        }
+document.querySelector('#preset-elisa').onclick = function(e) {
+	loadPreset("elisa");
+        }
+// ---
+
+
+function loadPreset(presetname) {
+
+
+	document.querySelector('#constellation').preset="templates/"+presetname+".json";
+	document.querySelector('#pointahead').preset="templates/"+presetname+".json";
+	document.querySelector('#segments').preset="templates/"+presetname+".json";
+
+        var elements = document.getElementsByTagName('gravity-arrayinputajax');
+
+    for (var i = 0; i < elements.length; i++){
+        elements[i].preset="templates/"+presetname+".json";
+        }
+
+
+	elements = document.getElementsByTagName('gravity-inputajax');
+
+    for (var i = 0; i < elements.length; i++){
+        elements[i].preset="templates/"+presetname+".json";
+        }
+
+
+}
+
+document.querySelector('#preset-lisa-link').onmouseover = function(e) {
+	lisapreset.setAttribute("hero-id", "fab");
+	elisapreset.setAttribute("hero-id", "");
+	ogopreset.setAttribute("hero-id", "");
+	}
+
+document.querySelector('#preset-elisa-link').onmouseover = function(e) {
+        lisapreset.setAttribute("hero-id", "");
+        elisapreset.setAttribute("hero-id", "fab");
+        ogopreset.setAttribute("hero-id", "");
+        }
+
+document.querySelector('#preset-ogo-link').onmouseover = function(e) {
+        lisapreset.setAttribute("hero-id", "");
+        elisapreset.setAttribute("hero-id", "");
+        ogopreset.setAttribute("hero-id", "fab");
+        }
+
+document.querySelector('#preset-lisa').onmouseover = function(e) {
+        lisapreset.setAttribute("hero-id", "fab");
+        elisapreset.setAttribute("hero-id", "");
+        ogopreset.setAttribute("hero-id", "");
+        }
+
+document.querySelector('#preset-elisa').onmouseover = function(e) {
+        lisapreset.setAttribute("hero-id", "");
+        elisapreset.setAttribute("hero-id", "fab");
+        ogopreset.setAttribute("hero-id", "");
+        }
+
+document.querySelector('#preset-ogo').onmouseover = function(e) {
+        lisapreset.setAttribute("hero-id", "");
+        elisapreset.setAttribute("hero-id", "");
+        ogopreset.setAttribute("hero-id", "fab");
+        }
+
+
+function updateOK() {
+
+	if (formtabs.selectedIndex == 0) {
+	scrollone.image="url(images/mission.jpg)";
+	scrollone.updateImage();
+	} 
+        else if (formtabs.selectedIndex == 1) {
+        scrollone.image="url(images/instrument.jpg)";
+	scrollone.updateImage();
+        }
+        else if (formtabs.selectedIndex == 3) {
+        scrollone.image="url(images/temperature.jpg)";
+        scrollone.updateImage();
+	updateTemp();
+        }
+        else if (formtabs.selectedIndex == 2) {
+        scrollone.image="url(images/clock.jpg)";
+        scrollone.updateImage();
+        }
+        else if (formtabs.selectedIndex == 4) {
+        scrollone.image="url(images/metrology.jpg)";
+        scrollone.updateImage();
+        }
+
+
+        if (formtabs.selectedIndex == 4) {
+          OK.icon = 'done-all';
+          OK.classList.add('ready');
+        } else {
+	  OK.icon = 'arrow-forward'; 
+          OK.classList.remove('ready');
+	}
+
+};
+
+function toggle(displayState){
+
+    var elements = document.getElementsByTagName('gravity-arrayinputajax');
+
+if (displayState == 'on') {
+    for (var i = 0; i < elements.length; i++){
+        elements[i].hidetip = false;
+        }
+    } else {
+    for (var i = 0; i < elements.length; i++){
+        elements[i].hidetip = true;
+        }
+        }
+
+
+    elements = document.getElementsByTagName('gravity-inputajax');
+    radiogroup = document.getElementsByTagName('gravity-radioajax');
+
+if (displayState == 'on') {
+    for (var i = 0; i < elements.length; i++){
+        elements[i].hidetip = false;
+	}
+    for (var i = 0; i < radiogroup.length; i++){
+        radiogroup[i].hidetip = false;
+        }
+    } else {
+    for (var i = 0; i < elements.length; i++){
+        elements[i].hidetip = true;
+	}
+    for (var i = 0; i < radiogroup.length; i++){
+        radiogroup[i].hidetip = true;
+        }
+	}
+
+}
+
+    info.onclick = function(e) {
+	        if (info.icon == 'info') {
+		info.icon = 'info-outline'; 
+		document.querySelector('#toast-tipoff').show(); 
+
+	toggle('off');
+
+		} else { 
+		info.icon = 'info';
+		document.querySelector('#toast-tipon').show(); 
+
+	toggle('on');
+
+		}
+    };
+
+    OK.onclick = function(e) {
+
+	if (OK.icon != 'done-all') {
+     formpages.selected = (formpages.selected + 1) % formtabs.items.length;      
+   formtabs.selected = (formtabs.selected + 1) % formtabs.items.length;      
+
+      this.async(function() {
+//		document.querySelector('#formcard').style.height = $(formpages.items[formpages.selected]).height() + 48 + 32 + "px";
+//		updateOK();
+	});
+	} else {
+//		submitArrayParameters();
+//		submitParameters();
+
+		location.hash = 'name';
+
+	}
+
+    };
+
+    DL.onclick = function(e) {
+	location.hash = 'author';	
+    };
+
+    Download.onclick = function(e) {
+	recoverySubmissionLoop(false); //save parameters in rData-element
+        location.hash = 'download';
+    };
+
+
+var recoverycode = document.querySelector('#recoverycodeinput');
+var regExA = new RegExp("^[A-Fa-f0-9]{5}$");
+var regExB = new RegExp("^[A-Fa-f0-9]{4}-[A-Fa-f0-9]{5}$");
+
+recoverycode.addEventListener('input', function(e) {
+
+	recoverycode.inputValue = recoverycode.inputValue.toLowerCase();
+
+if (regExA.exec(recoverycode.inputValue)) {
+	var character = recoverycode.inputValue.split("");
+	recoverycode.inputValue = character[0] + character[1] + character[2] + character[3] + "-" + character[4];
+	}
+if (regExB.exec(recoverycode.inputValue)) {
+        var character = recoverycode.inputValue.split("");
+        recoverycode.inputValue = character[0] + character[1] + character[2] + character[3] + "-" + character[5] + character[6] + character[7] + character[8] + "-" + character[9];
+        }
+
+});
+
+
+Calculate.onclick = function(e) {
+	pages.selected = 4;
+	recoverySubmissionLoop(true); //save parameters in rData-element
+	bigSubmissionLoop();  //start all the calculations
+};
+        resulttabs.addEventListener('core-select', function(e) {
+        resultpages.selected = (resulttabs.selected) % resulttabs.items.length;
+
+        if (e.detail.isSelected) {
+
+      this.async(function() {
+                scrollone.scrollToTop();
+		$(document).scrollTop(0);
+        });
+
+        }
+
+          });
+
+
+	formtabs.addEventListener('core-select', function(e) {
+	formpages.selected = (formtabs.selected) % formtabs.items.length;      
+
+	if (e.detail.isSelected) {
+
+      this.async(function() {
+//		document.querySelector('#formcard').style.height = $(formpages.items[formpages.selected]).height() + 48 + 32 + "px";
+		scrollone.scrollToTop();
+		$(document).scrollTop(0);
+		updateOK();
+	});
+
+	}
+
+	  });
+
+var splithash = "";
+var recoverthis = "";
+
+$(function(){
+
+        $(window).hashchange( function(){
+
+ga('send', 'pageview', {
+ 'page': location.pathname + location.search  + location.hash
+});
+
+var myBody = $("html, body");
+myBody.animate({ scrollTop: 0 }, 'fast');
+
+		//always show first tab on page change (don't remember the tab you came from)
+                formpages.selected = 0;
+                formtabs.selected = 0;
+                resultpages.selected = 0;
+                resulttabs.selected = 0;
+
+
+		splithash = location.hash.split("=");
+
+	if (currenthash == null && splithash[0] == "#rc") {
+			recoverthis = splithash[1];
+			currenthash = location.hash; location.hash = 'start';
+		}
+	else if (currenthash == null) {location.hash = 'start'; currenthash = "start";}
+	else {currenthash = location.hash; mainicon.icon = "arrow-back";}
+
+		if (recoverthis || location.hash == "#restore") {
+		loadPreset("empty");
+			location.hash = 'restore'; currenthash = "restore";
+			if (recoverthis) {document.querySelector('#recoverycodeinput').value = recoverthis;}
+			recoverthis = null;
+			pages.selected = 8;
+		}
+
+                else if (location.hash == "#presets") {
+                loadPreset("empty");
+                pages.selected = 1;
+                lisapreset.setAttribute("hero-id", "");
+                elisapreset.setAttribute("hero-id", "");
+                ogopreset.setAttribute("hero-id", "");
+                }
+
+
+                else if (location.hash == "#parameters") {
+		pages.selected = 2;
+
+                waitCalc.current = 0;
+                waitCalc.updateValue();
+
+		session = randomHEX() + '-' + randomHEX() + '-' + randomHEX(); //reset the session
+		}
+		else if (location.hash == "#name") {
+
+                waitCalc.current = 0;
+                waitCalc.updateValue();
+
+                var logerrors = "";
+                        logerrors = checkParameters('gravity-arrayinputajax');
+                        logerrors = logerrors + checkParameters('gravity-inputajax');
+                        logerrors = logerrors + checkRadios('gravity-radioajax');
+                if(logerrors) {
+
+                    var ebind = document.querySelector('#parameters-error-bind');
+                    ebind.error = [{
+                      errors: logerrors
+                    }];
+
+                        document.querySelector('#parametersError').toggle();
+			window.history.back();
+                }
+                else {pages.selected = 3;}
+		}
+		else if (location.hash == "#result") {
+
+			var tPlots = document.querySelector('#tPlots');
+//			if (tPlots.uuid[0]) {session = tPlots.uuid[0][1];}
+			tPlots.uuid = new Array(); //kill the session response
+//			console.log("This is my session: " + session);
+			pages.selected = 5;
+			}
+		else if (location.hash == "#author") {
+			pages.selected = 6;
+			}
+                else if (location.hash == "#download") {
+                        pages.selected = 7;
+                        }
+                else if (location.hash == "#recover") {
+			loadPreset("empty");
+			document.querySelector('#recoverycodeinput').value = "";
+                        pages.selected = 8;
+                        }
+                else if (location.hash == "#help") {
+                        pages.selected = 9;
+                        }
+                else if (location.hash == "#about") {
+                        pages.selected = 10;
+                        }
+                else if (location.hash == "#save") {
+			recoverySubmissionLoop(true); //save the parameters and generate the QR code
+                        pages.selected = 11;
+                        }
+
+
+
+                else {
+//			document.querySelector('#helptip').classList.remove('dismissme');
+
+			pages.selected = 0;
+			mainicon.icon = null;
+
+			var elements = document.getElementsByTagName('gravity-arrayinputajax');
+
+			for (var j = 0; j < elements.length; j++) {
+				elements[j].array = [];
+				}
+			loadPreset("empty");
+
+			}
+
+        })
+
+document.addEventListener('polymer-ready', function() {
+$(window).hashchange();
+});
+
+
+});
+
+
+//UPDATE the waitCalc waiter dingsi
+addEventListener('gravity-gnuplotsvg-onedown', function(e) {
+      var d = e.detail;
+//	console.log(d.count);
+	waitCalc.current = waitCalc.current + d.count;
+	waitCalc.updateValue();
+    });
+
+
+//WAIT until calculatoin is finished (later 100%, not 5% - wait-total accounts for the first 5%, start the single arm) and go to result page at d.status == (wait.Calc.total + 4*wait.Calc.total + 16*wait.Calc.total) or so.
+    waitCalc.addEventListener('gravity-waitplease-update', function(e) {
+      var d = e.detail;
+//      console.log(d.status);
+	        if (d.status == waitCalc.total) {
+			mergeUUIDs();
+		}
+		else if (d.status == (waitCalc.total + 4 * waitCalc.total)) {
+			mergeUUIDf();
+                }
+		else if (d.status == (waitCalc.total + 4 * waitCalc.total + 16 * waitCalc.total)) {
+			finalSubmissionLoop();
+		} else if (d.status == (waitCalc.total + 4 * waitCalc.total + 16 * waitCalc.total + 1)) {
+                        //after the final overall plot which counts 1
+			location.hash = 'result';
+		}
+
+    });
+
+
+
+   var bottomBar = document.querySelector('.raiseBar').style;
+   var scrollone = document.querySelector('#scroll-one');
+    scrollone.addEventListener('core-header-transform', function(e) {
+      var d = e.detail;
+	bottomBar.opacity = (100 - d.y) / 100;
+    });
+
+function styleSVGs(SVGelement) {
+
+                        var svgDoc = SVGelement.contentDocument;
+                        var appendHere = svgDoc.querySelector('svg');
+			var linkElm = "";
+
+                        linkElm = svgDoc.createElementNS("http://www.w3.org/1999/xhtml", "link");
+                        linkElm.setAttribute("href", "/designer/gnuplot.css");
+			linkElm.setAttribute("type", "text/css");
+                        linkElm.setAttribute("rel", "stylesheet");
+                        appendHere.appendChild(linkElm);                                                           
+
+                        linkElm = svgDoc.createElementNS("http://www.w3.org/1999/xhtml", "link");
+                        linkElm.setAttribute("href", '//fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en');
+                        linkElm.setAttribute("type", "text/css");
+                        linkElm.setAttribute("rel", "stylesheet");
+                        appendHere.appendChild(linkElm);
+}
+
+
+jQuery.preload = function(array) {
+	var length = array.length,
+	    document = window.document,
+	    body = document.body,
+	    preloadtag = document.querySelector('#preload'),
+	    isIE = 'fileSize' in document,
+	    object;
+	while (length--) {
+		if (isIE) {
+			new Image().src = array[length];
+			continue;
+		}
+		object = document.createElement('object');
+		object.data = array[length];
+		object.width = object.height = 0;
+		preloadtag.appendChild(object);
+	}
+};
+
+$(function() {
+	$.preload([
+		'/designer/images/starting.gif',
+		'/designer/images/temperature.jpg',
+                '/designer/images/mission.jpg',
+                '/designer/images/instrument.jpg',
+                '/designer/images/clock.jpg',
+                '/designer/images/metrology.jpg'
+	]);
+});
+
+
+</script>
+
+
+
+</body>
+
+
+
+
+</html>
+

@@ -1,0 +1,27 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+
+
+<polymer-element name="gravity-checkpreset" attributes="preset">
+
+  <template>
+
+<core-ajax auto url="{{preset}}" handleAs="json" response="{{response}}" on-core-error="{{errorResponse}}"></core-ajax>
+
+  </template>
+  <script>
+    Polymer('gravity-checkpreset', {
+
+    preset: 'templates/empty.json',
+
+        errorResponse: function(event, response) {
+		this.fire('PresetError');
+        },
+
+       responseChanged: function(e) {
+		if (this.preset != 'templates/empty.json') {this.fire('PresetOK');}
+	}
+    });
+  </script>
+
+</polymer-element>

@@ -1,0 +1,47 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+<link href="../../bower_components/gravity-inputpages/gravity-input.html" rel="import">
+
+<polymer-element name="gravity-ajaxinput" attributes="url parameter">
+<template>
+    <core-ajax auto url="{{url}}" handleAs="json" response="{{response}}"></core-ajax>
+    <div id="body"></div>
+
+	<gravity-input floatingLabel label="{{parameterlabel}}" value="{{parametervalue}}" validate="^[0-9]*$" error="Input must be a number!" position="right" hidetip>
+	<div unit>{{parameterunit}}</div>
+	<div tip>{{parametertip}}</div>
+	</gravity-input>
+
+
+</template>
+<script>
+  Polymer('gravity-ajaxinput',{
+
+parameter: '',
+
+url: 'templates/lisa.json',
+
+parameterlabel: 'Error: uninitialized',
+
+parametervalue: '',
+
+parameterunit: '',
+
+parametertip: '',
+
+firsttime: true,
+
+   responseChanged: function(e) {
+var parameter = this.response.feed.parameters[this.parameter];
+     this.parametervalue = parameter.value
+	if (this.firsttime) {
+	     this.parameterlabel = parameter.name;
+	     this.parameterunit = parameter.unit;
+	     this.parametertip = parameter.description;
+	}
+     this.firsttime = false;
+   }
+});
+
+</script>
+</polymer-element>

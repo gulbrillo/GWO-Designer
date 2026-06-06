@@ -1,0 +1,286 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">  
+<link href="../../bower_components/paper-input/paper-input.html" rel="import">
+<link href="../../bower_components/gravity-tooltip/core-tooltip.html" rel="import">
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+
+
+<!--
+The `gravite-input` element creates a input formfield autofilled from ajax with hover tooltip that can be disabled.
+
+Example:
+
+<gravity-inputajax floatingLabel preset="templates/lisa.json" parameter="telescope" validate="^[0-9]*$" error="Input must be a number!" position="right" hidetip>
+</gravity-inputajax>
+
+position: left or right (or so)
+hidetip: disable tooltip
+
+-->
+
+
+
+<polymer-element name="gravity-inputajax" extends="paper-input" on-keypress="{{keypressHandler}}" attributes="hidetip position preset parameter array">
+
+<template>
+	<style>
+
+    core-tooltip.fancy::shadow .polymer-tooltip {
+      opacity: 0;
+      -webkit-transition: all 300ms cubic-bezier(0,1.92,.99,1.07);
+      transition: all 300ms cubic-bezier(0,1.92,.99,1.07);
+      -webkit-transform: translate3d(0, -10px, 0);
+      transform: translate3d(0, -10px, 0);
+    }
+
+    core-tooltip.fancy:hover::shadow .polymer-tooltip,
+    core-tooltip.fancy:focus::shadow .polymer-tooltip {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+
+core-tooltip /deep/ #tooltip.top {
+left: -8px !important;
+}
+
+core-tooltip /deep/ .polymer-tooltip.top::after {
+border-top-color: #607d8b;
+left: 8px;
+}
+
+	:host /deep/ #error {
+	color: #e00032;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	}
+
+        :host /deep/  .focusedColor
+         {
+              color: #00acc1;
+	      background: #00acc1;
+        }
+
+:host /deep/ *:focus {
+    outline: none;
+}
+
+:host {
+  display: inline-block;
+  outline: none;
+  text-align: inherit;
+  color: inherit;
+  width:320px;
+}
+:host(:hover) {
+  cursor: default;
+}
+
+
+core-tooltip #paper-input {
+  display: inline-block;
+  outline: none;
+  text-align: inherit;
+  color: #757575;
+}
+core-tooltip #text:hover {
+  cursor: text;
+}
+
+	core-tooltip #paper-input {
+	width:230px;
+	vertical-align: middle;
+	}
+
+
+
+core-tooltip  .text-pullup {
+display:inline-block;
+vertical-align: middle;
+margin-bottom:12px;
+}
+
+
+core-tooltip .inner-tip {
+width:260px;
+white-space:normal;
+}
+
+@media all and (max-width: 710px) {
+
+        core-tooltip.focus
+        {
+        position: fixed;
+        background: #ffffff;
+        top: 0;
+        z-index: 6000;
+        padding: 15px;
+/*      width: 100%; */
+        left: 0;
+        right:0;
+        bottom:0;
+        }
+
+        core-tooltip.focus /deep/ #tooltip {
+        visibility: visible !important;
+        display: block !important;
+z-index: 8000;
+position: absolute;
+left: 0 !important;
+right: 0 !important;
+margin: 0;
+padding: 15px;
+background-color: #505050;
+border-radius: 0;
+font-size: 15px;
+bottom: 0 !important;
+top: 90px !important;
+width:100%;
+        }
+
+        core-tooltip.focus .inner-tip {
+        width: 100%;
+        }
+
+core-tooltip .inner-tip:before {
+  color:#ffffff;
+  content:"OK";
+  float:right;;
+  height:50px;
+  line-height:50px;
+  text-align:center;
+  font-size:24px;
+  width:50px;
+  top:-90px;
+  margin:5px 0 5px 5px;
+  background:#00acc1;
+  border-radius:25px;
+  z-index:9000;
+}
+
+}
+
+
+	</style>
+
+    <core-ajax auto url="{{preset}}" handleAs="json" response="{{response}}"></core-ajax>
+
+                <core-tooltip id="wrapper" hidetip?="{{hidetip}}"  position="{{position}}" class="fancy pulldown">
+
+<div id="text">
+<div id="paper-input">
+<shadow></shadow>
+</div>
+
+                        <div class="text-pullup">
+{{parameterunit}}
+			</div>
+</div>
+
+                          <div tip>
+                                <div class="inner-tip">
+{{parametertip}}
+				</div>
+                          </div>
+                </core-tooltip>
+
+</template>
+
+  <script>
+  Polymer('gravity-inputajax', {
+name: null,
+value: null,
+hidetip: false,
+position: "right",
+
+floatingLabel: true,
+required: false,
+
+validate: "^[\\s]*[0-9]*\\.?[0-9]+[\\s]*([e][\\s]*[\\-]?[\\s]*[0-9]+)?[\\s]*$",
+error: "Input must be a number!",
+
+parameter: '',
+
+preset: 'templates/empty.json',
+parameterunit: '',
+parametertip: '',
+
+firsttime: true,
+
+
+   responseChanged: function(e) {
+var parameter = this.response.feed.parameters[this.parameter];
+     this.value = parameter.value;
+        if (this.firsttime) {
+	     this.label = 'Error: uninitialized';
+             this.label = parameter.name;
+             this.parameterunit = parameter.unit;
+             this.parametertip = parameter.description;
+        }
+     this.firsttime = false;
+   },
+
+	keypressHandler: function(event, detail, sender) {
+		if(event.which === 13) {
+			this.$.input.blur();
+			this.$.wrapper.classList.remove('focus');
+		}		
+	},
+
+      focusAction: function(e) {
+        if (!this.pressed) {
+          if (this.floatingLabel) {
+            this.$.floatedLabel.classList.remove('hidden');
+            this.$.floatedLabel.classList.add('focused');
+            this.$.floatedLabel.classList.add('focusedColor');
+          }
+          this.$.label.classList.add('hidden');
+          this.$.underlineHighlight.classList.add('focused');
+          this.$.caret.classList.add('focused');
+          this.$.input.focus();
+        }
+        this.focused = true;
+	this.$.wrapper.classList.add('focus');
+      },
+
+      blurAction: function() {
+        this.$.underlineHighlight.classList.remove('focused');
+        this.$.caret.classList.remove('focused');
+        if (this.floatingLabel) {
+          this.$.floatedLabel.classList.remove('focused');
+          this.$.floatedLabel.classList.remove('focusedColor');
+          if (!this.inputValue) {
+            this.$.floatedLabel.classList.add('hidden');
+          }
+        }
+        if (!this.inputValue) {
+          this.$.label.classList.remove('hidden');
+          this.$.label.classList.add('animating');
+          this.async(function() {
+            this.$.label.style.webkitTransform = 'none';
+            this.$.label.style.transform = 'none';
+          });
+        }
+        this.focused = false;
+	this.$.wrapper.classList.remove('focus');
+      },
+
+      /**
+       * If comma separated, put values into an array.
+       */
+      commit: function() {
+	if (this.parameter != 'name') { //name is allowd spaces
+	        this.inputValue = this.inputValue.replace(/\pZ+/g, '');
+	}
+	this.inputValue = this.inputValue.replace(/["\\]+/g, '');
+        this.value = this.inputValue;
+      }
+
+
+});
+
+
+  </script>
+
+
+</polymer-element>

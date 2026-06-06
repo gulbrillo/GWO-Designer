@@ -1,0 +1,9 @@
+#GWODesigner_plot_1 text tspan, #GWODesigner_plot_2 text tspan, #GWODesigner_plot_3 text tspan, #GWODesigner_plot_4 text tspan, #GWODesigner_plot_5 text tspan, #GWODesigner_plot_6 text tspan, #GWODesigner_plot_7 text tspan, #GWODesigner_plot_8 text tspan, #GWODesigner_plot_9 text tspan, #GWODesigner_plot_10 text tspan {cursor: pointer;}
+
+#GWODesignerSrc_plot_1 text tspan, #GWODesignerSrc_plot_2 text tspan, #GWODesignerSrc_plot_3 text tspan, #GWODesignerSrc_plot_4 text tspan, #GWODesignerSrc_plot_5 text tspan, #GWODesignerSrc_plot_6 text tspan, #GWODesignerSrc_plot_7 text tspan, #GWODesignerSrc_plot_8 text tspan, #GWODesignerSrc_plot_9 text tspan, #GWODesignerSrc_plot_10 text tspan, #GWODesignerSrc_plot_11 text tspan, #GWODesignerSrc_plot_12 text tspan, #GWODesignerSrc_plot_13 text tspan, #GWODesignerSrc_plot_14 text tspan, #GWODesignerSrc_plot_15 text tspan, #GWODesignerSrc_plot_16 text tspan, #GWODesignerSrc_plot_17 text tspan, #GWODesignerSrc_plot_18 text tspan, #GWODesignerSrc_plot_19 text tspan, #GWODesignerSrc_plot_20 text tspan, #GWODesignerSrc_plot_21 text tspan, #GWODesignerSrc_plot_22 text tspan, #GWODesignerSrc_plot_23 text tspan, #GWODesignerSrc_plot_24 text tspan {cursor: pointer;}
+
+image {cursor: pointer;}
+svg > rect {stroke-width: 0; fill:rgba(255,255,255,0.5);}
+g#gnuplot_canvas > g > g > polygon {fill: rgba(255,255,255,0.5);cursor: crosshair;}
+#coord_text {white-space: pre; font-family:RobotoDraft; font-size:14pt;}
+

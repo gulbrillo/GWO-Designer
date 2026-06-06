@@ -1,0 +1,21 @@
+# Build context is the repo root. Keep it lean — exclude the backup tarballs and
+# anything not needed inside the image.
+*.tar.gz
+/*.zip
+*.code-workspace
+CLAUDE.md
+
+# Editor / VCS noise (harmless if absent)
+.git
+.vscode
+
+# Stale runtime data (these are mounted as volumes at runtime anyway)
+app/web/results/*
+app/web/sessions/*
+app/web/templates/sessions/*
+
+# Leftover backups, should already be gone from the tree
+**/*.bak
+**/*.bak2
+**/*.bak.*
+**/*.old

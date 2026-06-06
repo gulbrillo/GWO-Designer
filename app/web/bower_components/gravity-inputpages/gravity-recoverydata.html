@@ -1,0 +1,139 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="gravity-recoverydata" attributes="data qr params code link">
+	<template>
+
+<style>
+.recoverycode {
+	font-family: 'Roboto Slab', serif;
+	font-size: 32px;
+	color: #0097a7;
+	}
+.qr a {
+color: #0097a7;
+}
+
+.desc {background: #ffffff;max-width:100% !important; padding:0.5em 1.5em;min-width:280px !important; -ms-flex-basis:280px; -webkit-flex-basis:280px;flex-basis:280px;-ms-flex-grow:1; -webkit-flex-grow:1;flex-grow:1;background: rgba(0,0,0,0.13);}
+
+.graph {background: #ffffff; -ms-flex-grow: 2; -webkit-flex-grow: 2;  flex-grow: 2; -ms-flex-basis:calc(640px + 3em); -webkit-flex-basis:calc(640px + 3em);flex-basis: calc(640px + 3em);min-width:0 !important; max-width:1000px;padding:0.5em 1.5em;background: rgba(0,0,0,0.13);}
+
+.imgwrap {
+background:#ffffff;
+padding:8px;
+display:inline-block;
+}
+
+a {color: #0097a7;}
+
+</style>
+
+
+<template repeat="{{d in data}}">
+
+  <core-ajax auto method="POST" url="/designer/save.recovery"
+      params='{ {{d.parameters}} }'
+      handleAs="json" response="{{d.response}}"></core-ajax>
+
+<template if="{{params}}">
+<div class="desc"><content></content>
+<p><strong>Recovery code:</strong> {{d.response.feed.parameters.source.session}}</p>
+
+<p>You may also use the permalink <a target="_blank" href="http://spacegravity.org/designer/#rc={{d.response.feed.parameters.source.session}}">http://spacegravity.org/designer/#rc={{d.response.feed.parameters.source.session}}</a></p>
+<p>Or scan this QR code to continue your work on a mobile device</p>
+<div class="imgwrap"><img src="/designer/sessions/{{d.response.feed.parameters.source.session}}/qr.svg" style="width:200px;height:200px;"/></div>
+
+
+</div>
+
+
+
+<div class="graph expandlast">
+<p><strong>Mission parameters:</strong><br/>
+{{d.response.feed.parameters.con.description.name}}: {{d.response.feed.parameters.con.description.selected | toFullName}}<br />
+{{d.response.feed.parameters.arm.name}}: {{d.response.feed.parameters.arm.value}} {{d.response.feed.parameters.arm.unit}}<br/>
+{{d.response.feed.parameters.wave.name}}: {{d.response.feed.parameters.wave.value}} {{d.response.feed.parameters.wave.unit}}<br/>
+{{d.response.feed.parameters.freq.name}}: {{d.response.feed.parameters.freq.value}} {{d.response.feed.parameters.freq.unit}}<br/>
+{{d.response.feed.parameters.tel.name}}: {{d.response.feed.parameters.tel.value}} {{d.response.feed.parameters.tel.unit}}<br/>
+{{d.response.feed.parameters.power.name}}: {{d.response.feed.parameters.power.value}} {{d.response.feed.parameters.power.unit}}<br/>
+{{d.response.feed.parameters.rin.name}}: {{d.response.feed.parameters.rin.value}} {{d.response.feed.parameters.rin.unit}}<br/>
+{{d.response.feed.parameters.lfn.name}}: {{d.response.feed.parameters.lfn.value}} {{d.response.feed.parameters.lfn.unit}}<br/>
+{{d.response.feed.parameters.ops.name}}: {{d.response.feed.parameters.ops.value}} {{d.response.feed.parameters.ops.unit}}<br/>
+</p>
+
+<p><strong>Optics:</strong><br/>
+{{d.response.feed.parameters.oe.name}}: {{d.response.feed.parameters.oe.value}} {{d.response.feed.parameters.oe.unit}}<br/>
+{{d.response.feed.parameters.zero.name}}: {{d.response.feed.parameters.zero.value}} {{d.response.feed.parameters.zero.unit}}<br/>
+{{d.response.feed.parameters.he.name}}: {{d.response.feed.parameters.he.value}} {{d.response.feed.parameters.he.unit}}<br/>
+{{d.response.feed.parameters.fs.name}}: {{d.response.feed.parameters.fs.value}} {{d.response.feed.parameters.fs.unit}}<br/>
+</p>
+
+<p><strong>Photo receiver:</strong><br/>
+{{d.response.feed.parameters.seg.description.name}}: {{d.response.feed.parameters.seg.description.selected}}<br />
+{{d.response.feed.parameters.qe.name}}: {{d.response.feed.parameters.qe.value}} {{d.response.feed.parameters.qe.unit}}<br/>
+{{d.response.feed.parameters.vn.name}}: {{d.response.feed.parameters.vn.value}} {{d.response.feed.parameters.vn.unit}}<br/>
+{{d.response.feed.parameters.cap.name}}: {{d.response.feed.parameters.cap.value}} {{d.response.feed.parameters.cap.unit}}<br/>
+{{d.response.feed.parameters.cn.name}}: {{d.response.feed.parameters.cn.value}} {{d.response.feed.parameters.cn.unit}}<br/>
+</p>
+
+
+<p><strong>Metrology system:</strong><br/>
+{{d.response.feed.parameters.acc.name}}: {{d.response.feed.parameters.acc.value}} {{d.response.feed.parameters.acc.unit}}<br/>
+{{d.response.feed.parameters.ranging.name}}: {{d.response.feed.parameters.ranging.value}} {{d.response.feed.parameters.ranging.unit}}<br/>
+{{d.response.feed.parameters.pm.name}}: {{d.response.feed.parameters.pm.value}} {{d.response.feed.parameters.pm.unit}}<br/>
+</p>
+
+<p><strong>Reference frequency:</strong><br/>
+{{d.response.feed.parameters.sbf.name}}: {{d.response.feed.parameters.sbf.value}} {{d.response.feed.parameters.sbf.unit}}<br/>
+{{d.response.feed.parameters.eomnoise.name}}: {{d.response.feed.parameters.eomnoise.value}} {{d.response.feed.parameters.eomnoise.unit}}<br/>
+{{d.response.feed.parameters.sbpower.name}}: {{d.response.feed.parameters.sbpower.value}} {{d.response.feed.parameters.sbpower.unit}}<br/>
+{{d.response.feed.parameters.cps.name}}: {{d.response.feed.parameters.cps.value}} {{d.response.feed.parameters.cps.unit}}<br/>
+{{d.response.feed.parameters.fps.name}}: {{d.response.feed.parameters.fps.value}} {{d.response.feed.parameters.fps.unit}}<br/>
+{{d.response.feed.parameters.sbl.name}}: {{d.response.feed.parameters.sbl.value}} {{d.response.feed.parameters.sbl.unit}}<br/>
+{{d.response.feed.parameters.ofl.name}}: {{d.response.feed.parameters.ofl.value}} {{d.response.feed.parameters.ofl.unit}}<br/>
+{{d.response.feed.parameters.fanoise.name}}: {{d.response.feed.parameters.fanoise.value}} {{d.response.feed.parameters.fanoise.unit}}<br/>
+{{d.response.feed.parameters.etm.name}}: {{d.response.feed.parameters.etm.value}} {{d.response.feed.parameters.etm.unit}}<br/>
+</p>
+
+</p>
+</div>
+</template>
+
+<template if="{{code}}">
+<div class="recoverycode">{{d.response.feed.parameters.source.session}}</div>
+</template>
+
+<template if="{{qr}}">
+<div class="qr">
+<p>You may also use the permalink <a target="_blank" href="http://spacegravity.org/designer/#rc={{d.response.feed.parameters.source.session}}">http://spacegravity.org/designer/#rc={{d.response.feed.parameters.source.session}}</a></p>
+<p>Or scan this QR code to continue your work on a mobile device</p>
+<img src="/designer/sessions/{{d.response.feed.parameters.source.session}}/qr.svg" style="width:200px;height:200px;"/>
+</div>
+</template>
+
+
+</template>
+
+</template>
+
+  <script>
+  Polymer('gravity-recoverydata', {
+data: "",
+qr: false,
+params: false,
+code: false,
+link: "",
+
+   responseChanged: function(e) {
+	this.link = "http://spacegravity.org/designer/#rc=" + this.d.response.feed.parameters.source.session;
+	},
+   toFullName: function(value) {
+	if (value == "two") {return "Two-arm V-shape (4 links)";}
+	else if (value == "tri") {return "Three-arm triangular (6 links)";}
+	else if (value == "oct") {return "12-arm octahedral (24 links)";}
+	else {return value;}
+	}
+
+});
+</script>
+
+</polymer-element>

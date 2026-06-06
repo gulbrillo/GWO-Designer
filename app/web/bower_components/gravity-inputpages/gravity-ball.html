@@ -1,0 +1,83 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link href="../../bower_components/paper-shadow/paper-shadow.html" rel="import">
+<link href="../../bower_components/paper-ripple/paper-ripple.html" rel="import">
+
+<polymer-element name="gravity-ball" attributes="title subtitle">
+	<template>
+
+<style>
+
+#ball {
+background:#e00032;
+color:#ffffff;
+position:relative;
+width:180px;
+height:180px;
+border-radius:90px;
+cursor:pointer;
+margin-left: auto;
+margin-right: auto;
+}
+
+#title, #subtitle, #content {
+text-align:center;
+}
+
+#title {
+font-size: 24px;
+text-transform: uppercase;
+}
+
+#subtitle {
+font-size: 24px;
+}
+
+#content {
+position:absolute;
+top:105px;
+left:0;
+right:0;
+font-size: 12px;
+white-space: pre-line;
+font-weight:300;
+}
+
+#titlecontainer {
+position:absolute;
+bottom:95px;
+left:0;
+right:0;
+}
+
+:host{
+-ms-flex-basis: 220px;
+-webkit-flex-basis: 220px;
+flex-basis: 220px;
+margin-left: auto;
+margin-right: auto;
+height:210px;
+}
+
+</style>
+
+<div id="ball">
+<div id="titlecontainer">
+	<div id="title">{{title}}</div>
+	<div id="subtitle">{{subtitle}}</div>
+</div>
+<div id="content"><content></content></div>
+<paper-ripple class="recenteringTouch" fit></paper-ripple>
+<paper-shadow z="2"></paper-shadow>
+</div>
+
+	</template>
+
+  <script>
+  Polymer('gravity-ball', {
+
+	title: "SELECT me"
+
+});
+</script>
+
+</polymer-element>

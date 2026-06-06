@@ -1,0 +1,55 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link href="../../bower_components/paper-button/paper-button.html" rel="import">
+
+<polymer-element name="gravity-downloads" attributes="folder type data label size">
+	<template>
+
+<style>
+#title {
+white-space: pre-line;
+}
+#file {
+font-size: 0.8em;
+margin-bottom:24px;
+color: rgba(0,0,0,.54);
+text-align: center;
+}
+paper-button {
+fill: #ffffff;
+color: #ffffff;
+background: #e00032 !important;
+text-transform: none;
+width:100%;
+}
+#button {
+}
+#type {
+margin: 0 0 8px 0;
+}
+</style>
+
+<div>
+
+<template repeat="{{d in data}}">
+<div id="type">
+<h4 id="title">{{d.title}}</h4>
+	<div vertical layout>
+		<div flex id="button"><a target="_blank" href="/designer/download.{{folder}}/{{d.uuid}}.{{type}}"><paper-button icon="file-download" raisedButton label="{{label}}"></paper-button></a></div>
+		<div id="file">{{d.uuid}}.{{type}} ({{size}})</div>
+	</div>
+</div>
+</template>
+
+</div>
+
+</template>
+
+  <script>
+  Polymer('gravity-downloads', {
+type: "",
+folder: "",
+data: ""
+});
+</script>
+
+</polymer-element>

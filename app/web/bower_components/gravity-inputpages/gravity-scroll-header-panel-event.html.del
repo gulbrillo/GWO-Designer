@@ -1,0 +1,53 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">  
+<link href="../../bower_components/core-scroll-header-panel/core-scroll-header-panel.html" rel="import">
+
+
+
+<polymer-element name="gravity-scroll-header-panel" extends="core-scroll-header-panel">
+
+<template>
+
+<shadow></shadow>
+
+</template>
+
+  <script>
+  Polymer('gravity-input', {
+
+    transformHeader: function(y) {
+      var s = this.$.headerContainer.style;
+      this.translateY(s, -y);
+
+      if (this.condenses) {
+        // adjust top bar in core-header so the top bar stays at the top
+        if (this.header.$ && this.header.$.topBar) {
+          s = this.header.$.topBar.style;
+          this.translateY(s, Math.min(y, this.headerMargin));
+        }
+        // transition header bg
+        s = this.$.headerBg.style;
+        if (!this.noDissolve) {
+          s.opacity = (this.headerMargin - y) / this.headerMargin;
+        }
+        // adjust header bg so it stays at the center
+        this.translateY(s, y / 2);
+        // transition condensed header bg
+        if (!this.noDissolve) {
+          s = this.$.condensedHeaderBg.style;
+          s.opacity = y / this.headerMargin;
+          // adjust condensed header bg so it stays at the center
+          this.translateY(s, y / 2);
+        }
+      }
+
+      this.fire('core-header-transform-parameters',
+          {y: y, height: this.headerHeight, condensedHeight: this.condensedHeaderHeight});
+    }
+
+});
+
+
+  </script>
+
+
+</polymer-element>

@@ -1,0 +1,4 @@
+2.26E-04        2.22E-20        ""	"J0737" "Double neutron star: PSR J0737-3039"
+5.19E-04	2.55E-20	"EI Psc"	"Cataclysmic variable star: EI Psc"
+4.07E-04	7.98E-20	"WZ Sge"	"Cataclysmic variable star: WZ Sge"
+4.73E-04	4.79E-20	""	"sdB + WD binary: CD-30 11223"

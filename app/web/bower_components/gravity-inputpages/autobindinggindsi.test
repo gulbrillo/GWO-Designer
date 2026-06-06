@@ -1,0 +1,26 @@
+  <template id="displacementPlots" is="auto-binding" repeat="{{quotes}}">
+
+  <core-ajax auto method="POST" url="calculate.displacement"
+      params='{ {{parameters}} }'
+      handleAs="text" response="{{response}}" on-core-response="{{updateWait}}"></core-ajax>
+
+<div class="formbox half">
+    <div style="white-space:pre-line;">{{plottitle}}</div>
+    <div><gravity-gnuplotsvg uuid="{{response}}"></gravity-gnuplotsvg></div>
+</div>
+
+  </template>
+    <script>
+    var ajaxDt = document.querySelector('#displacementPlots');
+    ajaxDt.updateWait = function() {
+        waitCalc.current++;
+        waitCalc.updateValue();
+    };
+        function plotDisplacement(data){
+            ajaxDt.quotes = data;
+        };
+
+
+  </script>
+
+aufruf über plotDisplacement(data); das setzt das data model von ajaxDt und updated das repeat ding für quotes... oderso. ^^

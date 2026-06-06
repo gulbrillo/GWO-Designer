@@ -1,0 +1,443 @@
+{
+   "version":"1.0",
+   "encoding":"UTF-8",
+   "feed":{
+      "url":{
+         "$t":"http://spacegravity.org/gwo-designer"
+      },
+      "description":{
+         "$t":"Empty parameter set for the Gravitational Wave Observatory Designer. Visit the URL above and use the code below to load the set into the web application."
+      },
+      "session":{
+         "$t":"empty"
+      },
+      "date":{
+         "$t":"2014-07-20 22:45:00"
+      },
+      "author":
+         {
+            "name":"",
+            "affiliation":""
+         },
+      "parameters":
+         {
+	      "name":{
+                  "name":"Observatory name",
+                  "value":"",
+                  "unit":"",
+                  "description":"This name is used for plots and documents. Be creative but keep it short. Example: a 'Gravitational-wave Octahedral Detector' could be abbreviated as 'GOD'."
+	      },
+              "author":{
+                  "name":"Author",
+                  "description":"You can use any name you like, preferably your own."
+              },
+              "affiliation":{
+                  "name":"Affiliation",
+                  "description":"Don't be shy and tell everyone whom you are doing this research for."
+              },
+            "paam":
+               {
+
+                "description":
+                {
+                  "name":"Point-Ahead Angle Mechanism (PAAM)",
+                  "selected":""
+                },
+
+                "options":[
+                 {
+                  "name":"Yes",
+                  "value":"yes",
+                  "description":"The PAAM can compensate for a tilt between the received and transmitted beam, but the active mechanism will introduce an additional piston noise."
+                 },
+                 {
+                  "name":"No (computationally extensive)",
+                  "value":"no",
+                  "description":"This will reduce complexity, but without a PAAM, a compromise between heterodyne efficiency and received power has to be made."
+                 }
+                ]
+
+               },
+            "con":  
+               {
+
+		"description":
+		{
+		  "name":"Constellation (number of links)",
+		  "selected":""
+		},
+
+                "options":[
+                 {
+                  "name":"Two arms (4 links)",
+                  "value":"two",
+                  "description":"Three spacecraft with 4 laser links building up a V-shaped virtual  Michelson interferometer.",
+		  "image":"two.png"
+                 },
+                 {
+                  "name":"Triangular (6 links)",
+                  "value":"tri",
+                  "description":"Three identical spacecraft with 6 laser links building up three V-shaped virtual Michelson interferometers.",
+		  "image":"tri.png"
+                 },
+                 {
+                  "name":"Octahedral (24 links)",
+                  "value":"oct",
+                  "description":"Six identical spacecraft with 24 laser  links building up an octahedral structure with 12 arms. Although such a topology may have interesting advantaged, it is a far future concept and nothing seriously considered at the moment.",
+		  "image":"oct.png"
+                 }
+		]
+
+	       },
+            "arm":
+               {
+                  "name":"Spacecraft separation (arm length)",
+                  "value":"",
+                  "unit":"km",
+                  "description":"The arm length is closely related to the frequency range of the detector. Longer arms will enable the detection of lower frequencies but will reduce the overall light power."
+               },
+            "freq":
+               {
+                  "name":"Maximum heterodyne frequency",
+                  "value":"",
+                  "unit":"MHz",
+                  "description":"This is the maximum frequency of the heterodyne interferometry. Mission orbits are optimized for minimal drifting between spacecraft to reduce Doppler shifts. Offset-frequency laser phase-locks then hold the heterodyne frequency within a given range. The lower the maximum heterodyne frequency the better the interferometer performance. Heliocentric orbits allow for lower heterody frequencies whereas geocentric orbits increase this frequency due to much higher Doppler shifts."
+               },
+            "tilt":
+               {
+                  "name":"Maximum beam tilt",
+                  "value":"",
+                  "unit":"µrad",
+                  "description":"Keep in mind that the spacecraft will change its position in the time the light travels along the arms. This is the maximum tilt angle between the received and transmitted beam if the transmitted beam is directed at the receiving spacecraft. Orbit simulations found that this angle is oscillating with an amplitude of roughly 1.15 µrad per 1 million kilometer arm length. This angle needs to be compensated by a Point-Ahead Angle Mechanism (PAAM) to ensure maximum received power and maximum heterodyne efficiency at the same time."
+               },
+            "wave":
+               {
+                  "name":"Laser wavelength",
+                  "value":"",
+                  "unit":"nm",
+                  "description":"A shorter laser wavelength increases the interferometer sensitivity but current short wavelength lasers are not as stable as space-qualified Nd:YAG 1064 nm NPRO lasers."
+               },
+            "power":
+               {
+                  "name":"Laser power (to telescope)",
+                  "value":"",
+                  "unit":"W",
+                  "description":"More power is better, but stable space-qualified lasers that are currently developed will not be able to deliver more than 1–2 watts to the telescope. Also a higher output power requires a bigger power source."
+               },
+            "rin":
+               {
+                  "name":"Relative intensity noise",
+                  "value":"",
+                  "unit":"1/√Hz",
+                  "description":"Noise in the laser power translates to phase noise that is indistinguishable from gravitational waves. A relative intensity noise (RIN) of 1e-8/√Hz can be achieved with state of the art Nd:YAG NPRO lasers for frequencies above 5 MHz."
+               },
+            "lfn":
+               {
+                  "name":"Laser frequency noise",
+                  "value":"",
+                  "unit":"Hz/√Hz",
+                  "description":"Frequency noise of the laser after pre-stabilization by a reference cavity, a molecular frequency standard, or similar techniques. Demonstration experiments at international research facilities achieved frequency stabilities of up to 30 Hz/√Hz for Fourier frequencies down to 3 mHz."
+               },
+            "tel":
+               {
+                  "name":"Telescope diameter",
+                  "value":"",
+                  "unit":"cm",
+                  "description":"The telescope structure is within the optical path and must comply with all stability requirements. This is increasingly difficult for larger telescopes although they capture more light and reduce shot noise. Also large telescopes are heavy and increase the overall mission cost."
+               },
+            "oe":
+               {
+                  "name":"Optical losses (overall)",
+                  "value":"",
+                  "unit":"%",
+                  "description":"This accounts for all optical losses in the receive pass (from the transmitting telescope to the combination beamsplitter on the receiving spacecraft) and can usually be assumed less than 30%."
+               },
+            "ops":
+               {
+                  "name":"Optical path-length stability (telescope)",
+                  "value":"",
+                  "unit":"pm/√Hz",
+                  "description":"The optical path-length stability of the telescope within the gravitational wave frequency band. Dimensional stability investigations for carbon fiber reinforced polymer and ultra-low expansion glass-ceramics reached a path-length noise smaller than 1 pm/√Hz down to frequencies of 1 mHz."
+               },
+            "paams":
+               {
+                  "name":"Piston noise of PAAM",
+                  "value":"",
+                  "unit":"pm/√Hz",
+                  "description":"The piston noise of the Point-Ahead Angle Mechanism (PAAM) will degrade the optical path-length stability. This value is ignored if no PAAM is used."
+               },
+            "cap":
+               {
+                  "name":"Capacitance",
+                  "value":"",
+                  "unit":"pF",
+                  "description":"The capacitance determines the impedance of the photodiode at a given frequency. Achieving a capacitance as low as 10 pF while maintaining high responsively and low leakage is already a challenge."
+               },
+            "qe":
+               {
+                  "name":"Quantum efficiency",
+                  "value":"",
+                  "unit":"%",
+                  "description":"Good InGaAs photodiodes feature a quantum efficiency of about 80%."
+               },
+            "qpdd":
+               {
+                  "name":"Diameter",
+                  "value":"",
+                  "unit":"mm",
+                  "description":"Usually, 1 mm diameter photodiodes are considered for the inter-spacecraft interferometer. Higher heterodyne frequencies may require smaller photodiodes."
+               },
+            "seg":
+               {
+
+                "description":
+                {
+                  "name":"Number of segments",
+                  "selected":""
+                },
+
+                "options":[
+                 {
+                  "name":"1 (single element)",
+                  "value":"1",
+                  "description":"A standard photodiode with one active element."
+                 },
+                 {
+                  "name":"2 (bi-cell)",
+                  "value":"2",
+                  "description":"Two active elements per photodode to measure small positional changes in the laser beam (one axis)."
+                 },
+                 {
+                  "name":"4 (quadrant)",
+                  "value":"4",
+                  "description":"Four active elements per photodode to measure small positional changes in the laser beam (both axes)."
+                 }
+                ]
+
+               },
+            "vn":
+               {
+                  "name":"Voltage noise",
+                  "value":"",
+                  "unit":"nV/√Hz",
+                  "description":"Voltage noise of the photodiode preamplifier, usually on the order of some nV/√Hz."
+               },
+            "cn":
+               {
+                  "name":"Current noise",
+                  "value":"",
+                  "unit":"pA/√Hz",
+                  "description":"Input current noise of the photodiode preamplifier, usually on the order of some pA/√Hz."
+               },
+            "zero":
+               {
+                  "name":"OPD on the optical bench",
+                  "value":"",
+                  "unit":"mm",
+                  "description":"This may result in thermo-elastic noise of the ultra-low expansion glass-ceramic."
+               },
+            "fs":
+               {
+                  "name":"OPD within fused silica",
+                  "value":"",
+                  "unit":"mm",
+                  "description":"This may result in in thermo-optical noise."
+               },
+            "he":
+               {
+                  "name":"Heterodyne quality",
+                  "value":"",
+                  "unit":"%",
+                  "description":"The quality of the optical path influences the mode overlap between the two laser beams and reduces the amplitude of the heterodyne signal."
+               },
+            "sbf":
+               {
+                  "name":"Modulation frequency",
+                  "value":"",
+                  "unit":"GHz",
+                  "description":"Frequency of the sidebands used to synchronize a common reference frequency throughout the constellation, usually on the order of a few GHz."
+               },
+            "sbpower":
+               {
+                  "name":"Modulation power",
+                  "value":"",
+                  "unit":"%",
+                  "description":"Power of each 1st-order modulation sideband in parts of the carrier power, should not exceed the carrier power."
+               },
+            "eomnoise":
+               {
+                  "name":"EOM phasenoise (at modulation frequency)",
+                  "value":"",
+                  "unit":"mrad/√Hz",
+                  "description":"Intrinsic phase noise of the electro-optic modulator responsible for the reference frequency phase modulation. Given value must be valid at the modulation frequency."
+               },
+            "fanoise":
+               {
+                  "name":"Amplifier phasenoise (at modulation frequency)",
+                  "value":"",
+                  "unit":"mrad/√Hz",
+                  "description":"Intrinsic phase noise of the fiber amplifier that boosts the light power of the modulated laser beam before passing it to the transmitting telescope. Given value affects the sideband phase in relation to the carrier phase must be valid at the modulation frequency."
+               },
+            "etm":
+               {
+                  "name":"Combined timing jitter (electronic components)",
+                  "value":"",
+                  "unit":"s/√Hz",
+                  "description":"Jitter added by electronic components in the transmission line of the reference frequency. This includes eventual division or multiplication stages."
+               },
+            "sbl":
+               {
+                  "name":"Total length (electric cables)",
+                  "value":"",
+                  "unit":"m",
+                  "description":"Length of electric cables connecting the the source of the reference frequency with the local metrology system and the electro-optic modulator."
+               },
+            "cps":
+               {
+                  "name":"Thermal stability (electric cables)",
+                  "value":"",
+                  "unit":"mrad/(K m GHz)",
+                  "description":"Phase-temperature relationship for the electric cables given per meter and GHz."
+               },
+            "ofl":
+               {
+                  "name":"Total length (optical fibers)",
+                  "value":"",
+                  "unit":"m",
+                  "description":"Length of optical fibers connecting the electro-optic modulator with the electro-optic modulator and the optical bench."
+               },
+            "fps":
+               {
+                  "name":"Thermal stability (optical fibers)",
+                  "value":"",
+                  "unit":"mrad/(K m GHz)",
+                  "description":"Phase-temperature relationship for the optical fibers given per meter and GHz."
+               },
+            "pm":
+               {
+                  "name":"Phase measurement noise",
+                  "value":"",
+                  "unit":"µrad/√Hz",
+                  "description":"Overall performance of the metrology system including the phase measurement for the main carrier and clock modulation sidebands at the maximum heterodyne frequency, as well as imperfections in generation and distribution of correction signals."
+               },
+            "ranging":
+               {
+                  "name":"Ranging accuracy (rms)",
+                  "value":"",
+                  "unit":"m",
+                  "description":"Uncertainty in the absolute inter-spacecraft separation distance that will lead to residual laser frequency noise and clock noise after suppression in data post processing (Kalman filtering and time delay interferometry)."
+               },
+            "acc":
+               {
+                  "name":"Acceleration noise",
+                  "value":"",
+                  "unit":"m/s²/√Hz × 1/f²/(2π)²",
+                  "description":"Acceleration due to residual Coulomb forces induced from imperfect cancellation of charges on the proof-masses."
+               },
+            "scjitter":
+               {
+                  "name":"Position jitter",
+                  "value":"",
+                  "unit":"m/√Hz",
+                  "description":"Jitter of the proof mass position in respect to the spacecraft."
+               },
+            "ten1":
+               {
+                  "name":"Noise level at f1",
+                  "value":"",
+                  "unit":"mK/√Hz",
+                  "description":"Noise level at lower corner frequency for electronics."
+               },
+            "ten2":
+               {
+                  "name":"Noise level at f2",
+                  "value":"",
+                  "unit":"mK/√Hz",
+                  "description":"Noise level at upper corner frequency for electronics."
+               },
+            "ten3":
+               {
+                  "name":"Temperature noise floor",
+                  "value":"",
+                  "unit":"mK/√Hz",
+                  "description":"Overall temperature noise floor for electronics."
+               },
+            "tef1":
+               {
+                  "name":"Corner frequency f1",
+                  "value":"",
+                  "unit":"Hz",
+                  "description":"Lower corner frequency of temperature noise for electronics."
+               },
+            "tef2":
+               {
+                  "name":"Corner frequency f2",
+                  "value":"",
+                  "unit":"Hz",
+                  "description":"Upper corner frequency of temperature noise for electronics."
+               },
+            "ton1":
+               {
+                  "name":"Noise level at f1",
+                  "value":"",
+                  "unit":"mK/√Hz",
+                  "description":"Noise level at lower corner frequency for optics."                                                          },
+            "ton2":
+               {
+                  "name":"Noise level at f2",
+                  "value":"",
+                  "unit":"mK/√Hz",
+                  "description":"Noise level at upper corner frequency for optics."                                                          },
+            "ton3":
+               {
+                  "name":"Temperature noise floor",
+                  "value":"",
+                  "unit":"mK/√Hz",
+                  "description":"Overall temperature noise floor for optics."                                                                            },
+            "tof1":
+               {
+                  "name":"Corner frequency f1",
+                  "value":"",
+                  "unit":"Hz",
+                  "description":"Lower corner frequency of temperature noise for optics."                                                                         },
+            "tof2":
+               {
+                  "name":"Corner frequency f2",
+                  "value":"",
+                  "unit":"Hz",
+                  "description":"Upper corner frequency of temperature noise for optics."
+               },
+            "tes1":
+               {
+                  "name":"Lower slope",
+                  "value":"",
+                  "unit":"",
+                  "description":"Slope of temperature noise below lower corner frequency for electronics."
+               },
+            "tes3":
+               {
+                  "name":"Upper slope",
+                  "value":"",
+                  "unit":"",
+                  "description":"Slope of temperature noise above upper corner frequency for electronics."
+               },
+            "tos1":
+               {
+                  "name":"Lower slope",
+                  "value":"",
+                  "unit":"",
+                  "description":"Slope of temperature noise below lower corner frequency for optics."
+               },
+            "tos3":
+               {
+                  "name":"Upper slope",
+                  "value":"",
+                  "unit":"",
+                  "description":"Slope of temperature noise above upper corner frequency for optics."
+               }
+
+
+         }
+   }
+}
+

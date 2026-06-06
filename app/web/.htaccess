@@ -1,0 +1,27 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^results/(.*)/?grid.png$ /designer/images/grid.png  [L]
+RewriteRule ^sessions/(.*)/?grid.png$ /designer/images/grid.png  [L]
+
+
+RewriteRule ^calculate.displacement/?$ /cgi-bin/designer-displacement.pl [L]
+RewriteRule ^calculate.temperature/?$ /cgi-bin/designer-temperature.pl [L]
+RewriteRule ^calculate.single/?$ /cgi-bin/designer-single.pl [L]
+RewriteRule ^calculate.full/?$ /cgi-bin/designer-full.pl [L]
+RewriteRule ^calculate.overview/?$ /cgi-bin/designer-overview.pl [L]
+
+RewriteRule ^save.recovery/?$ /cgi-bin/designer-save.pl [L]
+
+RewriteRule ^download.report/(.*).pdf$ /cgi-bin/designer-report.pl?uuid=$1 [L]
+RewriteRule ^download.data/(.*).zip$ /cgi-bin/designer-data.pl?session=$1 [L]
+
+RewriteRule ^sensecalc/(.*)\.html$ /cgi-bin/sensecalc.pl?var=$1 [L]
+RewriteRule ^sensecalc/single\.(.*)\.(.*)\.(.*)\.(.*)\.png$ /cgi-bin/sensecalc.single.pl?user=$1&links=$2&arm=$4&name=$3 [L]
+RewriteRule ^sensecalc/full\.(.*)\.(.*)\.(.*)\.(.*)\.png$ /cgi-bin/sensecalc.full.pl?user=$1&links=$2&arm=$4&name=$3 [L]
+RewriteRule ^sensecalc/pm\.(.*)\.(.*)\.(.*)\.(.*)\.png$ /cgi-bin/sensecalc.pm.pl?user=$1&links=$2&arm=$4&low=$3 [L]
+RewriteRule ^sensecalc/overview\.(.*)\.(.*)\.(.*)\.(.*)\.pdf$ /cgi-bin/report.small.pl?user=$1&links=$2&arm=$4&name=$3 [L]
+RewriteRule ^sensecalc/overview\.(.*)\.(.*)\.(.*)\.(.*)\.zip$ /cgi-bin/report.raw.pl?user=$1&links=$2&arm=$4&name=$3 [L]
+RewriteRule ^sensecalc/complete\.(.*)\.(.*)\.(.*)\.(.*)\.pdf$ /cgi-bin/report.full.pl?user=$1&links=$2&arm=$4&name=$3 [L]
+
+

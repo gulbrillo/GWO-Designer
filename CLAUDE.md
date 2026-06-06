@@ -1,0 +1,191 @@
+# CLAUDE.md — Project source of truth
+
+> **Standing instruction for any AI assistant (and humans) working on this repo:**
+> This file is the project's source of truth. **Always keep it current.** Record the active plan,
+> outstanding tasks, completed tasks, key decisions, and a dated changelog here. **Read this file at
+> the start of every session** to understand the history and what to do next, and **update it
+> whenever plans or status change** — not just at the end of a task. Write in whatever form is
+> clearest; the goal is that a future session can be pointed at this file and immediately know where
+> things stand.
+>
+> The detailed implementation spec lives in the plan file at
+> `C:\Users\Simon\.claude\plans\this-is-a-very-precious-zephyr.md`. This CLAUDE.md is the durable
+> summary + task ledger.
+
+---
+
+## Project overview
+
+**GWO "Designer"** — an old (~2014) scientific web app, the "Gravitational Wave Observatory Designer"
+(originally hosted at `spacegravity.org`). Recovered as three loose backup folders pulled off a
+server. **Goal:** package it into a single Docker image run via docker-compose — testable locally on
+Windows (Docker Desktop), then deployable to a Linux Apache server.
+
+Four components:
+- **Frontend** — Polymer **0.3.4** web components (HTML Imports + 2014 `platform.js` polyfill),
+  dependencies vendored in `bower_components/`. Static files; calls the backend via `core-ajax` to
+  clean URLs rewritten by `.htaccess`. *(Biggest unknown: does the old polyfill still render in a 2026
+  browser?)*
+- **Backend** — 17 plain **CGI Perl** scripts (mod_cgi + mod_rewrite, no database; all state is files
+  on disk). They shell out to external tools.
+- **LaTeX** — `report.tex` + custom `SelfArx.cls`, compiled by `pdflatex` + `bibtex` → PDF report.
+- **Gnuplot** — interactive **SVG** (gnuplot `svg ... mouse jsdir` terminal; JS in `gnuplot.js/`),
+  plus PNGs, plus SVG→PDF (`rsvg-convert`) for the report.
+
+External binaries the Perl calls: `gnuplot`, `rsvg-convert` (librsvg), `convert` (ImageMagick), `zip`,
+`pdflatex`/`bibtex`. Notable CPAN deps: **PDL**, **Math::Cephes**, **Imager::QRCode**, Data::UUID,
+JSON::Parse, SVG, Math::Trig.
+
+## Key decisions
+- **Configurable paths.** The literal `/var/www/virtual/spacegravity.org` is hardcoded ~300× (identical
+  string) across the `.pl` scripts and `report.tex`. Codemod it to `$ENV{APP_ROOT}` (default `/app`).
+  Rationale: decouple from the old domain/path; trivial because the string is uniform.
+- **Restructure the repo** into a clean Docker-native layout (`app/{web,cgi-bin,latex,presets}` +
+  `docker/`), dropping backup/junk. Rationale: the three folders are just a backup dump.
+- **Container root `/app`**, preserving the meaningful sub-paths (`htdocs/designer/`,
+  `designer/latexelements/`, `cgi-bin/`) so the codemod is a pure root-swap with no extra risk.
+- **TeX Live = `texlive-full`, deferred to a separate `full` Docker build stage.** Rationale: ~5GB
+  download; user is on slow/airplane wifi, so everything else builds first in a `base` stage.
+- **Frontend served as-is**, verified in a browser; fix only blockers (e.g. add an HTML-Imports
+  polyfill). No Polymer rewrite — that's a separate future project.
+- **Deploy** behind the server's existing Apache as a **reverse proxy** (ProxyPass → container),
+  terminating HTTPS at the host. Isolates the old stack. The target is an **Ubuntu server that already
+  runs another dockerized app via Apache mod_proxy → a container on host port 8080**. So Designer must
+  publish on a **different host port** (e.g. 8081) — compose port is now `${HOST_PORT:-8080}:80`
+  (8080 local, set `HOST_PORT=8081` on the server). A new Apache vhost for `spacegravity.org` will
+  `ProxyPass / http://127.0.0.1:8081/`. Publish bound to 127.0.0.1 on the server.
+- **Root landing page bundled in the container.** `https://spacegravity.org/` is a static landing page
+  (`app/root/`: index.html + spacegravity.svg + icons) that links to the app at `/designer/`. It's
+  COPYed to the container web root (`/app/htdocs`), so the container serves both `/` (landing) and
+  `/designer/` (app). Host Apache therefore needs only ONE proxy rule (`ProxyPass / → container`). Chosen
+  over letting the host serve `/` separately, to keep the whole site self-contained/portable.
+- **Dockerfile layered so texlive never depends on app code.** Stages: `system` (apt+cpan+apache, no
+  app) → `texlive` (system+texlive-full, no app) → `base` (system+app) / `full` (texlive+app). The app
+  COPY block is duplicated in `base`/`full` (KEEP IN SYNC) so editing code never busts the 5GB texlive
+  layer. `docker-compose` default target is `base`; `TARGET=full` for PDFs.
+- **License = MIT** (user's choice; "as open as possible"). Paper is CC BY 3.0 (attribution only, NOT
+  non-commercial). Bundled libs keep own licenses (jQuery MIT, Polymer BSD, gnuplot, LaTeX LPPL).
+- **URLs preserved for backward-compat.** The site is being rehosted at **spacegravity.org** (now with
+  HTTPS). All `http://spacegravity.org` URLs in the LaTeX report (`report.tex` `\href`s) and the
+  recovery/permalink URLs (`designer-save.pl`, incl. the QR `#rc=<session>` link) are **left as-is** so
+  papers/QR codes created on the old install still resolve. The **only** URL changed is the gnuplot
+  `jsdir` (interactive-SVG JS), made **root-relative** `/designer/gnuplot.js/` — required so it loads
+  both locally and under HTTPS (mixed-content), and harmless to old papers. No `PUBLIC_URL` env var
+  (dropped — not needed).
+
+## Plan / phases (condensed; full detail in the plan file)
+- **Phase A — offline (no downloads):** A0 init CLAUDE.md · A1 restructure repo · A2 path codemod ·
+  A3 author Docker assets (Dockerfile/compose/vhost/entrypoint/.dockerignore).
+- **Phase B — light build:** build `base` target (Apache+Perl+gnuplot+rsvg+ImageMagick, no LaTeX);
+  smoke-test frontend, gnuplot interactive SVG, QR code, zip/data export.
+- **Phase C — heavy build (defer to good internet):** add `texlive-full` (`full` target); test the
+  PDF report pipeline.
+- **Phase D — deploy:** run on the Linux server behind Apache reverse proxy; persist data volumes.
+
+## Outstanding tasks
+- [ ] **C (PDF test pending)** `designer:full` is BUILT, but the end-to-end `download.report/<uuid>.pdf`
+      run was deferred. It's fiddly to drive by hand: the report needs `results/<uuid>/details.json`
+      (written by a calc) + a real long-keyed `templates/sessions/<id>/parameters.json` (the
+      `designer-html.tar.gz` backup has 3235 of these; presets are the WRONG short-keyed format) + the
+      plots. Easiest verification: drop a real parameters.json in, run a calc to make details.json, then
+      hit download.report (pdflatex nonstopmode yields a PDF even if some figures are missing). NOTE:
+      after the landing-page change the `full` image must be rebuilt (one texlive re-pull) before this.
+- [ ] **GIT** Finalize repo: re-stage after restructure (tools/ deleted by user; designer.htdocs →
+      app/root), commit, set remote `https://github.com/gulbrillo/gwo-designer`. User publishes via
+      GitHub Desktop.
+- [ ] **D** Deploy to the Ubuntu server: build there, run with `HOST_PORT=8081`, add an Apache vhost
+      for spacegravity.org with `ProxyPass / http://127.0.0.1:8081/` (+ ProxyPassReverse, HTTPS).
+
+## Completed tasks
+- [x] **A0** Initialized CLAUDE.md (this file) as the living tracker.
+- [x] **A1** Restructured repo into `app/{web,cgi-bin,latex,presets}` + `docker/`. Dropped backups
+      (`*.bak*`, index variants, `bower_components.old`, `designer.zip`, etc.) and cleared stale
+      runtime data. The three `*.tar.gz` are kept on disk as the only backup (no git). Aux files the
+      scripts read by relative/abs path were kept in `app/cgi-bin`: `head.htm`, `SelfArx.cls`,
+      `spectrum.pdf`, `spacegravity.bib`. Preset JSONs kept in `app/web/templates`.
+- [x] **A2** Path codemod via `docker/codemod.sh` (idempotent, committed): filesystem root →
+      `$ENV{APP_ROOT}` in all `*.pl` (~300 hits); `report.tex` root → `<approot>` token + a one-line
+      `s|<approot>|$ENV{APP_ROOT}|g` added to `designer-report.pl`'s substitution loop; gnuplot
+      `jsdir` → root-relative `/designer/gnuplot.js/` (12 hits). All other `spacegravity.org` URLs
+      preserved per backward-compat decision. `perl -c` validation deferred to the Docker build.
+- [x] **B (DONE incl. browser)** Polymer 0.3.4 UI **renders fine** in a current browser — the big
+      unknown is resolved; no HTML-Imports polyfill needed. Console was clean except: a real
+      `$.browser.msie` error from `jquery.ba-hashchange` (jQuery ≥1.9 removed `$.browser`) — this drives
+      nav AND the `#rc=` recovery permalinks, so **fixed** with a one-line `jQuery.browser ||= {}` shim
+      in `app/web/index.html` before the plugin loads. The rest were harmless: ad-blocker-blocked
+      external trackers (freegeoip, YouTube embed telemetry), a benign first-load `sessions//qr.svg`
+      404 (empty session id before any save), and a debug `console.log` in the plot component. NOTE:
+      the dev override bind-mounts `app/web` live, so HTML/JS edits show on refresh without a rebuild.
+- [x] **B (server-side)** Built `designer:base` and ran it as compose project **`gwo-designer`**
+      (port 8080). All 17 scripts pass the build-time `perl -c` gate. Verified live via curl/exec:
+      static frontend (index 97KB, jquery-latest, platform.js all 200, `/`→`/designer/` redirect);
+      **a full `calculate.displacement`** using the LISA preset produced interactive gnuplot **SVGs**
+      (served 200 `image/svg+xml`, embedding the root-relative `xlink:href="/designer/gnuplot.js/
+      gnuplot_svg.js"`), a watermarked **PNG** (gnuplot pngcairo + ImageMagick `convert`), and
+      **rsvg-convert PDFs** under `plots/`; `save.recovery` produced a QR `qr.svg` (Data::UUID +
+      Imager::QRCode); `zip` verified on real data. So the whole base toolchain works end-to-end.
+- [x] **A3** Authored `docker/`: `Dockerfile` (multi-stage `base`/`full`), `000-designer.conf` (vhost
+      template), `entrypoint.sh` (envsubst conf + chown volumes + run Apache), `docker-compose.yml`
+      (port `${HOST_PORT:-8080}:80`, named volumes), `docker-compose.override.yml` (dev bind-mount of
+      web only), `.dockerignore`. Verified: `report.tex` documentclass/bib are ABSOLUTE (`<approot>`-
+      expanded) so designer-report needs no TEXINPUTS; `report.full.pl` uses relative
+      `\documentclass{SelfArx}` → covered by `TEXINPUTS` incl. `cgi-bin//`. pdflatex sets a writable
+      `HOME` for the TeX font cache. Shell scripts pass `bash -n`.
+
+## Changelog
+- **2026-06-05** — Analyzed the app (Perl CGI backend, Polymer 0.3.4 frontend, LaTeX report,
+  interactive gnuplot SVG). Wrote and got approval for the containerization plan. Created this
+  CLAUDE.md tracker.
+- **2026-06-05** — **A1 done.** Restructured into `app/` + `docker/`. Near-miss caught: deleted
+  `jquery-latest.min.js` then restored it from `designer-html.tar.gz` (index.html line 96 needs it;
+  it's jQuery 1.x — do NOT swap for the bundled 3.2.0). Identification dir is not shipped (9075 old
+  `.id` files dropped); the Dockerfile will `mkdir` it as a writable volume at
+  `/app/designer/identification`.
+- **2026-06-05** — **A2 done.** Ran the path codemod. Course-corrected on URLs after user clarified
+  the site stays at spacegravity.org and old papers/QR recovery URLs must keep working: reverted the
+  recovery-URL change, kept all `\href`/recovery URLs literal, changed ONLY the gnuplot `jsdir` to
+  root-relative, and dropped the `PUBLIC_URL` env var. `codemod.sh` rewritten to this final intent.
+- **2026-06-05** — **A3 done → Phase A (all offline work) COMPLETE.** Wrote all `docker/` assets.
+  Clarified deploy topology with user: host Apache is just a reverse proxy (needs only mod_proxy);
+  Perl/LaTeX/gnuplot all live in the container. Server already runs another container on host :8080,
+  so Designer uses `HOST_PORT=8081` there. **Next: Phase B build — needs internet (user was on
+  airplane wifi), so do NOT auto-build; wait for the user to have bandwidth.**
+- **2026-06-06** — **Phase B server-side smoke test PASSED.** Built `designer:base`, ran as compose
+  project `gwo-designer`. Two fixes during bring-up: (1) `mod_cgid` couldn't start — entrypoint now
+  `mkdir -p`s `${APACHE_RUN_DIR}/socks` (Debian's init normally makes it); (2) set compose project
+  `name: gwo-designer` (was defaulting to `docker`). Drove a real LISA-preset displacement calc end to
+  end — gnuplot SVG/PNG, rsvg-convert PDFs, ImageMagick watermark, Imager::QRCode, zip all confirmed
+  working. The `download.data` 500 seen during testing was MY malformed synthetic `parameters.json`
+  (passed `con=tri` instead of the JSON-fragment values the real UI sends), not a container bug — the
+  real browser flow writes valid JSON. **Remaining for B: the human must eyeball the Polymer UI in a
+  browser (can't be done via curl).** Container left running on :8080.
+  Gotcha learned: Git-Bash MSYS rewrites `/app/...` args to `C:\...` in `docker exec` — wrap paths in
+  `bash -c '...'` to avoid it.
+- **2026-06-06** — **Phase C build done + landing page + repo packaging.** (1) `texlive-full` built
+  (`designer:full`, 7.6GB) — exit 0; end-to-end PDF run deferred (see Outstanding C). (2) Confirmed the
+  2015 CQG paper is **CC BY 3.0** (attribution only). (3) User added `designer.htdocs` = the
+  spacegravity.org root landing page; decided to BUNDLE it in the container → moved to `app/root/`,
+  COPYed to web root, dropped the old `/`→`/designer/` redirect. (4) Restructured the Dockerfile into
+  system/texlive/base/full stages so app edits never re-pull texlive. (5) Authored `README.md`, MIT
+  `LICENSE`, `CITATION.cff`, `.gitignore`, `.gitattributes` (force LF — prevents the CRLF/CGI gotcha),
+  `docker/DEPLOY.md`. (6) `git init` done (branch `main`, identity gulbrillo/simon.barke@gmail.com).
+  Rebuilt+verified `base`: `/` serves the landing page, assets resolve, `/designer/` still works.
+
+## Gotchas / watch-items
+- **Polymer 0.3.4** — RESOLVED (2026-06-06): the 2014 `platform.js` still polyfills HTML Imports; the
+  UI renders fine in a current browser, no extra polyfill needed. The only frontend fix required was
+  the `jQuery.browser ||= {}` shim (see B). If a future browser drops support, fallback is to load
+  `webcomponentsjs`/`HTMLImports.min.js` before `platform.js`.
+- **CRLF / exec bit** — Perl scripts must be LF (a CRLF in `#!/usr/bin/perl` breaks CGI) and
+  executable. Handled by `dos2unix` + `chmod +x` in the Docker build. Bind-mounting Perl from Windows
+  is dev-only for this reason.
+- **Math::Cephes / Imager::QRCode** — likely need `cpanm` + dev headers (`libqrencode-dev`) rather
+  than clean apt packages; expect a build iteration.
+- **Path codemod single-quote edge case** — `$ENV{APP_ROOT}` won't interpolate inside single-quoted
+  Perl strings; after the sed pass, grep for `'[^']*\$ENV\{APP_ROOT\}` and fix by hand.
+- **gnuplot `jsdir`** — was `http://spacegravity.org/designer/gnuplot.js/`; now root-relative
+  `/designer/gnuplot.js/` (loads locally + under HTTPS). All OTHER spacegravity.org URLs are kept
+  literal on purpose (old-paper / QR-recovery compatibility) — do not "fix" them.
+- **gnuplot-nox terminals** — confirm `svg` + `pngcairo` are present (they are in Debian's
+  `gnuplot-nox`); if a script needs an X-only terminal, switch to `gnuplot`.
+- **PDF report needs Phase C** — it will fail on the `base` image (no LaTeX); that's expected.

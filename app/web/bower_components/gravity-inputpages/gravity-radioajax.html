@@ -1,0 +1,118 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link href="../../bower_components/gravity-inputpages/gravity-radio.html" rel="import">
+<link href="../../bower_components/gravity-tooltip/core-tooltip.html" rel="import">
+<link href="../../bower_components/paper-radio-group/paper-radio-group.html" rel="import">
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+
+
+<polymer-element name="gravity-radioajax" extends="paper-radio-group" attributes="hidetip position preset parameter">
+
+  <template>
+
+        <style>
+
+    paper-radio-group /deep/  #ink[checked] {
+      color: #00acc1;
+    }
+
+    paper-radio-group /deep/  #onRadio {
+      background-color: #00acc1;
+    }
+
+:host /deep/ *:focus {
+    outline: none;
+}
+
+:host {
+  outline: none;
+  display: block;
+}
+
+    gravity-radio.core-selected /deep/  #radioLabel {
+      font-weight: bold;
+    }
+
+
+paper-radio-group /deep/ core-tooltip .inner-tip {
+width:260px;
+white-space:normal;
+}
+
+   
+    paper-radio-group /deep/ gravity-radio {
+	display: block;
+	cursor: pointer;
+    }
+
+     paper-radio-group {
+     padding: 3px 0;
+     display: block;
+     margin-bottom: 12px;
+    }
+
+    div.radio-headline {
+        font-size: 0.85em;
+        display: block;
+	 padding: 0;
+    }
+
+.imagecontainer {text-align:center;}
+.image {width: 160px;}
+
+
+	core-ajax {display:none;}
+
+        </style>
+
+<core-ajax auto url="{{preset}}" handleAs="json" response="{{response}}" on-core-error="{{errorResponse}}"></core-ajax>
+
+<div class="radio-headline">{{descriptionname}}</div>
+
+<paper-radio-group selected="{{selected}}">
+
+      <template repeat="{{e in options}}">
+
+<gravity-radio name="{{e.value}}" label="{{e.name}}"  hidetip?="{{hidetip}}"  position="{{position}} checked?={{ e.value | equalsSelected }}">
+<div tip>
+
+<template if="{{ e.image }}">
+<div class="imagecontainer"><img class="image" src="/designer/images/{{ e.image }}"/></div>
+</template>
+
+{{e.description}}</div>
+</gravity-radio>
+
+      </template>
+
+</paper-radio-group>
+
+  </template>
+  <script>
+    Polymer('gravity-radioajax', {
+
+    parameter: '',
+    hidetip: false,
+    position: 'bottom',
+    preset: 'templates/empty.json',
+    options: null,
+    description: null,
+    descriptionname: null,
+    firsttime: true,
+
+       responseChanged: function(e) {
+	this.description = this.response.feed.parameters[this.parameter].description;
+        if (this.firsttime) {
+                this.options = this.response.feed.parameters[this.parameter].options;
+		this.descriptionname = this.description.name;
+                };
+	this.selected = this.description.selected;
+	this.firsttime = false;
+   },
+	equalsSelected: function(value) {
+	return value === this.selected; //return true if value of Conditional attribute equals {{selected}}
+	}
+
+    });
+  </script>
+
+</polymer-element>

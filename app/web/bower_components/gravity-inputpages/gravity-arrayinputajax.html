@@ -1,0 +1,76 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">  
+<link href="../../bower_components/gravity-inputpages/gravity-inputajax.html" rel="import">
+<link href="../../bower_components/gravity-tooltip/core-tooltip.html" rel="import">
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+
+
+<!--
+The `gravite-input` element creates a input formfield autofilled from ajax with hover tooltip that can be disabled.
+
+Example:
+
+<gravity-arrayinputajax floatingLabel preset="templates/lisa.json" parameter="telescope" validate="^[0-9]*$" error="Input must be a number!" position="right" hidetip>
+</gravity-arrayinputajax>
+
+position: left or right (or so)
+hidetip: disable tooltip
+
+-->
+
+
+<polymer-element name="gravity-arrayinputajax" extends="gravity-inputajax" on-keypress="{{keypressHandler}}" attributes="array">
+
+<template>
+
+<shadow></shadow>
+</template>
+
+  <script>
+  Polymer('gravity-arrayinputajax', {
+array: null,
+
+validate: "^[\\s]*[0-9]*\\.?[0-9]+[\\s]*([e][\\s]*[\\-]?[\\s]*[0-9]+)?([\\,][\\s]*[0-9]*\\.?[0-9]+[\\s]*([e][\\s]*[\\-]?[\\s]*[0-9]+)?)*[\\s]*$",
+error: "Input must be a number or array!",
+
+      /**
+       * If comma separated, put values into an array.
+       */
+      commit: function() {
+	this.inputValue = this.inputValue.replace(/\s+/g, '');
+        this.inputValue = this.inputValue.replace(/["\\]+/g, '');
+	this.value = this.inputValue;
+	this.async(this.putToArray);
+      },
+
+	putToArray: function() {
+	if (this.value) {
+           if (this.value.indexOf(',') === -1) {
+                this.array = [this.value];
+                } else {
+                this.array = this.value.split(',');
+                }
+	   }
+	},
+
+	responseChanged: function(e) {
+	var parameter = this.response.feed.parameters[this.parameter];
+    	 this.value = parameter.value;
+	this.async(this.putToArray);
+        if (this.firsttime) {
+             this.label = 'Error: uninitialized';
+             this.label = parameter.name;
+             this.parameterunit = parameter.unit;
+             this.parametertip = parameter.description;
+        }
+     this.firsttime = false;
+   },
+
+
+
+});
+
+
+  </script>
+
+
+</polymer-element>

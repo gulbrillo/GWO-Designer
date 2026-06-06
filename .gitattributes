@@ -1,0 +1,16 @@
+# Force LF on checkout for text files. A CRLF in a Perl CGI shebang silently
+# breaks execution, so this keeps scripts Unix-clean regardless of host OS.
+* text=auto eol=lf
+
+# Treat these as binary (no eol munging, no diffs)
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.zip  binary
+*.gz   binary
+*.woff binary
+*.ttf  binary
+*.eot  binary

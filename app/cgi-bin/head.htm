@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+ <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+ <title>AEI Sensitivity Calculator</title>
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="viewport" content="width=580, target-densitydpi=device-dpi,  maximum-scale=1, user-scalable=yes">
+
+<!-- Update your html tag to include the itemscope and itemtype attributes. --> 
+<html itemscope itemtype="http://schema.org/Article">
+
+<!-- Place this data between the <head> tags of your website --> 
+<meta name="description" content="The AEI Sensitivity Calculator calculates individual noise contributions for spaceborne laser-interferometric gravitational wave observatories." />
+
+<!-- Google Authorship and Publisher Markup --> 
+<link rel="author" href=" https://plus.google.com/+SimonBarke/posts"/>
+<link rel="publisher" href=” https://plus.google.com/+LISAmissionORG"/>
+
+<!-- Schema.org markup for Google+ --> 
+<meta itemprop="name" content="AEI Sensitivity Calculator"> 
+<meta itemprop="description" content="The AEI Sensitivity Calculator calculates individual noise contributions for spaceborne laser-interferometric gravitational wave observatories."> 
+<meta itemprop="image" content="http://spacegravity.org/tools/sensecalc.jpg">
+
+<!-- Twitter Card data --> 
+<meta name="twitter:card" content="summary_large_image"> 
+<meta name="twitter:site" content="@lisacommunity"> 
+<meta name="twitter:title" content="AEI Sensitivity Calculator"> 
+<meta name="twitter:description" content="The AEI Sensitivity Calculator calculates individual noise contributions for spaceborne laser-interferometric gravitational wave observatories."> 
+<meta name="twitter:creator" content="@lisacommunity"> 
+<!-- Twitter summary card with large image must be at least 280x150px --> 
+<meta name="twitter:image:src" content="http://spacegravity.org/tools/sensecalc.jpg">
+
+<!-- Open Graph data --> 
+<meta property="og:title" content="AEI Sensitivity Calculator" /> 
+<meta property="og:type" content="article" /> 
+<meta property="og:url" content="http://spacegravity.org/tools/sc/" />
+<meta property="og:image" content="http://spacegravity.org/tools/sensecalc.jpg" />
+<meta property="og:description" content="The AEI Sensitivity Calculator calculates individual noise contributions for spaceborne laser-interferometric gravitational wave observatories." /> 
+
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,100,400,700" rel="stylesheet" type="text/css">
+
+<link rel='stylesheet' id='et-shortcodes-css-css'  href='/tools/shortcodes.css?ver=2.0' type='text/css' media='all' />
+
+<!-- <script type='text/javascript' src='/tools/jquery.js?ver=1.7.1'></script> -->
+<script src="jquery-1.7.2.min.js" type="text/javascript"></script>
+<script type='text/javascript' src='/tools/et_shortcodes_frontend.js?ver=2.0'></script>
+</script>
+
+		<link rel="stylesheet" href="/tools/colorbox.css" />
+		<script src="/tools/colorbox/jquery.colorbox.js"></script>
+
+		<script>
+			$(document).ready(function(){
+				//Examples of how to assign the ColorBox event to elements
+				$(".group1").colorbox({rel:'group1'});
+				$(".group2").colorbox({rel:'group2', transition:"fade"});
+				$(".group3").colorbox({rel:'group3', transition:"none", width:"75%", height:"75%"});
+				$(".group4").colorbox({rel:'group4', slideshow:true});
+				$(".ajax").colorbox();
+				$(".youtube").colorbox({iframe:true, innerWidth:425, innerHeight:344});
+				$(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+				$(".inline").colorbox({inline:true, width:"50%"});
+				$(".callbacks").colorbox({
+					onOpen:function(){ alert('onOpen: colorbox is about to open'); },
+					onLoad:function(){ alert('onLoad: colorbox has started to load the targeted content'); },
+					onComplete:function(){ alert('onComplete: colorbox has displayed the loaded content'); },
+					onCleanup:function(){ alert('onCleanup: colorbox has begun the close process'); },
+					onClosed:function(){ alert('onClosed: colorbox has completely closed'); }
+				});
+				
+				//Example of preserving a JavaScript event for inline calls.
+				$("#click").click(function(){ 
+					$('#click').css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here.");
+					return false;
+				});
+			});
+		</script>
+
+<link href="css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
+<script src="scripts/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
+
+ <!--
+  To use this script, you need the SCRIPT and LINK tags in the HEAD of your
+  documents, the activation SCRIPT anywhere, and the notes themselves.
+ -->
+ 
+<link rel='stylesheet' href='style.css' type='text/css' media='all' />
+
+<script type="text/javascript">
+<!--
+$(document).ready(function(){
+                //create default Bubble Popups for all buttons...
+                $('.parameter, .parametersmall, .link, .graimg, .conimg').CreateBubblePopup({
+                        selectable: false,
+                        position : 'right',
+                        align    : 'middle',
+                        tail : { align:'center', hidden: false },
+                        innerHtml: 'For assistance plase contact <br /> \
+                                                info@lisamission.org',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'center'
+                                                        },
+                        themeName:      'all-black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+                //save new settings for the selectable bubble popup...
+                $('#armid').SetBubblePopupOptions({
+                        selectable: false,
+                        position : 'right',
+                        align    : 'middle',
+                        tail : { align:'center', hidden: false },
+                        innerHtml: 'The armlength is closely related to the frequency range<br />of the detector. Longer arms will enable the detection of<br />lower frequencies but will reduce the overall light power.',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'center'
+                                                        },
+                        themeName:      'all-black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+                //save new settings for the selectable bubble popup...
+                $('#freqid').SetBubblePopupOptions({
+                        selectable: false,
+                        position : 'right',
+                        align    : 'middle',
+                        tail : { align:'center', hidden: false },
+                        innerHtml: 'This is the <strong>maximum</strong> interferometer heterodyne frequency.<br />Mission orbits are optimized for minimal drifting between<br />spacecraft to reduce Doppler shifts. Offset-frequency<br />laser phase-locks then hold the heterodyne frequency<br /> within a given range. The lower the maximum heterodyne<br /> frequency the better the interferometer performance.<br /> Heliocentric orbits allow for frequencies as low as 25 MHz.<br />Geocentric orbits would highly increase this due to much<br />higher doppler shifts.',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'center'
+                                                        },
+                        themeName:      'all-black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+                //save new settings for the selectable bubble popup...
+                $('#waveid').SetBubblePopupOptions({
+                        selectable: false,
+                        position : 'right',
+                        align    : 'middle',
+                        tail : { align:'center', hidden: false },
+                        innerHtml: 'A shorter laser wavelength increases the interferometer<br />sensitivity but current short wavelength lasers are not<br />as stable as space-qualified Nd:YAG 1064 nm NPRO lasers.',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'center'
+                                                        },
+                        themeName:      'all-black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+
+                //save new settings for the selectable bubble popup...
+                $('#powerid').SetBubblePopupOptions({
+                        selectable: false,
+                        position : 'right',
+                        align    : 'middle',
+                        tail : { align:'center', hidden: false },
+                        innerHtml: 'More power is better, but stable space-qualified lasers<br />that are currently developed will not be able to deliver<br />more than 1&ndash;2 watts to the telescope. Also a higher<br />output power requires a bigger power source.',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'center'
+                                                        },
+                        themeName:      'all-black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+
+
+                //save new settings for the selectable bubble popup...
+                $('#rinid').SetBubblePopupOptions({
+                        selectable: false,
+                        position : 'right',
+                        align    : 'middle',
+                        tail : { align:'center', hidden: false },
+                        innerHtml: 'Noise in the laser power translates to phase noise<br /> that is indistinguishable from gravitational waves. A relative<br />intensity noise (RIN) of 1e-8/sqrt(Hz) can be achieved with<br>state of the art Nd:YAG NPRO lasers for frequencies above 5 MHz.',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'center'
+                                                        },
+                        themeName:      'all-black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+
+
+                //save new settings for the selectable bubble popup...
+                $('#telid').SetBubblePopupOptions({
+                        selectable: false,
+                        position : 'right',
+                        align    : 'middle',
+                        tail : { align:'center', hidden: false },
+                        innerHtml: 'The telescope structure is within the optical path and<br />must comply with all stability requirements. This is<br />increasingly difficult for larger telescopes although they<br />capture more light and reduce shot noise. Also large<br />telescopes are heavy and increase the overall mission cost.',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'center'
+                                                        },
+                        themeName:      'all-black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+                //save new settings for the selectable bubble popup...
+                $('#oeid').SetBubblePopupOptions({
+                        selectable: false,
+                        position : 'right',
+                        align    : 'middle',
+                        tail : { align:'center', hidden: false },
+                        innerHtml: 'The optical efficiency of the telescope<br />can usually be assumed no better than 70%',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'center'
+                                                        },
+                        themeName:      'all-black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+
+
+                //save new settings for the selectable bubble popup...
+                $('#realtemp').SetBubblePopupOptions({
+                        selectable: true,
+                        position : 'right',
+                        align    : 'center',
+                        tail : { align:'middle', hidden: false },
+                        innerHtml: 'This graph was generated with<br />the variables given above.<br />Please refer to the upper left<br />scetch for variable explanation.',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'center'
+                                                        },
+                        themeName:      'all-black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+                //save new settings for the selectable bubble popup...
+                $('#geo').SetBubblePopupOptions({
+                        selectable: false,
+                        position : 'left',
+                        align    : 'center',
+                        width:400,
+                        tail : { align:'middle', hidden: false },
+                        innerHtml: 'LISA like missions are considerd to be in solar-centric orbit.\
+                                        Here each spacecraft always facees the same side towards the sun.<br />However, in geocentric or quasi-halo orbits the changing orientation\
+                                                will alter the on-board temperature over the course of one orbit.',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'left'
+                                                        },
+                        themeName:      'all-black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+                //save new settings for the selectable bubble popup...
+                $('#two').SetBubblePopupOptions({
+                        selectable: false,
+                        position : 'bottom',
+                        align    : 'center',
+                        innerHtml: '<img src="/tools/twos.png" width="140" height="140">',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'center'
+                                                        },
+                        themeName:      'black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+
+
+                //save new settings for the selectable bubble popup...
+                $('#tri').SetBubblePopupOptions({
+                        selectable: false,
+                        position : 'bottom',
+                        align    : 'center',
+                        innerHtml: '<img src="/tools/tris.png" width="140" height="140">',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'center'
+                                                        },
+                        themeName:      'black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+                //save new settings for the selectable bubble popup...
+                $('#oct').SetBubblePopupOptions({
+                        selectable: false,
+                        position : 'bottom',
+                        align    : 'center',
+                        innerHtml: '<img src="/tools/octs.png" width="140" height="140">',
+                        innerHtmlStyle: {
+                                                                color:'#FFFFFF',
+                                                                'text-align':'center'
+                                                        },
+                        themeName:      'black',
+                        themePath:      'images/jquerybubblepopup-themes'
+                });
+
+
+});
+//-->
+</script>
+
+</head>
+
+<body>
+
+
+<div id="pagewrapper" style="position:relative;">
+
+<div class="hidesmall" style="position:absolute; left:30px;top:300px;font-weight:500;text-align:center;"><img src="/tools/qrcode.png" style="width:140px;"><br>http://spacegravity.org/tools/sc/</div>
+
+<div style="display: block;overflow: hidden;">
+
+<button id="goFS"><img border="0" src="full.png"> Fullscreen</button>
+
+<script>
+   var goFS = document.getElementById("goFS");
+   goFS.addEventListener("click", function() {
+var doc = window.document;
+  var docEl = doc.documentElement;
+
+  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen;
+  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen;
+
+  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
+    requestFullScreen.call(docEl);
+  }
+  else {
+    cancelFullScreen.call(doc);
+  }
+   }, false);
+</script>
+
+<div id="menubar"><div class="menu"><a class="iframe cboxElement" title="About Sensitivity Calculator" href="/tools/about.html"><img border="0" src="help.jpg">&nbsp; About</a></div></div>
+<div style="clear: both;"></div>
+</div>
+
+<div id="background">
+<div id="banner"><div id="headline"><a href="/tools/sc/" target="_top"><h1>AEI Sensitivity Calculator<sup style="font-size:50%;"> beta</sup></h1></a><h2>for spaceborne laser-interferometric gravitational wave observatories</h2></div>
+<div style="clear: both;"></div>
+</div>
+</div>
+
+<div id="calculator">
+
