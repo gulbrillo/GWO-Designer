@@ -211,6 +211,16 @@ JSON::Parse, SVG, Math::Trig.
   Also note: `docker compose up` builds compose's `build.target` (=`base`) and just TAGS it
   `designer:${TARGET}` — so to get the real LaTeX image you must `docker build --target full` explicitly
   (the env var only sets the tag, not the build target).
+- **2026-06-06** — **ROOT CAUSE of the "read-only file system" container-start error: the dev override.**
+  `docker-compose.override.yml` auto-loads and bind-mounts `app/web` READ-ONLY over
+  `/app/htdocs/designer`; the results/sessions named volumes mount NESTED inside it, and a fresh server
+  clone has no `app/web/results` dir, so Docker can't create the nested mountpoint -> EROFS. (NOT the
+  containerd store, NOT empty dirs — the `.keep` was a red herring, though harmless.) The diagnosis that
+  cracked it: `docker run -v vol:/app/htdocs/designer/results ... echo OK` worked but `docker compose up`
+  didn't -> the only difference was the auto-loaded override. **Fix:** renamed it to
+  `docker-compose.dev.yml` (opt-in via `-f docker-compose.yml -f docker-compose.dev.yml`), so plain
+  `docker compose up` on a server uses only the base file. (Server: Docker 29.4.0, storage driver
+  `overlayfs` = containerd image store — a distraction, not the cause.)
 - Gotcha: the dev override bind-mounts `app/web` READ-ONLY over `/app/htdocs/designer`, which blocks
   writing `templates/sessions/...` — for backend/report testing, bring up with
   `docker compose -f docker-compose.yml up -d` (no override).
