@@ -182,6 +182,35 @@ JSON::Parse, SVG, Math::Trig.
   bugs. All major phases (containerize, frontend, gnuplot, QR, zip, PDF, landing page, packaging) done
   — only deployment (D) remains. Reminder: `designer:full` must be rebuilt to bake the fixes (the
   server deploy build does this; one texlive re-pull).
+- **2026-06-06** — **New feature: Overview Document.** Wired up the previously-disabled "Overview
+  Document" download (per-session, route `download.overview/<session>.pdf`). New `app/latex/summary.tex`
+  (trimmed SelfArx template: intro + paper ref, recovery QR/link, the 4 main plots with captions, full
+  parameter table) + new `app/cgi-bin/designer-summary.pl` (finds the session's first run, rsvg-converts
+  pm/sa/fl/af SVGs to PDF, builds a Unicode-sanitised parameter table from parameters.json, fills tokens,
+  compiles twice for the longtable). Tested on session fc6d → 200 application/pdf, 50 param rows, 4
+  plots, 0 LaTeX errors. Sample at `_pdftest/overview-sample.pdf`. 7 commits total. Files cp'd into the
+  running container; the `full` image rebuild (on deploy) bakes them.
+- **2026-06-06** — **Overview made per-run** (was per-session). The detailed report offers one download
+  per calculation run; the overview now matches — keyed by run uuid (reads `results/<uuid>/details.json`,
+  derives the session, writes to `results/<uuid>/overview/`). Frontend: `overviewDL.data = rDataArray`
+  (same titled per-run array as the reports). ZIP stays one-per-session. So: N runs → N reports + N
+  overviews + 1 ZIP. Tested per-run uuid → 200 application/pdf, 0 errors. 8 commits total.
+- **2026-06-06** — **Friendly download filenames.** report/overview/data CGIs now STREAM the file
+  through the CGI with `Content-Disposition` (supersedes the relative-redirect approach) named
+  `<recoverycode>_<identifier>_<shortuuid>.<ext>` (e.g. `fc6d-1852-3728_report_D430DFC6.pdf`,
+  `..._overview_...`, `fc6d-1852-3728_data.zip`). The long Data::UUID run id is shortened to its first
+  8 chars for the label only (the full uuid stays the folder name / URL key). Subtitle shows the same
+  name (`d.fname`); report/data size labels corrected to ~2 MB. PDFs use `inline`, the zip
+  `attachment`. 11 commits total.
+- **2026-06-06** — **Deploy (Phase D) in progress on the Ubuntu server.** Hit two snags: (1) disk was
+  100% full — the host's COSMOS `cosmos-project_openc3-tsdb-v` volume was 445 GB (no retention cap);
+  freed by deleting it. (2) Container wouldn't start: `read-only file system` creating the volume
+  mountpoints — the host Docker uses the **containerd image store** (path `…/rootfs/overlayfs/…`),
+  which drops EMPTY dirs from a layer, so the mkdir'd `results/sessions/templates-sessions/
+  identification` mount targets were missing at runtime. Fixed by `touch …/.keep` in each (commit).
+  Also note: `docker compose up` builds compose's `build.target` (=`base`) and just TAGS it
+  `designer:${TARGET}` — so to get the real LaTeX image you must `docker build --target full` explicitly
+  (the env var only sets the tag, not the build target).
 - Gotcha: the dev override bind-mounts `app/web` READ-ONLY over `/app/htdocs/designer`, which blocks
   writing `templates/sessions/...` — for backend/report testing, bring up with
   `docker compose -f docker-compose.yml up -d` (no override).
@@ -193,6 +222,13 @@ JSON::Parse, SVG, Math::Trig.
   data → 200 application/zip 2MB. Recovery/QR `#rc=` permalinks + paper hrefs stay absolute (unchanged).
   Patched the running container via `docker cp` (works now in the browser); image rebuild on deploy
   bakes it. Git: 3 commits now (containerize, verbatimbox, relative-redirect).
+- **2026-06-06** — **About page → v1.2.** Bumped version to 1.2 + history entry; removed the German
+  imprint (§5 TMG address/phone) and all German-law wording (author now in Florida); rewrote
+  disclaimer (as-is/no-warranty), copyright (MIT + paper citation + repo link), and privacy statement
+  (reflects actual data handling: voluntary personal data, recovery-code access, server logs, 3rd-party
+  resources). Fixed stale "publication under preparation". Caveat told to user: good-faith text, not
+  legal advice; GDPR may still apply to EU visitors. 4 commits total. (NOTE for future: the beta
+  banner at index.html:~791 still says "beta version" — left as-is, not in scope.)
 
 ## Gotchas / watch-items
 - **Polymer 0.3.4** — RESOLVED (2026-06-06): the 2014 `platform.js` still polyfills HTML Imports; the
