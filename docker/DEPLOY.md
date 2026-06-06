@@ -60,7 +60,9 @@ sudo a2enmod proxy proxy_http ssl rewrite headers
     ServerName spacegravity.org
     ServerAlias www.spacegravity.org
     RewriteEngine on
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [END,NE,R=permanent]
+    RewriteCond %{SERVER_NAME} =www.spacegravity.org [OR]
+    RewriteCond %{SERVER_NAME} =spacegravity.org
+    RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
 </VirtualHost>
 
 <IfModule mod_ssl.c>

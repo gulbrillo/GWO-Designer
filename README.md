@@ -93,9 +93,12 @@ Create `/etc/apache2/sites-available/spacegravity.org.conf`. This serves both `s
 <VirtualHost *:80>
     ServerName spacegravity.org
     ServerAlias www.spacegravity.org
-    # Redirect all HTTP to HTTPS
+    # Redirect all HTTP to HTTPS. (This is exactly the rule `certbot --apache`
+    # generates, so certbot won't add a duplicate when you run step 6.)
     RewriteEngine on
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [END,NE,R=permanent]
+    RewriteCond %{SERVER_NAME} =www.spacegravity.org [OR]
+    RewriteCond %{SERVER_NAME} =spacegravity.org
+    RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
 </VirtualHost>
 
 <IfModule mod_ssl.c>
