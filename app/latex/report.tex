@@ -69,6 +69,10 @@
 
 \usepackage[table]{xcolor}
 \usepackage{verbatimbox}
+% Modern TeX Live ships a verbatimbox/readarray version skew where \addvbuffer
+% calls an undefined \getargsC. \addvbuffer is only used here to add ~8pt of
+% vertical padding around figures/tables, so redefine it as a passthrough.
+\makeatletter\renewcommand{\addvbuffer}[2][]{#2}\makeatother
 
 %----------------------------------------------------------------------------------------
 %	COLUMNS

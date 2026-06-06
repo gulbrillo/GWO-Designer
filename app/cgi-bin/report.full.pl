@@ -118,6 +118,7 @@ print REPORT << "END";
 
 \\usepackage[table]{xcolor}
 \\usepackage{verbatimbox}
+\\makeatletter\\renewcommand{\\addvbuffer}[2][]{#2}\\makeatother
 
 %----------------------------------------------------------------------------------------
 %	COLUMNS
