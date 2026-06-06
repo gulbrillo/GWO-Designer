@@ -1456,9 +1456,17 @@ for (var i = 0; i < plottitles.length; i++) {
 
 rDownloads.data = rDataArray;
 
-//overview document: one per run (same uuids/titles as the detailed reports)
+//overview document: one per run (same uuids/titles as the detailed reports).
+//Use its OWN array copy (not the report's rDataArray) - binding one array
+//instance to two elements leaves the second element's rows unscoped (gray button).
 var oDownloads = document.querySelector('#overviewDL');
-oDownloads.data = rDataArray;
+var oDataArray = new Array(plottitles.length);
+for (var i = 0; i < plottitles.length; i++) {
+	oDataArray[i] = [];
+	oDataArray[i].uuid = dPlots.uuid[i][1];
+	oDataArray[i].title = plottitles[i];
+	}
+oDownloads.data = oDataArray;
 
 //data archive (zip): one per session
 var dDownloads = document.querySelector('#dataDL');
