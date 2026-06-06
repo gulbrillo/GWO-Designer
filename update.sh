@@ -9,6 +9,10 @@
 # update), rebuilds the full image, and restarts the container. Data volumes are kept.
 #
 # Override the defaults inline if needed, e.g.:   HOST_PORT=9000 ./update.sh
+#
+# The whole body is wrapped in { } so bash reads it fully before running - this script
+# git-resets its own file, and an unbuffered read could otherwise break mid-update.
+{
 set -euo pipefail
 
 HOST_PORT="${HOST_PORT:-8081}"     # host port the container is published on
@@ -39,3 +43,6 @@ if [ "$code" = "200" ]; then
 else
   echo "==> WARNING: app did not return 200 - check 'cd docker && docker compose logs --tail=50'"
 fi
+
+exit 0
+}
