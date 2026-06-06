@@ -839,8 +839,8 @@ observatory's detection limit where the signal-to-noise ratio equals 1. It is co
 </div>
 <div><p>I made these just for you. Enjoy!</p></div>
 <gravity-downloads id="overviewDL" folder="overview" label="Overview Document" size="~0.2 MB" type="pdf"></gravity-downloads>
-<gravity-downloads id="dataDL" folder="data" label="Plots & Data Archive" size="1.7 MB" type="zip"></gravity-downloads>
-<gravity-downloads id="reportDL" folder="report" label="Detailed Report" size="1.2 MB" type="pdf"></gravity-downloads>
+<gravity-downloads id="dataDL" folder="data" label="Plots & Data Archive" size="~2 MB" type="zip"></gravity-downloads>
+<gravity-downloads id="reportDL" folder="report" label="Detailed Report" size="~2 MB" type="pdf"></gravity-downloads>
 </div>
 <div><p>&nbsp;</p></div>
 
@@ -1452,6 +1452,7 @@ for (var i = 0; i < plottitles.length; i++) {
 	rDataArray[i] = [];
 	rDataArray[i].uuid = dPlots.uuid[i][1];
 	rDataArray[i].title = plottitles[i];
+	rDataArray[i].fname = session + '_report_' + dPlots.uuid[i][1].substr(0,8).toUpperCase() + '.pdf';
 	}
 
 rDownloads.data = rDataArray;
@@ -1465,6 +1466,7 @@ for (var i = 0; i < plottitles.length; i++) {
 	oDataArray[i] = [];
 	oDataArray[i].uuid = dPlots.uuid[i][1];
 	oDataArray[i].title = plottitles[i];
+	oDataArray[i].fname = session + '_overview_' + dPlots.uuid[i][1].substr(0,8).toUpperCase() + '.pdf';
 	}
 oDownloads.data = oDataArray;
 
@@ -1476,6 +1478,7 @@ for (var i = 0; i < 1; i++) {
         pDataArray[i] = [];
         pDataArray[i].uuid = session;
         pDataArray[i].title = '';
+        pDataArray[i].fname = session + '_data.zip';
         }
 
 dDownloads.data = pDataArray;

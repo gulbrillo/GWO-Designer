@@ -49,12 +49,16 @@ open (LOCK, "+<$ENV{APP_ROOT}/htdocs/designer/sessions/$au{session}/report.zip")
 flock(LOCK, 2);
 close LOCK;
 
-$return = `mv $ENV{APP_ROOT}/htdocs/designer/sessions/$au{session}/report.zip $ENV{APP_ROOT}/htdocs/designer/sessions/$au{session}/spacegravity.org_$au{session}.zip`;
-
-$URL = "/designer/sessions/$au{session}/spacegravity.org_$au{session}.zip";
-print "Location: $URL\n\n";
-
-
+# Stream the ZIP with a friendly download name: <recoverycode>_data.zip
+$fname = "$au{session}_data.zip";
+print "Content-Type: application/zip\n";
+print "Content-Disposition: attachment; filename=\"$fname\"\n\n";
+binmode STDOUT;
+open(ZIP, "<", "$ENV{APP_ROOT}/htdocs/designer/sessions/$au{session}/report.zip") or exit(0);
+binmode ZIP;
+local $/;
+print <ZIP>;
+close ZIP;
 
 exit(0);
 

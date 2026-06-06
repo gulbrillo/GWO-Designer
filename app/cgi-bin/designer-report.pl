@@ -344,11 +344,17 @@ open (LOCK, "+<$ENV{APP_ROOT}/htdocs/designer/results/$au{uuid}/latex/report.pdf
 flock(LOCK, 2);
 close LOCK;
 
-$return = `mv $ENV{APP_ROOT}/htdocs/designer/results/$au{uuid}/latex/report.pdf $ENV{APP_ROOT}/htdocs/designer/results/$au{uuid}/latex/spacegravity.org_$au{uuid}.pdf`;
-
-
-$URL = "/designer/results/$au{uuid}/latex/spacegravity.org_$au{uuid}.pdf";
-print "Location: $URL\n\n";
+# Stream the PDF with a friendly download name: <recoverycode>_report_<shortuuid>.pdf
+$sid = $details->{'session'}->{'id'};
+$fname = $sid . "_report_" . uc(substr($au{uuid},0,8)) . ".pdf";
+print "Content-Type: application/pdf\n";
+print "Content-Disposition: inline; filename=\"$fname\"\n\n";
+binmode STDOUT;
+open(PDF, "<", "$ENV{APP_ROOT}/htdocs/designer/results/$au{uuid}/latex/report.pdf") or exit(0);
+binmode PDF;
+local $/;
+print <PDF>;
+close PDF;
 
 exit(0);
 

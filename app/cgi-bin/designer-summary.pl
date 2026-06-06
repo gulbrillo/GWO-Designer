@@ -126,8 +126,13 @@ my $pdflatex = "export HOME=$work/ && /usr/bin/pdflatex -interaction=nonstopmode
 `$pdflatex`;
 
 if (-e "$work/summary.pdf") {
-    `mv $work/summary.pdf $work/spacegravity.org_overview_$uuid.pdf`;
-    print "Location: /designer/results/$uuid/overview/spacegravity.org_overview_$uuid.pdf\n\n";
+    # Stream with a friendly name: <recoverycode>_overview_<shortuuid>.pdf
+    my $fname = $session . "_overview_" . uc(substr($uuid, 0, 8)) . ".pdf";
+    print "Content-Type: application/pdf\n";
+    print "Content-Disposition: inline; filename=\"$fname\"\n\n";
+    binmode STDOUT;
+    open(my $fh, "<", "$work/summary.pdf") or exit 0;
+    binmode $fh; local $/; print <$fh>; close $fh;
     exit 0;
 }
 
