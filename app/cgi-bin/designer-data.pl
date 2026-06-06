@@ -51,7 +51,7 @@ close LOCK;
 
 $return = `mv $ENV{APP_ROOT}/htdocs/designer/sessions/$au{session}/report.zip $ENV{APP_ROOT}/htdocs/designer/sessions/$au{session}/spacegravity.org_$au{session}.zip`;
 
-$URL = "http://spacegravity.org/designer/sessions/$au{session}/spacegravity.org_$au{session}.zip";
+$URL = "/designer/sessions/$au{session}/spacegravity.org_$au{session}.zip";
 print "Location: $URL\n\n";
 
 

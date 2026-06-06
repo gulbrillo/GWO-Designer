@@ -347,7 +347,7 @@ close LOCK;
 $return = `mv $ENV{APP_ROOT}/htdocs/designer/results/$au{uuid}/latex/report.pdf $ENV{APP_ROOT}/htdocs/designer/results/$au{uuid}/latex/spacegravity.org_$au{uuid}.pdf`;
 
 
-$URL = "http://spacegravity.org/designer/results/$au{uuid}/latex/spacegravity.org_$au{uuid}.pdf";
+$URL = "/designer/results/$au{uuid}/latex/spacegravity.org_$au{uuid}.pdf";
 print "Location: $URL\n\n";
 
 exit(0);
