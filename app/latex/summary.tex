@@ -1,0 +1,129 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GWO Designer - Overview document
+% A short, simplified companion to the detailed report (report.tex):
+% intro + paper reference, recovery QR/link, the four main result plots
+% with captions, and the full list of input parameters.
+% Uses the SelfArx class (see report.tex) for a consistent look.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[fleqn,10pt]{<approot>/designer/latexelements/SelfArx}
+
+\usepackage[english]{babel}
+\selectlanguage{english}
+
+\DeclareCaptionFont{blue}{\color{color3}}
+\usepackage[font={blue,footnotesize,sf}, labelfont={blue,footnotesize,sf,bf}, justification=justified]{caption}
+
+\usepackage{upgreek}
+\usepackage{bm}
+\usepackage{textcomp}
+\usepackage[autolanguage]{numprint}
+\usepackage{expl3,siunitx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\usepackage{verbatimbox}
+% verbatimbox/readarray version skew in modern TeX Live: \addvbuffer -> undefined
+% \getargsC. \addvbuffer only adds cosmetic padding, so make it a passthrough.
+\makeatletter\renewcommand{\addvbuffer}[2][]{#2}\makeatother
+
+\setlength{\columnsep}{0.55cm}
+\setlength{\fboxrule}{0.75pt}
+
+\definecolor{color3}{RGB}{60,60,60}
+\definecolor{color1}{RGB}{0,60,80}
+\definecolor{color2}{RGB}{70,130,140}
+
+\usepackage{hyperref}
+\hypersetup{hidelinks,colorlinks,breaklinks=true,urlcolor=color1,citecolor=color1,linkcolor=color1,bookmarksopen=false,pdftitle={GWO Designer - Overview},pdfauthor={spacegravity.org/designer}}
+
+\JournalInfo{Auto-generated overview \textbullet\ \today}
+\Archive{spacegravity.org/designer \textbullet\ recovery code: <session>}
+\PaperTitle{The <detectorName> Observatory}
+\PaperSubTitle{Design overview of a spaceborne gravitational wave detector}
+\Authors{<author>}
+\affiliation{\textit{<affiliation>}}
+\affiliation{Generated with the Gravitational Wave Observatory Designer, \href{http://spacegravity.org/designer}{spacegravity.org/designer}}
+\Keywords{Gravitational Waves --- Space Interferometer --- LISA}
+\newcommand{\keywordname}{Keywords}
+
+\Abstract{This is a short overview of the \textbf{<detectorName>} gravitational wave observatory, a <numberOfLinks>-link configuration with an interferometric arm length of <armLength>\,<armLengthUnit>, designed with the online Gravitational Wave Observatory Designer. It collects the chosen input parameters, the resulting sensitivity plots, and a recovery code for reopening the design. A full technical report with all underlying calculations is available separately from the tool.}
+
+\begin{document}
+
+\flushbottom
+\maketitle
+\thispagestyle{empty}
+
+%----------------------------------------------------------------------------------------
+\section*{About this document}
+The plots and parameters below describe one observatory design produced with the
+Gravitational Wave Observatory Designer. The method, noise models, and full derivations
+are described in the related publication: S.~Barke \textit{et al.}, ``Towards a
+gravitational wave observatory designer: sensitivity limits of spaceborne detectors'',
+\textit{Class.\ Quantum Grav.} \textbf{32}, 095004 (2015). Results are provided for
+guidance and comparison of relative parametric dependencies; verify them independently
+before relying on them.
+
+\paragraph{Recovery.} This design is stored online under the twelve-digit recovery code
+\textbf{\texttt{<session>}}. To reopen it with all parameters, visit
+\href{http://spacegravity.org/designer/\#rc=<session>}{spacegravity.org/designer} and
+enter the code, use the permalink
+\href{http://spacegravity.org/designer/\#rc=<session>}{http://spacegravity.org/designer/\#rc=<session>},
+or scan the code below.
+
+\begin{center}\includegraphics[width=0.28\linewidth]{<qrplot>}\end{center}
+
+%----------------------------------------------------------------------------------------
+\begin{figure*}[!htb]\centering
+\includegraphics[width=0.92\linewidth]{<overviewplot>}
+\caption{\textbf{Mission overview.} Comparison of the strain sensitivity of the designed
+observatory with reference detector concepts. All submitted parameter sets are shown.}
+\end{figure*}
+
+\begin{figure*}[!htb]\centering
+\includegraphics[width=0.92\linewidth]{<displacementplot>}
+\caption{\textbf{Displacement noise contributions.} Gravitational waves alter the distance
+between spacecraft, producing a phase shift in the interferometric read-out. Several noise
+sources are indistinguishable from a genuine spacecraft displacement and limit the
+observatory's sensitivity; the considered contributions are shown over gravitational wave
+frequency for the chosen parameters.}
+\end{figure*}
+
+\begin{figure*}[!htb]\centering
+\includegraphics[width=0.92\linewidth]{<singleplot>}
+\caption{\textbf{Single-link strain sensitivity.} Impact of gravitational waves on one laser
+link, limited by the displacement noise budget and averaged over all sky positions and both
+polarizations. The carrier read-out noise and the proof-mass acceleration noise are shown
+separately.}
+\end{figure*}
+
+\begin{figure*}[!htb]\centering
+\includegraphics[width=0.92\linewidth]{<fullplot>}
+\caption{\textbf{Observatory and astrophysical sources.} Detection limit (signal-to-noise
+ratio of one) of the full observatory, compared with characteristic strain amplitudes of
+massive black-hole binaries, extreme mass-ratio inspirals (EMRIs), and ultra-compact
+binaries.}
+\end{figure*}
+
+%----------------------------------------------------------------------------------------
+\clearpage
+\onecolumn
+\section*{Input parameters}
+\renewcommand{\arraystretch}{1.15}
+\footnotesize
+\begin{longtable}{@{}p{0.56\textwidth}p{0.22\textwidth}p{0.18\textwidth}@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+<parametertable>
+\end{longtable}
+
+\end{document}

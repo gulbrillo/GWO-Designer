@@ -14,6 +14,7 @@ RewriteRule ^calculate.overview/?$ /cgi-bin/designer-overview.pl [L]
 RewriteRule ^save.recovery/?$ /cgi-bin/designer-save.pl [L]
 
 RewriteRule ^download.report/(.*).pdf$ /cgi-bin/designer-report.pl?uuid=$1 [L]
+RewriteRule ^download.overview/(.*).pdf$ /cgi-bin/designer-summary.pl?uuid=$1 [L]
 RewriteRule ^download.data/(.*).zip$ /cgi-bin/designer-data.pl?session=$1 [L]
 
 RewriteRule ^sensecalc/(.*)\.html$ /cgi-bin/sensecalc.pl?var=$1 [L]
