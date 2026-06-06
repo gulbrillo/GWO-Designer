@@ -1,14 +1,12 @@
 #!/usr/bin/perl -w
 #
-# designer-summary.pl - generates the short "Overview Document" PDF for a session.
-# Companion to designer-report.pl (the long detailed report). Reached via
-#   /designer/download.overview/<session>.pdf  ->  ...?uuid=<session>
-# Contains: title + intro + paper reference, recovery QR/link, the four main result
-# plots (overview, displacement, single-link, observatory) with captions, and the full
-# list of input parameters. Template: designer/latexelements/summary.tex
-#
-# Keyed by SESSION id (like the data export), not the per-run uuid. We pick the first
-# calculation run found under the session for the per-run plots.
+# designer-summary.pl - generates the short "Overview Document" PDF.
+# Companion to designer-report.pl (the long detailed report); keyed the SAME way, by the
+# per-run uuid, so there is one overview per calculation run (matching the reports).
+#   /designer/download.overview/<uuid>.pdf  ->  ...?uuid=<uuid>
+# Contains: title + intro + paper reference, recovery QR/link, the four main result plots
+# (overview, displacement, single-link, observatory) with captions, and the full list of
+# input parameters. Template: designer/latexelements/summary.tex
 
 use CGI::Carp qw(fatalsToBrowser);
 use JSON::Parse 'json_file_to_perl';
@@ -16,33 +14,24 @@ use utf8;
 
 &DATA;
 
-my $root    = $ENV{APP_ROOT};
-my $session = $au{uuid};                      # the download route passes the session id here
-my $sdir    = "$root/htdocs/designer/sessions/$session";
-my $params  = "$root/htdocs/designer/templates/sessions/$session/parameters.json";
+my $root = $ENV{APP_ROOT};
+my $uuid = $au{uuid};                                  # per-run uuid (same as the report)
+my $rdir = "$root/htdocs/designer/results/$uuid";
 
-unless ($session =~ /^[0-9A-Fa-f-]{4,}$/ && -d $sdir && -e $params) {
-    print "Content-type: text/html\n\n<h3>Overview not available</h3><p>No saved data found for this session.</p>";
+unless ($uuid =~ /^[0-9A-Fa-f-]{8,}$/ && -e "$rdir/details.json") {
+    print "Content-type: text/html\n\n<h3>Overview not available</h3><p>No results found for this run.</p>";
     exit 0;
 }
 
-# --- find the first calculation run under the session (for per-run plots) ---
-my $run;
-if (opendir(my $dh, "$sdir/data")) {
-    my @runs = grep { /^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-/ && -d "$sdir/data/$_" } readdir($dh);
-    closedir $dh;
-    @runs = sort @runs;
-    $run = $runs[0];
-}
-my $rdir = defined($run) ? "$root/htdocs/designer/results/$run" : "";
-
-# --- load data ---
-my $p = json_file_to_perl($params);
-my $P = $p->{feed}->{parameters} || {};
-my $details = (defined($run) && -e "$rdir/details.json") ? json_file_to_perl("$rdir/details.json") : {};
+# --- load run details, then the session it belongs to ---
+my $details = json_file_to_perl("$rdir/details.json");
+my $session = $details->{session}->{id};
+my $sdir    = "$root/htdocs/designer/sessions/$session";
+my $pfile   = "$root/htdocs/designer/templates/sessions/$session/parameters.json";
+my $P = (-e $pfile) ? (json_file_to_perl($pfile)->{feed}->{parameters} || {}) : {};
 
 # --- working dir + convert the result SVGs to PDF for inclusion ---
-my $work = "$sdir/overview";
+my $work = "$rdir/overview";
 `mkdir -p $work`;
 sub svg2pdf {
     my ($src, $dst) = @_;
@@ -50,11 +39,10 @@ sub svg2pdf {
     `rsvg-convert -f pdf -o $work/$dst $src`;
     return -e "$work/$dst" ? "$work/$dst" : "";
 }
-my $overviewPdf     = svg2pdf("$sdir/af.svg",  "overview.pdf");
-my $displacementPdf = svg2pdf("$rdir/pm.svg",  "displacement.pdf");
-my $singlePdf       = svg2pdf("$rdir/sa.svg",  "single.pdf");
-my $fullPdf         = svg2pdf("$rdir/fl.svg",  "full.pdf");
-# QR: a PDF usually already exists; otherwise convert the SVG
+my $overviewPdf     = svg2pdf("$sdir/af.svg", "overview.pdf");      # session-wide comparison
+my $displacementPdf = svg2pdf("$rdir/pm.svg", "displacement.pdf");  # this run
+my $singlePdf       = svg2pdf("$rdir/sa.svg", "single.pdf");
+my $fullPdf         = svg2pdf("$rdir/fl.svg", "full.pdf");
 my $qrPdf = (-e "$sdir/qr.pdf") ? "$sdir/qr.pdf" : svg2pdf("$sdir/qr.svg", "qr.pdf");
 
 # --- LaTeX sanitiser: escape specials, map common Unicode, strip the rest ---
@@ -79,7 +67,7 @@ sub texesc {
     return $s;
 }
 
-# --- build the parameter table rows from parameters.json ---
+# --- build the parameter table rows from the session's parameters.json ---
 my %skip = map { $_ => 1 } qw(author affiliation session qr run name);
 my @rows;
 for my $k (sort { lc($a) cmp lc($b) } keys %$P) {
@@ -137,10 +125,9 @@ my $pdflatex = "export HOME=$work/ && /usr/bin/pdflatex -interaction=nonstopmode
 `$pdflatex`;
 `$pdflatex`;
 
-my $out = "$work/spacegravity.org_overview_$session.pdf";
 if (-e "$work/summary.pdf") {
-    `mv $work/summary.pdf $out`;
-    print "Location: /designer/sessions/$session/overview/spacegravity.org_overview_$session.pdf\n\n";
+    `mv $work/summary.pdf $work/spacegravity.org_overview_$uuid.pdf`;
+    print "Location: /designer/results/$uuid/overview/spacegravity.org_overview_$uuid.pdf\n\n";
     exit 0;
 }
 

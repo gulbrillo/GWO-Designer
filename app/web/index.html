@@ -1456,8 +1456,11 @@ for (var i = 0; i < plottitles.length; i++) {
 
 rDownloads.data = rDataArray;
 
-//for zip and overview.pdf with uuid=session
+//overview document: one per run (same uuids/titles as the detailed reports)
 var oDownloads = document.querySelector('#overviewDL');
+oDownloads.data = rDataArray;
+
+//data archive (zip): one per session
 var dDownloads = document.querySelector('#dataDL');
 var pDataArray = new Array(1);
 
@@ -1467,8 +1470,7 @@ for (var i = 0; i < 1; i++) {
         pDataArray[i].title = '';
         }
 
-oDownloads.data = pDataArray;
-dDownloads.data = pDataArray;          
+dDownloads.data = pDataArray;
 
 }
 
